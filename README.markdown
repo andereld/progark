@@ -5,16 +5,18 @@ with a client–server architecture, for the Android platform.
 ## Client
 
 ### Setup
-You will need Intellij IDEA 14, latest Android SDK (install build tools 20.0.0 as well) with an ANDROID_HOME environment variable.
-Go to `Import project` in Intellij and select the `build.gradle` file from the client folder.
+You will need Intellij IDEA 14, latest Android SDK (install build tools 20.0.0
+as well) with an ANDROID\_HOME environment variable. Go to `Import project` in
+Intellij and select the `build.gradle` file from the client folder.
 
-More detailed instructions can be found [here](https://github.com/libgdx/libgdx/wiki/Gradle-and-Intellij-IDEA).
+More detailed instructions can be found
+[here](https://github.com/libgdx/libgdx/wiki/Gradle-and-Intellij-IDEA).
 
-## Notes on Heroku
+## Server
 The application server is written in [Node.js][node] and deployed to
 [Heroku][heroku].
 
-### Setup
+### Heroku setup
 You need the [Heroku toolbelt][heroku-toolbelt] in order to work with Heroku.
 Follow the instructions on the website. On OS X, you can also install the tools
 using package managers if you prefer:
