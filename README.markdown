@@ -12,6 +12,9 @@ Intellij and select the `build.gradle` file from the client folder.
 More detailed instructions can be found
 [here](https://github.com/libgdx/libgdx/wiki/Gradle-and-Intellij-IDEA).
 
+### Libraries 
+* [libgdx](https://github.com/libgdx/libgdx) for graphics and networking features.
+
 ## Server
 The application server is written in [Node.js][node] and deployed to
 [Heroku][heroku].
