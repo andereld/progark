@@ -2,6 +2,15 @@
 This is an implementation of the classic game Battleship (Sea Battle), written
 with a client–server architecture, for the Android platform.
 
+## Workflow
+Our issue tracker is [Trello](https://trello.com/b/ih5ztWXn/progark). Gonna start on something new?
+
+1. Go to Trello and pick your task. If it's not there, you're gonna have to add it. Assign it to yourself, and move the card to "Doing"
+2. Start a new branch. Name should be server/client-name of card.
+3. Do your work. Use commits, write commit messages.
+4. Push your work
+4. Submit pull request for feature. Move card to done on Trello.
+
 ## Client
 
 ### Setup
@@ -18,6 +27,8 @@ More detailed instructions can be found
 ## Server
 The application server is written in [Node.js][node] and deployed to
 [Heroku][heroku].
+
+To run a local version of the server on localhost:5000, run `npm install` and `node app.js`.
 
 ### Heroku setup
 You need the [Heroku toolbelt][heroku-toolbelt] in order to work with Heroku.
@@ -37,15 +48,6 @@ collaborators for this project, simply run:
 ```
 heroku git:remote -a fathomless-waters-2425
 ```
-### Workflow
-Our issue tracker is [Trello](https://trello.com/b/ih5ztWXn/progark). Gonna start on something new?
-
-1. Go to Trello and pick your task. If it's not there, you're gonna have to add it. Assign it to yourself, and move the card to "Doing"
-2. Start a new branch. Name should be server/client-name of card.
-3. Do your work. Use commits, write commit messages.
-4. Push your work
-4. Submit pull request for feature. Move card to done on Trello.
-
 
 ### Deployment
 Heroku expects applications to placed in the root directory of the Git
