@@ -11,7 +11,6 @@ import json.JsonHelper;
  */
 public class Board {
     private ArrayList<Cell> board;
-
     /**
      * getCell
      * @param x
@@ -26,6 +25,7 @@ public class Board {
         }
         return null;
     }
+
 
     /**
      * createFromJson
@@ -47,7 +47,6 @@ public class Board {
                 X = 0;
                 Y += 1;
             }
-
-        }
+         }
     }
 }

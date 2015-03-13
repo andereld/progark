@@ -2,6 +2,10 @@ package com.mygdx.game.Models;
 
 import com.badlogic.gdx.utils.JsonValue;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 87842918631062c5669858ba691e39f0ea09daa3
 import json.JsonHelper;
 
 /**
@@ -36,12 +40,15 @@ public class Cell {
     }
 
 
+<<<<<<< HEAD
     /**
      * createFromJson
      * @param json
      * @description Takes json data and puts it into this cell object
      */
 
+=======
+>>>>>>> 87842918631062c5669858ba691e39f0ea09daa3
     public void createFromJson(String json){
         JsonValue jsonObject = JsonHelper.getJSonObject(json);
         isHit = jsonObject.getBoolean("isHit");
