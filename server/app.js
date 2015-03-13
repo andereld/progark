@@ -2,6 +2,8 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 var router = express.Router();
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(process.env.DATABASE_URL);
 
 var gameController = require('./controllers/Matchmaker');
 var playController = require('./controllers/Play');
