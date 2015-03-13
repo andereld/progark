@@ -63,20 +63,20 @@ Res: `{shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "Y
 #### Game
 The Game module keeps track of the two players and their boards.
 ##### Fields
-player1: String. Username of the first player.
-player2: String. Username of the second player.
-board1: Board. The board which player1 shoots at.
-board2: Board. The board which player2 shoots at.  
+* `player1`: String. Username of the first player.
+* `player2`: String. Username of the second player.
+* `board1`: Board. The board which player1 shoots at.
+* `board2`: Board. The board which player2 shoots at.
 
 #### Board
 The Board module contains a 1D array of 100 Cell objects (10x10).
 ##### Fields
-board: 1D Array of the 100 (10x10) Cell objects for this board.
+* `board`: Array. 1D Array of the 100 (10x10) Cell objects for this board.
 
 #### Cell 
 ##### Fields
-isShip. Boolean. True if this Cell represents a part of a ship.
-isHit. Boolean. True if this Cell has been fired at. Initially false.
+* `isShip`: Boolean. True if this Cell represents a part of a ship.
+* `isHit`: Boolean. True if this Cell has been fired at. Initially false.
 
 
 ### Heroku setup
