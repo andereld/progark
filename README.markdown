@@ -30,6 +30,36 @@ The application server is written in [Node.js][node] and deployed to
 
 To run a local version of the server on localhost:5000, run `npm install` and `node app.js`.
 
+### API
+
+_**Warning**: this is not a complete spec of the API!_
+
+#### Start/retrieve game
+
+To retrieve a started game or start a game. 
+
+```
+POST /api/play/
+```
+
+Req: `{username: STRING}`
+
+Res: `Board object OR {message: "Waiting for opponent."}`
+
+
+#### Fire 
+
+To fire on the board of the opponent.
+
+```
+POST /api/fire/
+```
+
+Req: `{username: STRING, x: INTEGER, y: INTEGER}`
+
+Res: `{shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "You lost" OR "You won"}`
+
+
 ### Heroku setup
 You need the [Heroku toolbelt][heroku-toolbelt] in order to work with Heroku.
 Follow the instructions on the website. On OS X, you can also install the tools
