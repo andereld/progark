@@ -2,10 +2,7 @@ var Cell = require("./Cell");
 
 function Board(boardString) {
   this.board = boardString.split("").map(function(e) {
-    if(e == 'X') {
-      return new Cell(true);
-    }
-    return new Cell(false);
+    return new Cell(e == 'X');
   });
 }
 
