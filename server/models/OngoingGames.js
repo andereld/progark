@@ -3,7 +3,9 @@ var Game = require("./Game");
 var ongoingGames = [];
 
 exports.findGame = function(player) {
-  for (var game in ongoingGames) {
+  var i = 0;
+  for (i; i < ongoingGames.length; i++) {
+    var game = ongoingGames[i];
     if (game.player1 === player || game.player2 === player) {
       return game;
     }
