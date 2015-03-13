@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\Torstein\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.5.4\c16e1a0088ae7f0cac4a8d6595be32432e6069f4\gdx-1.5.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="c16e1a0088ae7f0cac4a8d6595be32432e6069f4">
+        <dex dex="C:\Users\Torstein\Jottacloud\Skole\Progark\progark\client\android\build\intermediates\pre-dexed\debug\gdx-1.5.4-77e6e5dd8fae9df8cb2884c2c6201be69d4903b1.jar" />
+    </item>
+    <item
+        jar="C:\Users\Torstein\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.5.4\7b974b501dc92361698a1f6251f9e7b308582c08\gdx-backend-android-1.5.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="7b974b501dc92361698a1f6251f9e7b308582c08">
+        <dex dex="C:\Users\Torstein\Jottacloud\Skole\Progark\progark\client\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.5.4-5c9dd5188d5520a2106af83434d8a729f413f957.jar" />
+    </item>
+    <item
+        jar="C:\Users\Torstein\Jottacloud\Skole\Progark\progark\client\core\build\libs\core-1.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="2d5ab9d4215f09c5cb6c922a6fa0bbe0aafb5e85">
+        <dex dex="C:\Users\Torstein\Jottacloud\Skole\Progark\progark\client\android\build\intermediates\pre-dexed\debug\core-1.0-7f00b8999cec8fcbd502ebb2036115b9226097e0.jar" />
+    </item>
+    <item
+        jar="C:\Users\Torstein\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-box2d\1.5.4\6b0e1e0ef1b4ee3010f4e55cceaa22ba9ace5cf2\gdx-box2d-1.5.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="6b0e1e0ef1b4ee3010f4e55cceaa22ba9ace5cf2">
+        <dex dex="C:\Users\Torstein\Jottacloud\Skole\Progark\progark\client\android\build\intermediates\pre-dexed\debug\gdx-box2d-1.5.4-3733b7c25025db40d7ced8b7ce62629adb578099.jar" />
+    </item>
+
+</items>
