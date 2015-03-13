@@ -5,28 +5,43 @@ import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpRequestBuilder;
 
 /**
- * Created by root on 12.03.15.
+ * Created by esso on 12.03.15.
  */
 public class NetworkHelper {
     private static String host = "localhost";
     private static int port = 5000;
 
-    public static void sendPostRequest(String route, String data, Net.HttpResponseListener listener){
+    /**
+     * sendGetRequest
+     * @param route
+     * @param jsonData
+     * @param listener
+     * @description Takes a route and some jsondata and sends it to the server as POST. Uses listener for the response
+     */
+    public static void sendPostRequest(String route, String jsonData, Net.HttpResponseListener listener){
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         String url = host + "/" + route + ":" + port;
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST).url(url).build();
         httpRequest.setHeader("Content-Type", "application/json");
-        httpRequest.setContent(data);
+        httpRequest.setContent(jsonData);
 
         Gdx.net.sendHttpRequest(httpRequest, listener);
     }
 
-    public static void sendGetRequest(String route, String data, Net.HttpResponseListener listener){
+    /**
+     * sendGetRequest
+     * @param route
+     * @param jsonData
+     * @param listener
+     * @description Takes a route and some jsondata and sends it to the server as GET. Uses listener for the response
+     */
+
+    public static void sendGetRequest(String route, String jsonData, Net.HttpResponseListener listener){
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         String url = host + "/" + route + ":" + port;
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(url).build();
         httpRequest.setHeader("Content-Type", "application/json");
-        httpRequest.setContent(data);
+        httpRequest.setContent(jsonData);
 
         Gdx.net.sendHttpRequest(httpRequest, listener);
 
