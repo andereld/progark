@@ -124,6 +124,13 @@ Heroku) in the environment variable `DATABASE_URL`. By setting an appropriate
 `DATABASE_URL` locally, we avoid the need differentiate between the development
 and production database in our code.
 
+*Note*: The database connection is established by the [Sequelize][sequelize]
+ORM like so:
+
+```
+var sequelize = new Sequelize(process.env.DATABASE_URL);
+```
+
 ### Deployment
 Heroku expects applications to placed in the root directory of the Git
 repository. Because we have two separate applications in our repository,
@@ -138,3 +145,4 @@ git subtree push --prefix server heroku master
 [node]: http://nodejs.org/
 [heroku]: https://www.heroku.com/
 [heroku-toolbelt]: https://toolbelt.heroku.com/
+[sequelize]: http://docs.sequelizejs.com/en/latest/
