@@ -1,4 +1,9 @@
 .DS_Store
 .swp
+local.properties
+.idea/
 
 server/node_modules/
+
+build/
+
