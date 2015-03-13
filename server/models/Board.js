@@ -1,11 +1,16 @@
 var Cell = require("./Cell");
 
 function Board(boardString) {
-  this.board = boardString.split().map(function(e) {new Cell(e == 'X')});
+  this.board = boardString.split("").map(function(e) {
+    if(e == 'X') {
+      return new Cell(true);
+    }
+    return new Cell(false);
+  });
 }
 
 Board.prototype.fire = function(x, y) {
-  this.board[y * 10 + x].hit = true;
+  this.board[y * 10 + x].isHit = true;
   return this.board[y * 10 + x].isShip;
 };
 
