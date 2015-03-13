@@ -1,15 +1,17 @@
 # TDT4240 Project – Sea Battle
 This is an implementation of the classic game Battleship (Sea Battle), written
-with a client–server architecture, for the Android platform.
+with a client–server architecture (plus some MVC), for the Android platform. It's written as a project at NTNU in Trondheim, Norway, for the course TDT4240 Software Architecture.
 
 ## Workflow
 Our issue tracker is [Trello](https://trello.com/b/ih5ztWXn/progark). Gonna start on something new?
 
 1. Go to Trello and pick your task. If it's not there, you're gonna have to add it. Assign it to yourself, and move the card to "Doing"
-2. Start a new branch. Name should be server/client-name of card.
+2. Start a new branch. Name should be "client/" or "server/" +  something describing what you're working on.
 3. Do your work. Use commits, write commit messages.
-4. Push your work
-4. Submit pull request for feature. Move card to done on Trello.
+4. Submit pull request for feature. Move card to review  on Trello.
+5. When the feature is reviewed by someone else than yourself, and it's merged into master, you can move the Trello-card to done.
+
+Any questions? Ask!
 
 ## Client
 
@@ -63,20 +65,20 @@ Res: `{shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "Y
 #### Game
 The Game module keeps track of the two players and their boards.
 ##### Fields
-player1: String. Username of the first player.
-player2: String. Username of the second player.
-board1: Board. The board which player1 shoots at.
-board2: Board. The board which player2 shoots at.  
+* `player1`: String. Username of the first player.
+* `player2`: String. Username of the second player.
+* `board1`: Board. The board which player1 shoots at.
+* `board2`: Board. The board which player2 shoots at.
 
 #### Board
 The Board module contains a 1D array of 100 Cell objects (10x10).
 ##### Fields
-board: 1D Array of the 100 (10x10) Cell objects for this board.
+* `board`: Array. 1D Array of the 100 (10x10) Cell objects for this board.
 
 #### Cell 
 ##### Fields
-isShip. Boolean. True if this Cell represents a part of a ship.
-isHit. Boolean. True if this Cell has been fired at. Initially false.
+* `isShip`: Boolean. True if this Cell represents a part of a ship.
+* `isHit`: Boolean. True if this Cell has been fired at. Initially false.
 
 
 ### Heroku setup
