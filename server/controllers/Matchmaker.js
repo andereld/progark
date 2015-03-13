@@ -13,15 +13,15 @@ exports.startGame = function(req, res) {
     res.json(game);
   }
 
-  // Start a new game if opponent exists
+  // Start a new game if opponent exists. Pops the last element in queue.
   else if (playerQueue.length > 0) {
     OngoingGames.startGame(player1, playerQueue.pop());
     res.json({'message': 'Starting new game.'});
   }
 
-  // If no players in queue, put this player in the queue
+  // If no players in queue, put this player in start of queue.
   else  {
-    playerQueue.push(player1);
+    playerQueue.unshift(player1);
     res.json({'message': 'Waiting for opponent.'});
   }
 };
