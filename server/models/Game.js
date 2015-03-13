@@ -1,5 +1,8 @@
 var Board = require("./Board");
-var levels = require("./Levels");
+
+var levels = ["...XX........XX..XXX...XX..........................X.........X...XXX...X.........X..XX..............",
+  ".XXX.......XXX....X.........X.........X....XX...X.............X..XXX....X.........X.................",
+  "................................XX.........XXX........XXXX.....XXX.....XXX.......XXX................"];
 
 function Game(player1, player2) {
 
