@@ -4,3 +4,6 @@ local.properties
 .idea/
 
 server/node_modules/
+
+build/
+
