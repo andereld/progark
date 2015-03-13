@@ -1,4 +1,4 @@
-package com.mygdx.game.Models;
+package com.mygdx.game.models;
 
 import com.badlogic.gdx.utils.JsonValue;
 
