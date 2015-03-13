@@ -1,6 +1,8 @@
-var Board = function(boardString) {
+var Cell = require("./Cell");
+
+function Board(boardString) {
   this.board = boardString.split().map(function(e) {new Cell(e == 'X')});
-};
+}
 
 Board.prototype.fire = function(x, y) {
   this.board[y * 10 + x].hit = true;
@@ -12,3 +14,5 @@ Board.prototype.isGameOver = function() {
       return cell.isShip && !cell.isHit;
   }).length < 1;
 };
+
+module.exports = Board;

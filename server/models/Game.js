@@ -1,13 +1,14 @@
-var ongoingGames = [];
+var Board = require("./Board");
+var levels = require("./Levels");
 
-var Game = function(player1, player2) {
+function Game(player1, player2) {
 
   this.player1 = player1;
   this.player2 = player2;
 
   this.board1 = new Board(levels[Math.floor(Math.random()*levels.length)]);
   this.board2 = new Board(levels[Math.floor(Math.random()*levels.length)]);
-};
+}
 
 Game.prototype.isGameOver = function() {
   return this.board1.isGameOver() || this.board2.isGameOver();
@@ -22,15 +23,4 @@ Game.prototype.fire = function (player, x, y) {
   }
 };
 
-var findGame = function(player) {
-  for (var game in ongoingGames) {
-    if (game.player1 === player || game.player2 === player) {
-      return game;
-    }
-  }
-  return null;
-};
-
-var startGame = function(player1, player2) {
-  ongoingGames.push(new Game(player1, player2));
-};
+module.exports = Game;

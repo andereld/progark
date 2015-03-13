@@ -1,9 +1,11 @@
+var OngoingGames = require("../models/OngoingGames");
+
 exports.fire = function (req, res) {
 
   var player = req.body.username;
   var x = req.body.x;
   var y = req.body.y;
-  var game = findGame(player);
+  var game = OngoingGames.findGame(player);
 
   if (game != null) {
 
