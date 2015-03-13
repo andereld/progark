@@ -6,7 +6,8 @@ import com.badlogic.gdx.utils.JsonValue;
 
 
 /**
- * Created by root on 12.03.15.
+ * Created by esso on 12.03.15.
+ * Just some simple helper methods for handling json on the client
  */
 public class JsonHelper {
 
