@@ -4,6 +4,7 @@ var app = express();
 var router = express.Router();
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(process.env.DATABASE_URL);
+module.exports = app;
 
 var gameController = require('./controllers/Matchmaker');
 var playController = require('./controllers/Play');
