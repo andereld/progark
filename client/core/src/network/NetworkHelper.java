@@ -20,7 +20,7 @@ public class NetworkHelper {
      */
     public static void sendPostRequest(String route, String jsonData, Net.HttpResponseListener listener){
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
-        String url = host + "/" + route + ":" + port;
+        String url = host + ":" + port+ "/" + route ;
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST).url(url).build();
         httpRequest.setHeader("Content-Type", "application/json");
         httpRequest.setContent(jsonData);
@@ -37,7 +37,7 @@ public class NetworkHelper {
 
     public static void sendGetRequest(String route, Net.HttpResponseListener listener){
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
-        String url = host + "/" + route + ":" + port;
+        String url = host + ":" + port + "/" + route;
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(url).build();
         Gdx.net.sendHttpRequest(httpRequest, listener);
     }
