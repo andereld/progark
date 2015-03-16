@@ -48,6 +48,15 @@ Req: `{username: STRING}`
 
 Res: `Board object OR {message: "Waiting for opponent."}`
 
+#### Turn
+
+To get the next player turn in the game.
+
+```
+GET /api/turn/:username
+```
+
+Res: `{username: STRING}`
 
 #### Fire 
 
