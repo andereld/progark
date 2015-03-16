@@ -31,19 +31,14 @@ public class NetworkHelper {
     /**
      * sendGetRequest
      * @param route
-     * @param jsonData
      * @param listener
      * @description Takes a route and some jsondata and sends it to the server as GET. Uses listener for the response
      */
 
-    public static void sendGetRequest(String route, String jsonData, Net.HttpResponseListener listener){
+    public static void sendGetRequest(String route, Net.HttpResponseListener listener){
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         String url = host + "/" + route + ":" + port;
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(url).build();
-        httpRequest.setHeader("Content-Type", "application/json");
-        httpRequest.setContent(jsonData);
-
         Gdx.net.sendHttpRequest(httpRequest, listener);
-
     }
 }
