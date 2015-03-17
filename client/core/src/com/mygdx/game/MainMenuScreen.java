@@ -80,7 +80,7 @@ public class MainMenuScreen implements Screen{
             public void clicked(InputEvent event,
                                 float x,
                                 float y) {
-                battleshipGame.setWaitingScreen();
+                battleshipGame.findMatch();
             }
         });
         exitButton.addListener(new ClickListener() {
@@ -88,8 +88,7 @@ public class MainMenuScreen implements Screen{
             public void clicked(InputEvent event,
                                 float x,
                                 float y) {
-                // EXIT GAME
-                Gdx.app.exit();
+                battleshipGame.exit();
             }
         });
 
@@ -110,7 +109,6 @@ public class MainMenuScreen implements Screen{
         skin.dispose();
         batch.dispose();
     }
-
 
     @Override
     public void resize(int width, int height) {

@@ -28,7 +28,13 @@ public class Battleship extends Game {
         setScreen(gameOverScreen);
     }
 
-    public void setWaitingScreen() {
+    public void exit() {
+        // TODO Close network connections ETC
+        Gdx.app.exit();
+    }
+
+    public void findMatch() {
+        // TODO Find match
         setScreen(waitingScreen);
     }
 }

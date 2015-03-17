@@ -68,7 +68,7 @@ public class WaitingScreen implements Screen{
                                 float x,
                                 float y) {
                 // EXIT GAME
-                Gdx.app.exit();
+                battleshipGame.exit();
             }
         });
 
