@@ -11,6 +11,8 @@ import json.JsonHelper;
  */
 public class Board {
     private ArrayList<Cell> board;
+
+
     /**
      * getCell
      * @param x
