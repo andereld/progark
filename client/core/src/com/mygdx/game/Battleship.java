@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 
 public class Battleship extends Game {
     MainMenuScreen mainMenuScreen;
+    WaitingScreen waitingScreen;
     //GameScreen gameScreen;
     GameOverScreen gameOverScreen;
     int width, height;
@@ -15,6 +16,7 @@ public class Battleship extends Game {
         height = Gdx.graphics.getHeight();
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
+        waitingScreen = new WaitingScreen(this);
         setScreen(mainMenuScreen);
     }
 
@@ -24,5 +26,9 @@ public class Battleship extends Game {
 
     public void setGameOverScreen() {
         setScreen(gameOverScreen);
+    }
+
+    public void setWaitingScreen() {
+        setScreen(waitingScreen);
     }
 }

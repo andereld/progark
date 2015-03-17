@@ -14,23 +14,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
- * Created by Torstein on 16.03.2015.
+ * Created by Torstein on 17.03.2015.
  */
-public class MainMenuScreen implements Screen{
+public class WaitingScreen implements Screen{
     SpriteBatch batch;
     Stage stage;
     Image shipImg;
-    TextField nickNameField;
-    String nickName;
-    TextButton playButton;
     TextButton exitButton;
-    Label nickNameLabel;
+    Label waitingLabel;
     VerticalGroup group;
     Battleship battleshipGame;
     Skin skin;
     int width, height;
 
-    public MainMenuScreen(Battleship battleshipGame) {
+    public WaitingScreen (Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
         width = battleshipGame.width;
         height = battleshipGame.height;
@@ -52,37 +49,19 @@ public class MainMenuScreen implements Screen{
 
         // Create menu elements
         shipImg = new Image(new Texture(Gdx.files.internal("android/assets/battleship.jpg")));
-        nickNameLabel = new Label("Enter nickname:", skin, "default-font", Color.BLACK);
-        nickNameLabel.setAlignment(Align.center);
-        nickNameField = new TextField("", skin);
-        playButton = new TextButton("Find match", skin);
+        waitingLabel = new Label("Waiting for other player", skin, "default-font", Color.BLACK);
+        waitingLabel.setAlignment(Align.center);
         exitButton = new TextButton("Exit", skin);
 
         // Add them to menu group
+        group.addActor(waitingLabel);
         group.addActor(shipImg);
-        group.addActor(nickNameLabel);
-        group.addActor(nickNameField);
-        group.addActor(playButton);
         group.addActor(exitButton);
 
         // Add scene to stage
         stage.addActor(group);
 
         // Create listeners
-        nickNameField.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char key) {
-                nickName = textField.getText();
-            }
-        });
-        playButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event,
-                                float x,
-                                float y) {
-                battleshipGame.setWaitingScreen();
-            }
-        });
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event,
@@ -110,7 +89,6 @@ public class MainMenuScreen implements Screen{
         skin.dispose();
         batch.dispose();
     }
-
 
     @Override
     public void resize(int width, int height) {
