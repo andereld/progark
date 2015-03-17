@@ -20,7 +20,7 @@ public class WaitingScreen implements Screen{
     SpriteBatch batch;
     Stage stage;
     Image shipImg;
-    TextButton exitButton;
+    TextButton cancelButton;
     Label waitingLabel;
     VerticalGroup group;
     Battleship battleshipGame;
@@ -49,26 +49,25 @@ public class WaitingScreen implements Screen{
 
         // Create menu elements
         shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
-        waitingLabel = new Label("Waiting for other player", skin, "default-font", Color.BLACK);
+        waitingLabel = new Label("Finding match ...", skin, "default-font", Color.BLACK);
         waitingLabel.setAlignment(Align.center);
-        exitButton = new TextButton("Exit", skin);
+        cancelButton = new TextButton("Cancel", skin);
 
         // Add them to menu group
         group.addActor(waitingLabel);
         group.addActor(shipImg);
-        group.addActor(exitButton);
+        group.addActor(cancelButton);
 
         // Add scene to stage
         stage.addActor(group);
 
         // Create listeners
-        exitButton.addListener(new ClickListener() {
+        cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event,
                                 float x,
                                 float y) {
-                // EXIT GAME
-                battleshipGame.exit();
+                battleshipGame.cancelFindMatch();
             }
         });
 
