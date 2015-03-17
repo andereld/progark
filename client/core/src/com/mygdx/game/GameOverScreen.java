@@ -40,8 +40,8 @@ public class GameOverScreen implements Screen {
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
-        skin = new Skin(Gdx.files.internal("android/assets/uiskin.json"),
-                new TextureAtlas(Gdx.files.internal("android/assets/uiskin.atlas")));
+        skin = new Skin(battleshipGame.getFile("uiskin.json"),
+                new TextureAtlas(battleshipGame.getFile("uiskin.atlas")));
         // Set up layout
         group = new VerticalGroup();
         group.setBounds(0, 0, width, height);
@@ -53,7 +53,7 @@ public class GameOverScreen implements Screen {
         gameOverLabel = new Label("Game over!", skin, "default-font", Color.BLACK);
         // TODO: Show what player won the game
         gameOverLabel.setAlignment(Align.center);
-        shipImg = new Image(new Texture("android/assets/battleship.jpg"));
+        shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
         mainMenuButton = new TextButton("Go to Main Menu", skin);
         exitButton = new TextButton("Exit", skin);
 

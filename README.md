@@ -26,6 +26,10 @@ More detailed instructions can be found
 ### Libraries 
 * [libgdx](https://github.com/libgdx/libgdx) for graphics and networking features.
 
+### Assets
+* All files needed by the client should be placed in `client/android/assets` and accessed with `battleShipGame.getFile("file.jpeg")`. 
+This way assets are properly handled on both android and desktop. 
+
 ## Server
 The application server is written in [Node.js][node] and deployed to
 [Heroku][heroku].

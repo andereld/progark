@@ -38,8 +38,8 @@ public class WaitingScreen implements Screen{
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
-        skin = new Skin(Gdx.files.internal("android/assets/uiskin.json"),
-                new TextureAtlas(Gdx.files.internal("android/assets/uiskin.atlas")));
+        skin = new Skin(battleshipGame.getFile("uiskin.json"),
+                new TextureAtlas(battleshipGame.getFile("uiskin.atlas")));
         // Set up layout
         group = new VerticalGroup();
         group.setBounds(0, 0, width, height);
@@ -48,7 +48,7 @@ public class WaitingScreen implements Screen{
         group.fill();
 
         // Create menu elements
-        shipImg = new Image(new Texture(Gdx.files.internal("android/assets/battleship.jpg")));
+        shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
         waitingLabel = new Label("Waiting for other player", skin, "default-font", Color.BLACK);
         waitingLabel.setAlignment(Align.center);
         exitButton = new TextButton("Exit", skin);
