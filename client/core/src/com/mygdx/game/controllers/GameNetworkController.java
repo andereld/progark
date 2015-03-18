@@ -24,13 +24,17 @@ public class GameNetworkController {
      */
     public void startGame(String username){
         playerController = new PlayerNetworkController();
-
-
         playerController.setPlayer(new Player(username, null));
 
-        JsonValue json = new JsonValue(username);
-        json.setName("username");
-        NetworkHelper.sendPostRequest("/play", json.toString(), new Net.HttpResponseListener() {
+        class JsonData{
+            private String username;
+            public void setUsername(String username){this.username = username; }
+        }
+
+        JsonData jsonData = new JsonData();
+        jsonData.setUsername(username);
+
+        NetworkHelper.sendPostRequest("/play", JsonHelper.buildJson(jsonData), new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
@@ -79,9 +83,11 @@ public class GameNetworkController {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                JsonValue json = new JsonValue(playerController.getPlayer().getUsername());
-                json.setName("username");
-                NetworkHelper.sendPostRequest("/play", json.toString(), new Net.HttpResponseListener() {
+                class JsonData{
+                    private String username = playerController.getPlayer().getUsername();
+                }
+
+                NetworkHelper.sendPostRequest("/play", JsonHelper.buildJson(new JsonData()), new Net.HttpResponseListener() {
                     @Override
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
                         JsonValue jsonResponse = new JsonValue(httpResponse.getResultAsString());

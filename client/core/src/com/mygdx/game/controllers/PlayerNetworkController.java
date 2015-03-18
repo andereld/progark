@@ -77,21 +77,18 @@ public class PlayerNetworkController {
 
 
     public void fireAtLocation(int x, int y){
-
-
         class JsonData {
-            private int x;
-            private int y;
+            private int x, y;
             private String username;
-
-            public JsonData(int x, int y, String username){
-                x = x;
-                y = y;
-                username = username;
-            }
+            public void setX(int x) { this.x = x; }
+            public void setY(int y) {this.y = y;}
+            public void setUsername(String username) {this.username = username;}
         }
 
-        JsonData jsonData = new JsonData(x, y, getPlayer().getUsername());
+        JsonData jsonData = new JsonData();
+        jsonData.setY(x);
+        jsonData.setY(y);
+        jsonData.setUsername(getPlayer().getUsername());
 
         NetworkHelper.sendPostRequest("/fire", JsonHelper.buildJson(jsonData), new Net.HttpResponseListener() {
             @Override
