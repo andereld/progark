@@ -18,7 +18,7 @@ public class GameNetworkController {
     private PlayerNetworkController playerController;
 
     public PlayerNetworkController getPlayerController(){
-        return playerController; 
+        return playerController;
     }
 
     /**
@@ -44,7 +44,7 @@ public class GameNetworkController {
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("game").isNull()){
                     waitForOpponent();
-                }else{
+                } else{
                     JsonValue game = jsonResponse.get("game");
 
                     if (game.get("next").asString().equals(playerController.getPlayer().getUsername())){

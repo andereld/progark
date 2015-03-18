@@ -86,7 +86,7 @@ public class PlayerNetworkController {
         }
 
         JsonData jsonData = new JsonData();
-        jsonData.setY(x);
+        jsonData.setX(x);
         jsonData.setY(y);
         jsonData.setUsername(getPlayer().getUsername());
 
