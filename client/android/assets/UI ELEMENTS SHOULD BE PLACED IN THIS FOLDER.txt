@@ -1,0 +1,2 @@
+and accessed with
+Gdx.files.internal("android/assets/image.jpeg")
