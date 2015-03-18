@@ -11,12 +11,12 @@ import com.badlogic.gdx.utils.JsonValue;
  */
 public class JsonHelper {
 
-    public static JsonValue getJSonObject(String json){
+    public static JsonValue parseJson(String json){
         JsonReader  reader = new JsonReader();
         return reader.parse(json);
     }
 
-    public static String JsonBuilder(Object o){
+    public static String buildJson(Object o){
         Json json = new Json();
         return json.toJson(o);
     }

@@ -43,7 +43,7 @@ public class Cell {
      */
 
     public void createFromJson(String json){
-        JsonValue jsonObject = JsonHelper.getJSonObject(json);
+        JsonValue jsonObject = JsonHelper.parseJson(json);
         isHit = jsonObject.getBoolean("isHit");
         isShip = jsonObject.getBoolean("isShip");
     }

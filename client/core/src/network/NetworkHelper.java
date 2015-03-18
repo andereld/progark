@@ -12,12 +12,12 @@ public class NetworkHelper {
     private static String host = "localhost";
     private static int port = 5000;
 
-    public static void sendPostRequest(String route, JsonValue data, Net.HttpResponseListener listener){
+    public static void sendPostRequest(String route, String data, Net.HttpResponseListener listener){
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         String url = host + "/api" + route + ":" + port;
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST).url(url).build();
         httpRequest.setHeader("Content-Type", "application/json");
-        httpRequest.setContent(data.toString());
+        httpRequest.setContent(data);
 
         Gdx.net.sendHttpRequest(httpRequest, listener);
     }

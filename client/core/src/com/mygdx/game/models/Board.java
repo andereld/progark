@@ -12,7 +12,6 @@ import json.JsonHelper;
 public class Board {
     private ArrayList<Cell> board;
 
-
     /**
      * getCell
      * @param x
@@ -35,7 +34,7 @@ public class Board {
      * @description Takes string of board json and creates cells from it. Adds cells to board
      */
     public void createFromJson(String json){
-        JsonValue jsonObject = JsonHelper.getJSonObject(json);
+        JsonValue jsonObject = JsonHelper.parseJson(json);
         JsonValue jsonBoard = jsonObject.get("board");
         int X = 0;
         int Y = 0;
