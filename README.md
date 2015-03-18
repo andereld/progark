@@ -46,7 +46,7 @@ POST /api/play/
 
 Req: `{username: STRING}`
 
-Res: `Board object OR {message: "Waiting for opponent."}`
+Res: `{message: "Waiting for opponent."} OR {message: "Starting new game.", game: GAME OBJECT} OR {message: "Ongoing game", game: GAME OBJECT}`
 
 #### Turn
 
