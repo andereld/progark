@@ -3,6 +3,7 @@ package json;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 
 
 /**
@@ -18,6 +19,7 @@ public class JsonHelper {
 
     public static String buildJson(Object o){
         Json json = new Json();
+        json.setOutputType(JsonWriter.OutputType.json);
         return json.toJson(o);
     }
 
