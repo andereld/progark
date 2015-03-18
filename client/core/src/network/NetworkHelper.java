@@ -19,6 +19,8 @@ public class NetworkHelper {
         httpRequest.setHeader("Content-Type", "application/json");
         httpRequest.setContent(data);
 
+        NetworkHelper.printRequest(httpRequest);
+
         Gdx.net.sendHttpRequest(httpRequest, listener);
     }
 
@@ -30,5 +32,12 @@ public class NetworkHelper {
 
         Gdx.net.sendHttpRequest(httpRequest, listener);
 
+    }
+
+    private static void printRequest(Net.HttpRequest httpRequest){
+        System.out.println("URL: " + httpRequest.getUrl());
+        System.out.println("Method: " + httpRequest.getMethod());
+        System.out.println("Headers: " + httpRequest.getHeaders());
+        System.out.println("Content: " + httpRequest.getContent());
     }
 }
