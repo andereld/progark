@@ -33,7 +33,7 @@ public class NetworkTest {
         game2.startGame("mats");
         assertEquals("Username for player 2 given and in model should be equal ", "mats", game2.getPlayerController().getPlayer().getUsername());
 
-        TimeUnit.SECONDS.sleep(11);
+        TimeUnit.SECONDS.sleep(15);
         assertEquals("The opponent of player 1 should player 2", "mats", game1.getPlayerController().getOpponent().getUsername());
         assertEquals("The opponent of player 2 should player 1", "andybb", game2.getPlayerController().getOpponent().getUsername());
 
