@@ -17,6 +17,10 @@ import network.NetworkHelper;
 public class GameNetworkController {
     private PlayerNetworkController playerController;
 
+    public PlayerNetworkController getPlayerController(){
+        return playerController; 
+    }
+
     /**
      * startGame
      * @param username
