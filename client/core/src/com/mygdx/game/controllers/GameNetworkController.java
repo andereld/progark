@@ -16,7 +16,6 @@ import network.NetworkHelper;
  */
 public class GameNetworkController {
     private PlayerNetworkController playerController;
-    private OpponentNetworkController opponentController;
 
     /**
      * startGame
@@ -25,7 +24,7 @@ public class GameNetworkController {
      */
     public void startGame(String username){
         playerController = new PlayerNetworkController();
-        opponentController = new OpponentNetworkController();
+
 
         playerController.setPlayer(new Player(username, null));
 
@@ -54,7 +53,7 @@ public class GameNetworkController {
 
                     // Add values to models
                     playerController.getPlayer().setBoard(playerBoard);
-                    opponentController.setOpponent(new Player(jsonResponse.get("player2").toString(), opponentBoard));
+                    playerController.setOpponent(new Player(jsonResponse.get("player2").toString(), opponentBoard));
                 }
             }
 

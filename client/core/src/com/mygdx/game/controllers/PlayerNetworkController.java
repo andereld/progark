@@ -15,13 +15,14 @@ import network.NetworkHelper;
  * Created by esso on 16.03.15.
  */
 public class PlayerNetworkController {
-    private Player player;
+    private Player player, opponent;
     private boolean playersTurn;
 
 
 
     public PlayerNetworkController(){
-        this.player = player;
+        opponent = null;
+        player = null;
         playersTurn = false;
     }
 
@@ -112,4 +113,13 @@ public class PlayerNetworkController {
     }
 
 
+    public Player getOpponent() {
+        return opponent;
+    }
+
+    public void setOpponent(Player opponent) {
+        if (this.opponent  == null){
+            this.opponent = opponent;
+        }
+    }
 }
