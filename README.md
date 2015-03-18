@@ -46,7 +46,7 @@ POST /api/play/
 
 Req: `{username: STRING}`
 
-Res: `{message: "Waiting for opponent."} OR {message: "Starting new game.", game: GAME OBJECT} OR {message: "Ongoing game", game: GAME OBJECT}`
+Res: `{game: GAME OBJECT}` (null if a game doesn't exist)
 
 #### Turn
 
@@ -76,6 +76,7 @@ The Game module keeps track of the two players and their boards.
 ##### Fields
 * `player1`: String. Username of the first player.
 * `player2`: String. Username of the second player.
+* `next`: String. Username of the next player turn.
 * `board1`: Board. The board which player1 shoots at.
 * `board2`: Board. The board which player2 shoots at.
 
