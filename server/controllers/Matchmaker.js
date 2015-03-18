@@ -1,4 +1,4 @@
-var OngoingGames = require("../models/OngoingGames");
+var GameController = require("./GameController");
 
 var playerQueue = [];
 
@@ -6,7 +6,7 @@ exports.startGame = function(req, res) {
 
   var player1 = req.body.username;
 
-  var game = OngoingGames.findGame(player1);
+  var game = GameController.findGame(player1);
 
   // player has ongoing game
   if (game != null) {
@@ -15,8 +15,8 @@ exports.startGame = function(req, res) {
 
   // Start a new game if opponent exists and opponent is not the same player. Pops the last element in queue.
   else if (playerQueue.length > 0 && playerQueue.indexOf(player1) === -1) {
-    OngoingGames.startGame(player1, playerQueue.pop());
-    game = OngoingGames.findGame(player1);
+    GameController.startGame(player1, playerQueue.pop());
+    game = GameController.findGame(player1);
     res.json({'game': game});
   }
 

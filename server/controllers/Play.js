@@ -1,16 +1,16 @@
-var OngoingGames = require("../models/OngoingGames");
+var GameController = require("./GameController");
 
 exports.fire = function (req, res) {
 
   var player = req.body.username;
   var x = req.body.x;
   var y = req.body.y;
-  var game = OngoingGames.findGame(player);
+  var game = GameController.findGame(player);
 
   if (game != null) {
 
     // If game is already over, it means the other player won.
-    if (game.isGameOver()) {
+    if (game.gameOver) {
       res.json({'message': "You lost"});
       return;
     }

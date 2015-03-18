@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
         Board.belongsTo(models.Game);
       },
 
-      randomBoard: function(boardSize) {
+      randomBoard: function() {
         var levels = ["...XX........XX..XXX...XX..........................X.........X...XXX...X.........X..XX..............",
           ".XXX.......XXX....X.........X.........X....XX...X.............X..XXX....X.........X.................",
           "................................XX.........XXX........XXXX.....XXX.....XXX.......XXX................"];

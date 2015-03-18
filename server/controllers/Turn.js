@@ -1,9 +1,9 @@
-var OngoingGames = require("../models/OngoingGames");
+var GameController = require("./GameController");
 
 exports.nextPlayer = function(req, res) {
   var player = req.params.username;
 
-  var game = OngoingGames.findGame(player);
+  var game = GameController.findGame(player);
 
   if(game) {
     res.json({username: game.next});
