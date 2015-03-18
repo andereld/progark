@@ -42,6 +42,7 @@ public class GameNetworkController {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
+                System.out.println(jsonResponse.toString());
                 if (jsonResponse.get("game").isNull()){
                     waitForOpponent();
                 } else{
@@ -68,6 +69,7 @@ public class GameNetworkController {
             @Override
             public void failed(Throwable t) {
                 //@todo
+                t.printStackTrace();
             }
 
             @Override
