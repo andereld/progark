@@ -48,7 +48,12 @@ public class GameNetworkController {
                 } else{
                     JsonValue game = jsonResponse.get("game");
 
-                    if (game.get("next").asString().equals(playerController.getPlayer().getUsername())){
+                    String username = playerController.getPlayer().getUsername();
+
+                    String player = game.get("player1").asString().equals(username) ? "1" : "2";
+                    String opponent = player.equals("2") ? "1" : "2";
+
+                    if (game.get("next").asString().equals(username)){
                         playerController.setPlayersTurn(true);
                     }
 
@@ -57,12 +62,12 @@ public class GameNetworkController {
                     // Setup boards
                     Board playerBoard = new Board();
                     Board opponentBoard = new Board();
-                    playerBoard.createFromJson(game.get("board1").toString());
-                    opponentBoard.createFromJson(game.get("board2").toString());
+                    playerBoard.createFromJson(game.get("board" + player).toString());
+                    opponentBoard.createFromJson(game.get("board"+opponent).toString());
 
                     // Add values to models
                     playerController.getPlayer().setBoard(playerBoard);
-                    playerController.setOpponent(new Player(jsonResponse.get("player2").toString(), opponentBoard));
+                    playerController.setOpponent(new Player(game.get("player"+opponent).asString(), opponentBoard));
                 }
             }
 
@@ -96,7 +101,7 @@ public class GameNetworkController {
                 NetworkHelper.sendPostRequest("/play", JsonHelper.buildJson(new JsonData()), new Net.HttpResponseListener() {
                     @Override
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                        JsonValue jsonResponse = new JsonValue(httpResponse.getResultAsString());
+                        JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                         if (!jsonResponse.get("game").isNull()){ // It's not null
                             startGame(playerController.getPlayer().getUsername());
                             cancel(); // Stop timer task

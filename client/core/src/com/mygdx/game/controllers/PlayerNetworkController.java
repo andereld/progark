@@ -31,7 +31,7 @@ public class PlayerNetworkController {
     }
 
     public void setPlayer(Player player){
-        player = player;
+        this.player = player;
     }
 
     public boolean isPlayersTurn() {
