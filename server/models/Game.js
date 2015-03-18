@@ -1,32 +1,31 @@
-var Board = require("./Board");
+module.exports = function(sequelize, DataTypes) {
+  var Game = sequelize.define('Game', {
+    player1: {type: DataTypes.STRING},
+    player2: {type: DataTypes.STRING},
+    next: {type: DataTypes.STRING},
+    finished: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false}
+  }, {
 
-var levels = ["...XX........XX..XXX...XX..........................X.........X...XXX...X.........X..XX..............",
-  ".XXX.......XXX....X.........X.........X....XX...X.............X..XXX....X.........X.................",
-  "................................XX.........XXX........XXXX.....XXX.....XXX.......XXX................"];
+    classMethods: {
+      associate: function (models) {
+        Game.hasMany(models.Board, {as: 'Boards'});
+      }
+    },
 
-function Game(player1, player2) {
+    instanceMethods: {
+      fire: function (player, x, y) {
+        if (player === this.player1) {
+          this.next = this.player2;
+          return this.board1.fire(x, y);
+        }
+        else if (player === this.player2) {
+          this.next = this.player1;
+          return this.board2.fire(x, y);
+        }
+      }
+    }
 
-  this.player1 = player1;
-  this.player2 = player2;
-  this.next = player2;
+  });
 
-  this.board1 = new Board(levels[Math.floor(Math.random()*levels.length)]);
-  this.board2 = new Board(levels[Math.floor(Math.random()*levels.length)]);
-}
-
-Game.prototype.isGameOver = function() {
-  return this.board1.isGameOver() || this.board2.isGameOver();
+  return Game;
 };
-
-Game.prototype.fire = function (player, x, y) {
-  if (player === this.player1) {
-    this.next = this.player2;
-    return this.board1.fire(x, y);
-  }
-  else if (player === this.player2) {
-    this.next = this.player1;
-    return this.board2.fire(x, y);
-  }
-};
-
-module.exports = Game;

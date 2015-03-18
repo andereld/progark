@@ -16,8 +16,24 @@ function Cell(containsShip, hasBeenHit) {
 
 module.exports = function(sequelize, DataTypes) {
   var Board = sequelize.define('Board', {
-    cellString: DataTypes.STRING,
+    cellString: DataTypes.STRING
   }, {
+    classMethods: {
+
+      associate: function(models) {
+        Board.belongsTo(models.Game);
+      },
+
+      randomBoard: function(boardSize) {
+        var levels = ["...XX........XX..XXX...XX..........................X.........X...XXX...X.........X..XX..............",
+          ".XXX.......XXX....X.........X.........X....XX...X.............X..XXX....X.........X.................",
+          "................................XX.........XXX........XXXX.....XXX.....XXX.......XXX................"];
+        return Board.create({
+          cellString: levels[Math.floor(Math.random() * levels.length)]
+        });
+      }
+    },
+
     getterMethods: {
       cells: function() {
         // Converts the board's cell string to an array of Cell objects and
@@ -34,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
 
       gameOver: function() {
         return this.cellString.indexOf('S') === -1;
-      },
+      }
     },
 
     setterMethods: {
@@ -54,7 +70,7 @@ module.exports = function(sequelize, DataTypes) {
         }, '');
 
         this.setDataValue('cellString', str);
-      },
+      }
     },
 
     instanceMethods: {
@@ -67,8 +83,8 @@ module.exports = function(sequelize, DataTypes) {
         this.cells = cells;
 
         return this.cells[y * 10 + x].containsShip;
-      },
-    },
+      }
+    }
   });
 
   return Board;
