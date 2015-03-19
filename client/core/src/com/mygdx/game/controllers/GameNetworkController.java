@@ -2,6 +2,7 @@ package com.mygdx.game.controllers;
 
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 import com.mygdx.game.Constants;
 import com.mygdx.game.models.*;
 
@@ -50,9 +51,6 @@ public class GameNetworkController {
 
                     String username = playerController.getPlayer().getUsername();
 
-                    String player = game.get("player1").asString().equals(username) ? "1" : "2";
-                    String opponent = player.equals("2") ? "1" : "2";
-
                     if (game.get("next").asString().equals(username)){
                         playerController.setPlayersTurn(true);
                     }
@@ -60,10 +58,14 @@ public class GameNetworkController {
                     playerController.setPlayersTurn(false);
 
                     // Setup boards
-                    Board playerBoard = new Board();
+                    Board playerBoard = new Board(); 
                     Board opponentBoard = new Board();
-                    playerBoard.createFromJson(game.get("board" + player).toString());
-                    opponentBoard.createFromJson(game.get("board"+opponent).toString());
+
+                    String player = game.get("player1").asString().equals(username) ? "1" : "2";
+                    String opponent = player.equals("2") ? "1" : "2";
+
+                    playerBoard.createFromJson(JsonHelper.prettyPrint(game.get("board"+player)));
+                    opponentBoard.createFromJson(JsonHelper.prettyPrint(game.get("board"+opponent)));
 
                     // Add values to models
                     playerController.getPlayer().setBoard(playerBoard);

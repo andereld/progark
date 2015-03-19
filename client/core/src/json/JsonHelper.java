@@ -23,4 +23,10 @@ public class JsonHelper {
         return json.toJson(o);
     }
 
+    public static String prettyPrint(JsonValue value){
+        JsonValue.PrettyPrintSettings settings = new JsonValue.PrettyPrintSettings();
+        settings.outputType = JsonWriter.OutputType.json;
+        return value.prettyPrint(settings);
+    }
+
 }
