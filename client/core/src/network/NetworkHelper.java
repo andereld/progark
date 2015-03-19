@@ -27,12 +27,9 @@ public class NetworkHelper {
         httpRequest.setHeader("Content-Type", "application/json");
         httpRequest.setContent(jsonData);
 
-        NetworkHelper.printRequest(httpRequest);
-
         NetJavaImpl net = new NetJavaImpl();
         net.sendHttpRequest(httpRequest, listener);
     }
-
 
     /**
      * sendGetRequest
@@ -46,7 +43,6 @@ public class NetworkHelper {
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(url).build();
         httpRequest.setHeader("Content-Type", "application/json");
 
-        printRequest(httpRequest);
         NetJavaImpl net = new NetJavaImpl();
         net.sendHttpRequest(httpRequest, listener);
 
