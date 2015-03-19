@@ -58,7 +58,7 @@ public class GameNetworkController {
                     playerController.setPlayersTurn(false);
 
                     // Setup boards
-                    Board playerBoard = new Board(); 
+                    Board playerBoard = new Board();
                     Board opponentBoard = new Board();
 
                     String player = game.get("player1").asString().equals(username) ? "1" : "2";
