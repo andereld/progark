@@ -1,4 +1,3 @@
-module.exports = getRandomBoardAsString;
 
 // setup a 10x10 array
 var board = new Array(10);
@@ -12,7 +11,7 @@ for(var i = 0; i < 10; i++) {
 }
 
 // parses a 10x10 array to a 100 char string
-var getRandomBoardAsString = function() {
+exports.getRandomBoardAsString = function() {
   var board = generateRandomBoard();
   var boardString = "";
   for(var i = 0; i < board.length; i++) {
