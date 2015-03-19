@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
 
     classMethods: {
       associate: function (models) {
-        Game.hasMany(models.Board, {as: 'Boards'});
+        Game.hasMany(models.Board);
       }
     },
 
@@ -16,11 +16,10 @@ module.exports = function(sequelize, DataTypes) {
       fire: function (player, x, y) {
         if (player === this.player1) {
           this.next = this.player2;
-          return this.board1.fire(x, y);
-        }
-        else if (player === this.player2) {
+          return this.Boards[0].fire(x, y);
+        } else if (player === this.player2) {
           this.next = this.player1;
-          return this.board2.fire(x, y);
+          return this.Boards[1].fire(x, y);
         }
       }
     }

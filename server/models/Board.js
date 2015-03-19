@@ -82,6 +82,8 @@ module.exports = function(sequelize, DataTypes) {
         cells[y * 10 + x].hasBeenHit = true;
         this.cells = cells;
 
+        this.save();
+
         return this.cells[y * 10 + x].containsShip;
       }
     }
