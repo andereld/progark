@@ -27,65 +27,60 @@ public class MainMenuScreen implements Screen{
     TextButton exitButton;
     Label titleLabel;
     Label nickNameLabel;
-    VerticalGroup titleGroup;
     Battleship battleshipGame;
     Skin skin;
+    TextButton.TextButtonStyle style;
     int width, height;
-    OrthographicCamera camera;
 
     public MainMenuScreen(Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
         width = battleshipGame.width;
         height = battleshipGame.height;
+        skin = battleshipGame.skin;
+
     }
 
     @Override
     public void show() {
+        style = battleshipGame.style;
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
-        skin = new Skin(battleshipGame.getFile("uiskin.json"),
-                new TextureAtlas(battleshipGame.getFile("uiskin.atlas")));
 
         // Set up layout
-        /// Bottom left = 0, 0
-        titleGroup = new VerticalGroup();
-        titleGroup.setBounds(0, height-600, width, 400);
-        //titleGroup.setBounds(x,y,width,height);
-        titleGroup.space(15);
-        titleGroup.pad(20);
-        titleGroup.fill();
 
         // Create menu elements
         titleLabel = new Label("Sea Battle", skin, "default-font", Color.RED);
-        titleLabel.setAlignment(Align.center);
         shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
         nickNameLabel = new Label("Enter nickname:", skin, "default-font", Color.BLACK);
         nickNameField = new TextField("", skin);
         playButton = new TextButton("Find match", skin);
         exitButton = new TextButton("Exit", skin);
-        exitButton.align(Align.right);
+        //exitButton.align(Align.right);
 
         // Set element sizes
+        shipImg.setSize(width-100, 300);
         titleLabel.setFontScale(3);
+        titleLabel.setSize(width-100, 200);
         nickNameLabel.setFontScale(2);
-        nickNameLabel.setSize(60,30);
-        nickNameField.setSize(120,40);
-        playButton.setSize(240,80);
-        exitButton.setSize(240,80);
+        nickNameLabel.setSize(60, 30);
+        nickNameField.setSize(240,50);
+        int btnSizeW = 300;
+        int btnSizeH = 100;
+        playButton.setSize(btnSizeW,btnSizeH);
+        exitButton.setSize(btnSizeW, btnSizeH);
 
         // Set element positions
+        titleLabel.setPosition(width/2-100, height-350);
+        shipImg.setPosition(45,height-600);
         nickNameLabel.setPosition(width/2-250, height/2);
-        nickNameField.setPosition(width/2, height/2);
-        playButton.setPosition(width-290,100);
+        nickNameField.setPosition(width/2, height/2-5);
+        playButton.setPosition(width-btnSizeW-50,100);
         exitButton.setPosition(50,100);
 
-        // Add elements to menu groups
-        titleGroup.addActor(titleLabel);
-        titleGroup.addActor(shipImg);
-
         // Add groups and elements to the stage
-        stage.addActor(titleGroup);
+        stage.addActor(titleLabel);
+        stage.addActor(shipImg);
         stage.addActor(nickNameLabel);
         stage.addActor(nickNameField);
         stage.addActor(playButton);
@@ -124,7 +119,7 @@ public class MainMenuScreen implements Screen{
     @Override
     public void dispose() {
         stage.dispose();
-        skin.dispose();
+        //skin.dispose();
         batch.dispose();
     }
 
