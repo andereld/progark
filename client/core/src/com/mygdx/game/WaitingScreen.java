@@ -22,44 +22,54 @@ public class WaitingScreen implements Screen{
     Image shipImg;
     TextButton cancelButton;
     Label waitingLabel;
-    VerticalGroup group;
+    Label titleLabel;
     Battleship battleshipGame;
     Skin skin;
     int width, height;
+    TextButton.TextButtonStyle style;
 
     public WaitingScreen (Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
         width = battleshipGame.width;
         height = battleshipGame.height;
+        skin = battleshipGame.skin;
     }
 
     @Override
     public void show() {
+        style = battleshipGame.style;
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
-        skin = new Skin(battleshipGame.getFile("uiskin.json"),
-                new TextureAtlas(battleshipGame.getFile("uiskin.atlas")));
-        // Set up layout
-        group = new VerticalGroup();
-        group.setBounds(0, 0, width, height);
-        group.space(15);
-        group.pad(50);
-        group.fill();
 
         // Create menu elements
         shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
-        waitingLabel = new Label("Finding match ...", skin, "default-font", Color.BLACK);
+        titleLabel = new Label("Sea Battle", skin, "default-font", Color.RED);
+        waitingLabel = new Label("Finding match...", skin, "default-font", Color.BLACK);
         waitingLabel.setAlignment(Align.center);
         cancelButton = new TextButton("Cancel", skin);
 
-        // Add them to menu group
-        group.addActor(waitingLabel);
-        group.addActor(shipImg);
-        group.addActor(cancelButton);
+        // Set element sizes
+        shipImg.setSize(width-100, 300);
+        titleLabel.setFontScale(3);
+        titleLabel.setSize(width-100, 200);
+        waitingLabel.setFontScale(2);
+        waitingLabel.setSize(60, 30);
+        int btnSizeW = 300;
+        int btnSizeH = 100;
+        cancelButton.setSize(btnSizeW,btnSizeH);
 
-        // Add scene to stage
-        stage.addActor(group);
+        // Set element positions
+        titleLabel.setPosition(width/2-100, height-350);
+        shipImg.setPosition(45,height-600);
+        waitingLabel.setPosition(width/2-35, height/2);
+        cancelButton.setPosition(width/2-btnSizeW/2,height/2-130);
+
+        // Add groups and elements to the stage
+        stage.addActor(titleLabel);
+        stage.addActor(shipImg);
+        stage.addActor(waitingLabel);
+        stage.addActor(cancelButton);
 
         // Create listeners
         cancelButton.addListener(new ClickListener() {
@@ -83,7 +93,6 @@ public class WaitingScreen implements Screen{
     @Override
     public void dispose() {
         stage.dispose();
-        skin.dispose();
         batch.dispose();
     }
 

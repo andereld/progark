@@ -22,49 +22,68 @@ public class GameOverScreen implements Screen {
     Stage stage;
     Image shipImg;
     Label gameOverLabel;
+    Label titleLabel;
+    Label playerWonLabel;
     TextButton mainMenuButton;
     TextButton exitButton;
     VerticalGroup group;
     Battleship battleshipGame;
     Skin skin;
+    TextButton.TextButtonStyle style;
     int width, height;
 
     public GameOverScreen(Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
         width = battleshipGame.width;
         height = battleshipGame.height;
+        style = battleshipGame.style;
     }
 
     @Override
     public void show() {
+        skin = battleshipGame.skin;
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
-        skin = new Skin(battleshipGame.getFile("uiskin.json"),
-                new TextureAtlas(battleshipGame.getFile("uiskin.atlas")));
-        // Set up layout
-        group = new VerticalGroup();
-        group.setBounds(0, 0, width, height);
-        group.space(15);
-        group.pad(50);
-        group.fill();
 
         // Create menu elements
+        shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
+        titleLabel = new Label("Sea Battle", skin, "default-font", Color.RED);
         gameOverLabel = new Label("Game over!", skin, "default-font", Color.BLACK);
+        playerWonLabel = new Label("Player X won the game", skin, "default-font", Color.BLACK);
         // TODO: Show what player won the game
         gameOverLabel.setAlignment(Align.center);
-        shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
-        mainMenuButton = new TextButton("Go to Main Menu", skin);
+        mainMenuButton = new TextButton("Main Menu", skin);
         exitButton = new TextButton("Exit", skin);
 
-        // Add them to menu group
-        group.addActor(gameOverLabel);
-        group.addActor(shipImg);
-        group.addActor(mainMenuButton);
-        group.addActor(exitButton);
+        // Set element sizes
+        shipImg.setSize(width-100, 300);
+        titleLabel.setFontScale(3);
+        titleLabel.setSize(width-100, 200);
+        gameOverLabel.setFontScale(2);
+        gameOverLabel.setSize(60, 30);
+        playerWonLabel.setFontScale(2);
+        playerWonLabel.setSize(60, 30);
+        int btnSizeW = 300;
+        int btnSizeH = 100;
+        mainMenuButton.setSize(btnSizeW,btnSizeH);
+        exitButton.setSize(btnSizeW,btnSizeH);
 
-        // Add scene to stage
-        stage.addActor(group);
+        // Set element positions
+        titleLabel.setPosition(width/2-100, height-350);
+        shipImg.setPosition(45,height-600);
+        gameOverLabel.setPosition(width/2-60, height/2);
+        playerWonLabel.setPosition(width/2-150, height/2-60);
+        mainMenuButton.setPosition(width-btnSizeW-50,100);
+        exitButton.setPosition(50,100);
+
+        // Add groups and elements to the stage
+        stage.addActor(titleLabel);
+        stage.addActor(shipImg);
+        stage.addActor(gameOverLabel);
+        stage.addActor(playerWonLabel);
+        stage.addActor(mainMenuButton);
+        stage.addActor(exitButton);
 
         // Create listeners
         mainMenuButton.addListener(new ClickListener() {
@@ -92,7 +111,6 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        skin.dispose();
         batch.dispose();
     }
 
