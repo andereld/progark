@@ -2,9 +2,12 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 var router = express.Router();
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(process.env.DATABASE_URL);
 
 var gameController = require('./controllers/Matchmaker');
 var playController = require('./controllers/Play');
+var turnController = require('./controllers/Turn');
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
@@ -15,6 +18,9 @@ router.route('/play')
 
 router.route('/fire')
   .post(playController.fire);
+
+router.route('/turn/:username')
+  .get(turnController.nextPlayer);
 
 app.use('/api', router);
 

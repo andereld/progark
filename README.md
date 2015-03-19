@@ -46,8 +46,17 @@ POST /api/play/
 
 Req: `{username: STRING}`
 
-Res: `Board object OR {message: "Waiting for opponent."}`
+Res: `{game: GAME OBJECT}` (null if a game doesn't exist)
 
+#### Turn
+
+To get the next player turn in the game.
+
+```
+GET /api/turn/:username
+```
+
+Res: `{username: STRING}`
 
 #### Fire 
 
@@ -67,6 +76,7 @@ The Game module keeps track of the two players and their boards.
 ##### Fields
 * `player1`: String. Username of the first player.
 * `player2`: String. Username of the second player.
+* `next`: String. Username of the next player turn.
 * `board1`: Board. The board which player1 shoots at.
 * `board2`: Board. The board which player2 shoots at.
 
@@ -100,6 +110,37 @@ collaborators for this project, simply run:
 heroku git:remote -a fathomless-waters-2425
 ```
 
+### Database setup
+A Heroku Postgres database has already been added to the Heroku application;
+run `heroku pg:info` from the application directory to see information about
+the running instance. In order to run a local instance for development, you
+must install PostgreSQL locally and then run the following:
+
+```
+# Create a Postgres user named 'progark' with no password:
+% createuser progark
+# Create a databased named 'progark_db' owned by user 'progark':
+% createdb -O progark progark_db
+```
+
+And add the following line to your `.bashrc` or similar:
+
+```
+export DATABASE_URL=postgres://progark:@localhost/progark_db
+```
+
+You connect to a database on Heroku by using a connection URL specified (by
+Heroku) in the environment variable `DATABASE_URL`. By setting an appropriate
+`DATABASE_URL` locally, we avoid the need differentiate between the development
+and production database in our code.
+
+*Note*: The database connection is established by the [Sequelize][sequelize]
+ORM like so:
+
+```
+var sequelize = new Sequelize(process.env.DATABASE_URL);
+```
+
 ### Deployment
 Heroku expects applications to placed in the root directory of the Git
 repository. Because we have two separate applications in our repository,
@@ -114,3 +155,4 @@ git subtree push --prefix server heroku master
 [node]: http://nodejs.org/
 [heroku]: https://www.heroku.com/
 [heroku-toolbelt]: https://toolbelt.heroku.com/
+[sequelize]: http://docs.sequelizejs.com/en/latest/
