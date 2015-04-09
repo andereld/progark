@@ -8,6 +8,7 @@ import org.junit.Before;
 import static org.junit.Assert.*;
 
 import com.mygdx.game.controllers.GameNetworkController;
+import com.mygdx.game.controllers.PlayerNetworkController;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +47,10 @@ public class NetworkTest {
 
     @Test
     public void testFireOperation(){
-
+        int x = 2;
+        int y = 4;
+        PlayerNetworkController playerNetworkController = game1.getPlayerController();
+        playerNetworkController.fireAtLocation(x, y);
+        assertEquals(true, playerNetworkController.getPlayer().getBoard().getCell(x, y).isHit());
     }
 }

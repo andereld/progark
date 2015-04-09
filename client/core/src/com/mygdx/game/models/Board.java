@@ -10,7 +10,7 @@ import json.JsonHelper;
  * Created by esso on 13.03.15.
  */
 public class Board {
-    private ArrayList<Cell> board = null;
+    private ArrayList<Cell> board = new ArrayList<Cell>();
 
     /**
      * getCell
@@ -19,9 +19,6 @@ public class Board {
      * @return Cell and that location
      */
     public Cell getCell(int x, int y){
-        if (board == null){
-            return null;
-        }
         for (Cell c : board){
             if (c.getX() == x && c.getY() == y){
                 return c;
@@ -47,6 +44,7 @@ public class Board {
             Cell c = new Cell(X, Y);
             c.createFromJson(jsonCell.toString());
             board.add(c);
+            X += 1;
 
             if (i%10 == 0){
                 X = 0;
