@@ -40,8 +40,9 @@ public class NetworkTest {
 
     }
 
+
     @Test
-    public void testFireOperation() throws InterruptedException{
+    public void testFireOperation(){
 
     }
 }
