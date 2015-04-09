@@ -26,6 +26,9 @@ public class ModelTest {
         this.board1 = new Board();
         this.board2 = new Board();
         this.game = JsonHelper.parseJson(gameString).get("game");
+        board1.createFromJson(JsonHelper.prettyPrint(game.get("board1")));
+        board2.createFromJson(JsonHelper.prettyPrint(game.get("board2")));
+
 
     }
     
@@ -78,10 +81,10 @@ public class ModelTest {
         JsonValue jsonCell2 = game.get("board2").get("board").get((y2*10) + x2);
 
         assertEquals("Cell has same isHit value as the JSON given", cell1.isHit(), jsonCell1.get("isHit").asBoolean());
-        assertEquals("Cell has same isShip value as the JSON given", cell1.isShip(), jsonCell1.get("isShio").asBoolean());
+        assertEquals("Cell has same isShip value as the JSON given", cell1.isShip(), jsonCell1.get("isShip").asBoolean());
 
         assertEquals("Cell has same isHit value as the JSON given", cell2.isHit(), jsonCell2.get("isHit").asBoolean() );
-        assertEquals("Cell has same isShip value as the JSON given", cell2.isShip(), jsonCell2.get("isShio").asBoolean());
+        assertEquals("Cell has same isShip value as the JSON given", cell2.isShip(), jsonCell2.get("isShip").asBoolean());
 
     }
 

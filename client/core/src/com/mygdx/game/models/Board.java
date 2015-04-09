@@ -1,5 +1,6 @@
 package com.mygdx.game.models;
 
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;
@@ -42,11 +43,12 @@ public class Board {
         for (int i = 0; i < jsonBoard.size; i++){
             JsonValue jsonCell = jsonBoard.get(i);
             Cell c = new Cell(X, Y);
-            c.createFromJson(jsonCell.toString());
+            c.createFromJson(JsonHelper.prettyPrint(jsonCell));
+
             board.add(c);
             X += 1;
 
-            if (i%10 == 0){
+            if (X%10 == 0){
                 X = 0;
                 Y += 1;
             }
