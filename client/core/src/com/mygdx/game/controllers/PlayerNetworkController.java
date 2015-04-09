@@ -18,8 +18,6 @@ public class PlayerNetworkController {
     private Player player, opponent;
     private boolean playersTurn;
 
-
-
     public PlayerNetworkController(){
         opponent = null;
         player = null;
@@ -75,7 +73,12 @@ public class PlayerNetworkController {
         }, Constants.REGULAR_REQUEST_TIME);
     }
 
-
+    /**
+     * fireAtLocation
+     * @param x
+     * @param y
+     * @description Takes coordinates and calls to the server that he has fired on that locaiton
+     */
     public void fireAtLocation(int x, int y){
         class JsonData {
             private int x, y;
