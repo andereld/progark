@@ -24,6 +24,7 @@ public class PlayerNetworkController {
         opponent = null;
         player = null;
         playersTurn = false;
+        this.battleshipGame = battleshipGame;
     }
 
     public Player getPlayer() {
