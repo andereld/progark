@@ -1,24 +1,25 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.mygdx.game.controllers.GameNetworkController;
 
 public class Battleship extends Game {
     MainMenuScreen mainMenuScreen;
     WaitingScreen waitingScreen;
-    //GameScreen gameScreen;
     GameOverScreen gameOverScreen;
+    GameNetworkController gameNetworkController;
     int width, height;
     public Skin skin;
     public TextButton.TextButtonStyle style;
+
+    public static final int VIRTUAL_WIDTH = 405, VIRTUAL_HEIGHT = 720;
 
     @Override
     public void create() {
@@ -27,11 +28,12 @@ public class Battleship extends Game {
         width = 1080;
         height = 1920;
         createStyle();
+        gameNetworkController = new GameNetworkController(this);
         Gdx.graphics.setDisplayMode(1080,1920,false);
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
         waitingScreen = new WaitingScreen(this);
-        setScreen(gameOverScreen);
+        setScreen(mainMenuScreen);
     }
 
     private void createStyle() {
@@ -56,22 +58,26 @@ public class Battleship extends Game {
         setScreen(mainMenuScreen);
     }
 
-    public void setGameOverScreen() {
+    public void setGameScreen() {
+    }
+
+    public void setGameOverScreen(boolean thisPlayerWon) {
+        gameOverScreen.setWinningPlayer(thisPlayerWon);
         setScreen(gameOverScreen);
     }
 
     public void exit() {
-        // TODO Close network connections etc
+        // @todo Close network connections etc
         Gdx.app.exit();
     }
 
-    public void findMatch() {
-        // TODO Find match
+    public void findMatch(String userName) {
         setScreen(waitingScreen);
+        gameNetworkController.startGame(userName);
     }
 
     public void cancelFindMatch() {
-        // TODO Cancel network requests etc
+        // TODO Cancel network requests etc?
         setMainMenuScreen();
     }
 
@@ -79,4 +85,6 @@ public class Battleship extends Game {
         String path = "" + filename;
         return Gdx.files.internal(path);
     }
+
+
 }

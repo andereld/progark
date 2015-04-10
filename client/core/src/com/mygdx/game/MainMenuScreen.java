@@ -37,7 +37,6 @@ public class MainMenuScreen implements Screen{
         width = battleshipGame.width;
         height = battleshipGame.height;
         skin = battleshipGame.skin;
-
     }
 
     @Override
@@ -56,7 +55,6 @@ public class MainMenuScreen implements Screen{
         nickNameField = new TextField("", skin);
         playButton = new TextButton("Find match", skin);
         exitButton = new TextButton("Exit", skin);
-        //exitButton.align(Align.right);
 
         // Set element sizes
         shipImg.setSize(width-100, 300);
@@ -96,7 +94,7 @@ public class MainMenuScreen implements Screen{
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                battleshipGame.findMatch();
+                battleshipGame.findMatch(nickName);
             }
         });
         exitButton.addListener(new ClickListener() {
@@ -119,7 +117,6 @@ public class MainMenuScreen implements Screen{
     @Override
     public void dispose() {
         stage.dispose();
-        //skin.dispose();
         batch.dispose();
     }
 
