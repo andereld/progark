@@ -3,14 +3,21 @@
  */
 
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
+import com.badlogic.gdx.Net;
+import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.controllers.GameNetworkController;
 import com.mygdx.game.controllers.PlayerNetworkController;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import json.JsonHelper;
+import network.NetworkHelper;
 
 
 public class NetworkTest {
@@ -20,12 +27,20 @@ public class NetworkTest {
     private String player1;
     private String player2;
 
+
     @Before
     public void setup() {
         game1 = new GameNetworkController();
         game2 = new GameNetworkController();
         player1 = "andybb" + (int)(Math.random() * 10000);
         player2 = "mats" + (int)(Math.random() * 10000);
+    }
+
+    public void startGames() throws InterruptedException {
+        game1.startGame(player1);
+        TimeUnit.SECONDS.sleep(1);
+        game2.startGame(player2);
+
     }
 
     @Test
@@ -44,13 +59,34 @@ public class NetworkTest {
 
     }
 
-
     @Test
-    public void testFireOperation(){
-        int x = 2;
-        int y = 4;
-        PlayerNetworkController playerNetworkController = game1.getPlayerController();
-        playerNetworkController.fireAtLocation(x, y);
-        assertEquals(true, playerNetworkController.getPlayer().getBoard().getCell(x, y).isHit());
+    public void testNetworkedWaitForTurn() throws InterruptedException {
+        startGames();
+
+        NetworkHelper.sendGetRequest("/turn/"+ game1.getPlayerController().getPlayer().getUsername(), new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
+                ArrayList<String> usernames = new ArrayList<String>();
+                usernames.add(game1.getPlayerController().getPlayer().getUsername());
+                usernames.add(game2.getPlayerController().getPlayer().getUsername());
+
+                assertTrue("Username from server is one of the players", usernames.contains(jsonResponse.get("next")));
+            }
+
+            @Override
+            public void failed(Throwable t) {
+
+            }
+
+            @Override
+            public void cancelled() {
+
+            }
+        });
     }
+
+
+
+
 }

@@ -88,7 +88,7 @@ public class PlayerNetworkController {
             public void setUsername(String username) {this.username = username;}
         }
 
-        JsonData jsonData = new JsonData();
+        final JsonData jsonData = new JsonData();
         jsonData.setX(x);
         jsonData.setY(y);
         jsonData.setUsername(getPlayer().getUsername());
@@ -97,7 +97,7 @@ public class PlayerNetworkController {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 // Res: {shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "You lost" OR "You won"}
-                // @todo handle this response 
+                player.getBoard().getCell(jsonData.x, jsonData.y).setHit(true);
             }
 
             @Override
