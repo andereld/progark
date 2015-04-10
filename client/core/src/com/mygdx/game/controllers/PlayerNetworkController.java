@@ -116,7 +116,6 @@ public class PlayerNetworkController {
                 } else if (jsonResponse.get("message").equals("You won")) {
                     battleshipGame.setGameOverScreen(true);
                 }
-
             }
 
             @Override

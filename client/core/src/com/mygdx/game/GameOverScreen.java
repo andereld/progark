@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -55,12 +54,7 @@ public class GameOverScreen implements Screen {
         shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
         titleLabel = new Label("Sea Battle", skin, "default-font", Color.RED);
         gameOverLabel = new Label("Game over!", skin, "default-font", Color.BLACK);
-        String whoWon;
-        if (thisPlayerWon) {
-            whoWon = "You win!";
-        } else {
-            whoWon = "You lose!";
-        }
+        String whoWon = thisPlayerWon ? "You win!" : "You lose!";
         playerWonLabel = new Label(whoWon, skin, "default-font", Color.BLACK);
         gameOverLabel.setAlignment(Align.center);
         mainMenuButton = new TextButton("Main Menu", skin);
