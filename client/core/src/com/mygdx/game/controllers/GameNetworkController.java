@@ -3,6 +3,7 @@ package com.mygdx.game.controllers;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.mygdx.game.Battleship;
 import com.mygdx.game.Constants;
 import com.mygdx.game.models.*;
 
@@ -17,6 +18,11 @@ import network.NetworkHelper;
  */
 public class GameNetworkController {
     private PlayerNetworkController playerController;
+    private Battleship battleshipGame;
+
+    public GameNetworkController(Battleship battleshipGame) {
+        this.battleshipGame = battleshipGame;
+    }
 
     public PlayerNetworkController getPlayerController(){
         return playerController;
@@ -28,7 +34,7 @@ public class GameNetworkController {
      * @description Requests for a game. If game, get data and parse it.
      */
     public void startGame(String username){
-        playerController = new PlayerNetworkController();
+        playerController = new PlayerNetworkController(battleshipGame);
         playerController.setPlayer(new Player(username, null));
 
         class JsonData{
@@ -83,7 +89,7 @@ public class GameNetworkController {
                 // @todo
             }
         });
-        // @todo Notify the Battleship class that a game is ready
+        battleshipGame.setGameScreen();
     }
 
 

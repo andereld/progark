@@ -18,8 +18,9 @@ import network.NetworkHelper;
 public class PlayerNetworkController {
     private Player player, opponent;
     private boolean playersTurn;
+    private Battleship battleshipGame;
 
-    public PlayerNetworkController(){
+    public PlayerNetworkController(Battleship battleshipGame){
         opponent = null;
         player = null;
         playersTurn = false;
@@ -100,17 +101,17 @@ public class PlayerNetworkController {
                 // Res: {shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "You lost" OR "You won"}
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("shipWasHit").asBoolean() == true) {
-                    // @todo DO SOMETHING
+                    // @ todo Integrate with BoardGUI class
                 } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
-                    // @todo DO SOMETHING
+                    // @ todo Integrate with BoardGUI class
                 } else if (jsonResponse.get("message").equals("No game was found")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("Ongoing game")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("You lost")) {
-                    // @ todo DO SOMETHING
+                    battleshipGame.setGameOverScreen(false);
                 } else if (jsonResponse.get("message").equals("You won")) {
-                    // @todo DO SOMETHING
+                    battleshipGame.setGameOverScreen(true);
                 }
             }
 

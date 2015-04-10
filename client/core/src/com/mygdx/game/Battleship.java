@@ -1,18 +1,14 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.controllers.GameNetworkController;
-import com.mygdx.game.models.Board;
-import com.mygdx.game.models.Player;
 
 public class Battleship extends Game {
     MainMenuScreen mainMenuScreen;
@@ -32,7 +28,7 @@ public class Battleship extends Game {
         width = 1080;
         height = 1920;
         createStyle();
-        gameNetworkController = new GameNetworkController();
+        gameNetworkController = new GameNetworkController(this);
         Gdx.graphics.setDisplayMode(1080,1920,false);
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
@@ -60,6 +56,9 @@ public class Battleship extends Game {
 
     public void setMainMenuScreen() {
         setScreen(mainMenuScreen);
+    }
+
+    public void setGameScreen() {
     }
 
     public void setGameOverScreen(boolean thisPlayerWon) {
