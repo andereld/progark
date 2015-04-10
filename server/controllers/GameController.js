@@ -25,9 +25,9 @@ exports.startGame = function(player1, player2) {
     player2: player2,
     next: player1
   }).then(function(game) {
-    var player1Board = models.Board.randomBoard(),
-        player2Board = models.Board.randomBoard();
-    game.boards = [player1Board, player2Board];
-    game.save();
+    var player1Board = models.Board.randomBoard({belongsTo: game.id}),
+        player2Board = models.Board.randomBoard({belongsTo: game.id});
+
+    game.setBoards([player1Board, player2Board]);
   });
 };

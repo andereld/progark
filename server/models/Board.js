@@ -24,12 +24,19 @@ module.exports = function(sequelize, DataTypes) {
         Board.belongsTo(models.Game);
       },
 
-      randomBoard: function() {
+      randomBoard: function(opts) {
+        var GameId = null;
+        if (arguments.length > 0 && 'belongsTo' in opts) {
+          GameId = opts.belongsTo;
+        }
+
         var levels = ["...XX........XX..XXX...XX..........................X.........X...XXX...X.........X..XX..............",
           ".XXX.......XXX....X.........X.........X....XX...X.............X..XXX....X.........X.................",
           "................................XX.........XXX........XXXX.....XXX.....XXX.......XXX................"];
+
         return Board.create({
-          cellString: levels[Math.floor(Math.random() * levels.length)]
+          cellString: levels[Math.floor(Math.random() * levels.length)],
+          GameId: GameId
         });
       }
     },
@@ -81,7 +88,6 @@ module.exports = function(sequelize, DataTypes) {
         var cells = this.cells;
         cells[y * 10 + x].hasBeenHit = true;
         this.cells = cells;
-
         this.save();
 
         return this.cells[y * 10 + x].containsShip;
