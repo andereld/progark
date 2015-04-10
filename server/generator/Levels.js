@@ -19,7 +19,7 @@ exports.getRandomBoardAsString = function() {
 
     for(var j = 0; j < board.length; j++) {
       if(row[j] == true) {
-        boardString += "X";
+        boardString += "S";
       }
       else {
         boardString += ".";
@@ -27,7 +27,7 @@ exports.getRandomBoardAsString = function() {
     }
   }
   return boardString;
-}
+};
 
 // generates a random 10x10 board with ships placed either horizontally or vertically
 var generateRandomBoard = function() {
@@ -45,7 +45,7 @@ var generateRandomBoard = function() {
     }
   }
   return board;
-}
+};
 
 // helper method to check that a ship can be placed at the given coordinates
 var canPlace = function(ship, x, y, orientation) {
