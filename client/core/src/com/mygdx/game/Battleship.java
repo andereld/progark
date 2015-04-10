@@ -17,13 +17,13 @@ import com.mygdx.game.models.Player;
 public class Battleship extends Game {
     MainMenuScreen mainMenuScreen;
     WaitingScreen waitingScreen;
-    //GameScreen gameScreen;
     GameOverScreen gameOverScreen;
-    Player player;
     GameNetworkController gameNetworkController;
     int width, height;
     public Skin skin;
     public TextButton.TextButtonStyle style;
+
+    public static final int VIRTUAL_WIDTH = 405, VIRTUAL_HEIGHT = 720;
 
     @Override
     public void create() {
@@ -37,7 +37,7 @@ public class Battleship extends Game {
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
         waitingScreen = new WaitingScreen(this);
-        setScreen(gameOverScreen);
+        setScreen(mainMenuScreen);
     }
 
     private void createStyle() {
@@ -72,15 +72,9 @@ public class Battleship extends Game {
         Gdx.app.exit();
     }
 
-    public void findMatch(String username) {
+    public void findMatch(String userName) {
         setScreen(waitingScreen);
-        // @ todo This needs fixing. Where and when should a player and and a board be created?
-//        Board board = new Board();
-//        board.createFromJson("WHERE TO GET THIS JSON STRING?"); // @ todo FIX FIX
-//        //
-//        player = new Player(username, board);
-//        gameNetworkController.getPlayerController().setPlayer(player);
-        gameNetworkController.waitForOpponent();
+        gameNetworkController.startGame(userName);
     }
 
     public void cancelFindMatch() {
@@ -92,4 +86,6 @@ public class Battleship extends Game {
         String path = "" + filename;
         return Gdx.files.internal(path);
     }
+
+
 }

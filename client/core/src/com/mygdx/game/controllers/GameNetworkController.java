@@ -83,12 +83,13 @@ public class GameNetworkController {
                 // @todo
             }
         });
+        // @todo Notify the Battleship class that a game is ready
     }
 
 
     /**
      * waitForOpponent
-     * @description Pulls the play-API regulary until the game object is not null, which means there is a game ready to play
+     * @description Pulls the play-API regularly until the game object is not null, which means there is a game ready to play
      */
     public void waitForOpponent() {
         Timer timer = new Timer();

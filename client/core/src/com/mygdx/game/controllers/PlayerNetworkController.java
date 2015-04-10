@@ -78,7 +78,7 @@ public class PlayerNetworkController {
      * fireAtLocation
      * @param x
      * @param y
-     * @description Takes coordinates and calls to the server that he has fired on that locaiton
+     * @description Takes coordinates and calls to the server that he has fired on that location
      */
     public void fireAtLocation(int x, int y){
         class JsonData {
@@ -108,7 +108,7 @@ public class PlayerNetworkController {
                 } else if (jsonResponse.get("message").equals("Ongoing game")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("You lost")) {
-                        // @ todo DO SOMETHING
+                    // @ todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("You won")) {
                     // @todo DO SOMETHING
                 }
