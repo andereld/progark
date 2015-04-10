@@ -2,6 +2,7 @@ package com.mygdx.game.controllers;
 
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mygdx.game.Battleship;
 import com.mygdx.game.Constants;
 import com.mygdx.game.models.*;
 
@@ -17,8 +18,9 @@ import network.NetworkHelper;
 public class PlayerNetworkController {
     private Player player, opponent;
     private boolean playersTurn;
+    private Battleship battleshipGame;
 
-    public PlayerNetworkController(){
+    public PlayerNetworkController(Battleship battleshipGame){
         opponent = null;
         player = null;
         playersTurn = false;
@@ -40,7 +42,7 @@ public class PlayerNetworkController {
 
     /**
      * waitForTurn
-     * @description Checks regulary if it's this players turn or not
+     * @description Checks regularly if it's this players turn or not
      */
     public void waitForTurn() {
         Timer timer = new Timer();
@@ -77,7 +79,7 @@ public class PlayerNetworkController {
      * fireAtLocation
      * @param x
      * @param y
-     * @description Takes coordinates and calls to the server that he has fired on that locaiton
+     * @description Takes coordinates and calls to the server that he has fired on that location
      */
     public void fireAtLocation(int x, int y){
         class JsonData {
@@ -98,6 +100,22 @@ public class PlayerNetworkController {
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 // Res: {shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "You lost" OR "You won"}
                 player.getBoard().getCell(jsonData.x, jsonData.y).setHit(true);
+
+                JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
+                if (jsonResponse.get("shipWasHit").asBoolean() == true) {
+                    // @ todo Integrate with BoardGUI class
+                } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
+                    // @ todo Integrate with BoardGUI class
+                } else if (jsonResponse.get("message").equals("No game was found")){
+                    // @todo DO SOMETHING
+                } else if (jsonResponse.get("message").equals("Ongoing game")){
+                    // @todo DO SOMETHING
+                } else if (jsonResponse.get("message").equals("You lost")) {
+                    battleshipGame.setGameOverScreen(false);
+                } else if (jsonResponse.get("message").equals("You won")) {
+                    battleshipGame.setGameOverScreen(true);
+                }
+
             }
 
             @Override

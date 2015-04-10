@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mygdx.game.Battleship;
 import com.mygdx.game.controllers.GameNetworkController;
 import com.mygdx.game.controllers.PlayerNetworkController;
 
@@ -30,8 +31,8 @@ public class NetworkTest {
 
     @Before
     public void setup() {
-        game1 = new GameNetworkController();
-        game2 = new GameNetworkController();
+        game1 = new GameNetworkController(new Battleship());
+        game2 = new GameNetworkController(new Battleship());
         player1 = "andybb" + (int)(Math.random() * 10000);
         player2 = "mats" + (int)(Math.random() * 10000);
     }
