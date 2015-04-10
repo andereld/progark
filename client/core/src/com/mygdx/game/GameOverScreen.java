@@ -31,12 +31,17 @@ public class GameOverScreen implements Screen {
     Skin skin;
     TextButton.TextButtonStyle style;
     int width, height;
+    boolean thisPlayerWon;
 
     public GameOverScreen(Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
         width = battleshipGame.width;
         height = battleshipGame.height;
         style = battleshipGame.style;
+    }
+
+    public void setWinningPlayer(boolean thisPlayerWon) {
+        this.thisPlayerWon = thisPlayerWon;
     }
 
     @Override
@@ -50,8 +55,13 @@ public class GameOverScreen implements Screen {
         shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
         titleLabel = new Label("Sea Battle", skin, "default-font", Color.RED);
         gameOverLabel = new Label("Game over!", skin, "default-font", Color.BLACK);
-        playerWonLabel = new Label("Player X won the game", skin, "default-font", Color.BLACK);
-        // TODO: Show what player won the game
+        String whoWon;
+        if (thisPlayerWon) {
+            whoWon = "You win!";
+        } else {
+            whoWon = "You lose!";
+        }
+        playerWonLabel = new Label(whoWon, skin, "default-font", Color.BLACK);
         gameOverLabel.setAlignment(Align.center);
         mainMenuButton = new TextButton("Main Menu", skin);
         exitButton = new TextButton("Exit", skin);

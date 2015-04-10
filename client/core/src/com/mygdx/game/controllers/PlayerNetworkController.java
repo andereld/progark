@@ -2,6 +2,7 @@ package com.mygdx.game.controllers;
 
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
+import com.mygdx.game.Battleship;
 import com.mygdx.game.Constants;
 import com.mygdx.game.models.*;
 
@@ -40,7 +41,7 @@ public class PlayerNetworkController {
 
     /**
      * waitForTurn
-     * @description Checks regulary if it's this players turn or not
+     * @description Checks regularly if it's this players turn or not
      */
     public void waitForTurn() {
         Timer timer = new Timer();
@@ -97,7 +98,20 @@ public class PlayerNetworkController {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 // Res: {shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "You lost" OR "You won"}
-                // @todo handle this response 
+                JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
+                if (jsonResponse.get("shipWasHit").asBoolean() == true) {
+                    // @todo DO SOMETHING
+                } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
+                    // @todo DO SOMETHING
+                } else if (jsonResponse.get("message").equals("No game was found")){
+                    // @todo DO SOMETHING
+                } else if (jsonResponse.get("message").equals("Ongoing game")){
+                    // @todo DO SOMETHING
+                } else if (jsonResponse.get("message").equals("You lost")) {
+                        // @ todo DO SOMETHING
+                } else if (jsonResponse.get("message").equals("You won")) {
+                    // @todo DO SOMETHING
+                }
             }
 
             @Override

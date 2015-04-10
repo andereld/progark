@@ -96,7 +96,7 @@ public class MainMenuScreen implements Screen{
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                battleshipGame.findMatch();
+                battleshipGame.findMatch(nickName);
             }
         });
         exitButton.addListener(new ClickListener() {
