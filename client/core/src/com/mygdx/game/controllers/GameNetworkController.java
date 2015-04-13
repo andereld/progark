@@ -65,13 +65,14 @@ public class GameNetworkController {
                     Board playerBoard = new Board();
                     Board opponentBoard = new Board();
 
-                    String player = game.get("player1").asString().equals(username) ? "1" : "2";
-                    String opponent = player.equals("2") ? "1" : "2";
+                    int player = game.get("player1").asString().equals(username) ? 0: 1;
+                    int opponent = player == 1 ?  0: 1;
 
-                    playerBoard.createFromJson(JsonHelper.prettyPrint(game.get("board"+player)));
-                    opponentBoard.createFromJson(JsonHelper.prettyPrint(game.get("board"+opponent)));
+                    playerBoard.createFromJson(JsonHelper.prettyPrint(game.get("Boards").get(player)));
+                    opponentBoard.createFromJson(JsonHelper.prettyPrint(game.get("Boards").get(opponent)));
 
                     // Add values to models
+                    opponent += 1;
                     playerController.getPlayer().setBoard(playerBoard);
                     playerController.setOpponent(new Player(game.get("player"+opponent).asString(), opponentBoard));
                 }

@@ -36,7 +36,7 @@ public class Board {
     public void createFromJson(String json){
         board = new ArrayList<Cell>();
         JsonValue jsonObject = JsonHelper.parseJson(json);
-        JsonValue jsonBoard = jsonObject.get("board");
+        JsonValue jsonBoard = jsonObject.get("cells");
         int X = 0;
         int Y = 0;
         for (int i = 0; i < jsonBoard.size; i++){
@@ -52,5 +52,18 @@ public class Board {
                 Y += 1;
             }
          }
+    }
+
+    /**
+     * toString
+     * @return String representation of the board
+     */
+    public String toString(){
+        String toReturn = "";
+        for (Cell c: board){
+            toReturn += c + "\n";
+        }
+
+        return toReturn;
     }
 }

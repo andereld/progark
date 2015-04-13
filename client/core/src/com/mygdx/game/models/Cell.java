@@ -9,7 +9,7 @@ import json.JsonHelper;
  */
 public class Cell {
     private int x, y;
-    private boolean isHit, isShip;
+    private boolean isHit, containsShip;
 
     public Cell(int x, int y) {
         this.x = x;
@@ -27,12 +27,12 @@ public class Cell {
         this.isHit = isHit;
     }
 
-    public boolean isShip() {
-        return isShip;
+    public boolean isContainsShip() {
+        return containsShip;
     }
 
-    public void setShip(boolean isShip) {
-        this.isShip = isShip;
+    public void setContainsShip(boolean isShip) {
+        this.containsShip = isShip;
     }
 
 
@@ -44,9 +44,17 @@ public class Cell {
 
     public void createFromJson(String json){
         JsonValue jsonObject = JsonHelper.parseJson(json);
-        isHit = jsonObject.getBoolean("isHit");
-        isShip = jsonObject.getBoolean("isShip");
+        isHit = jsonObject.getBoolean("hasBeenHit");
+        containsShip = jsonObject.getBoolean("containsShip");
     }
 
+
+    /**
+     * toString
+     * @return String representation of the cell
+     */
+    public String toString(){
+        return "X: " + Integer.toString(x) + " Y: " + Integer.toString(y) + " isHit: " + isHit + " containsShip: " + containsShip;
+    }
 
 }
