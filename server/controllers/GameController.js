@@ -1,7 +1,7 @@
 var models = require('../models');
 
 /*
- * Return the promise of a game belonging to player
+ * Returns the promise of a game belonging to the given player.
  */
 exports.findGame = function(player) {
   return models.Game.find({
@@ -17,10 +17,11 @@ exports.findGame = function(player) {
 };
 
 /*
- * Start a new game for two players.
+ * Starts a new game for two players.
+ * Returns a promise which can be used to access the newly created game.
  */
 exports.startGame = function(player1, player2) {
-  models.Game.create({
+  return models.Game.create({
     player1: player1,
     player2: player2,
     next: player1
@@ -29,5 +30,10 @@ exports.startGame = function(player1, player2) {
         player2Board = models.Board.randomBoard({belongsTo: game.id});
 
     game.setBoards([player1Board, player2Board]);
+
+    return models.Game.find({
+      include: [models.Board],
+      where: {id: game.id}
+    });
   });
 };
