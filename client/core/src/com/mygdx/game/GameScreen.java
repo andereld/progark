@@ -22,6 +22,9 @@ public class GameScreen implements Screen {
     private TextButton btnFire;
     private int border;
     private float btnWidth, btnHeight;
+    private String playerName;
+    private String opponentName;
+    private boolean opponentIsMainView;
 
     /**
      * Constructor
@@ -34,7 +37,9 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         skin = game.getSkin();
-
+        playerName = game.getGameNetworkController().getPlayerController().getPlayer().getUsername();
+        opponentName = game.getGameNetworkController().getPlayerController().getOpponent().getUsername();
+        opponentIsMainView = true;
         stage.addActor(game.getBackground());
         game.getBackground().setFillParent(true);
 
@@ -45,7 +50,8 @@ public class GameScreen implements Screen {
 
         drawButtons();
         drawBoards();
-        drawLabel("QK");
+        //@todo draw correct labels
+        drawLabel(opponentName);
         waitForTurn();
     }
 
@@ -144,26 +150,17 @@ public class GameScreen implements Screen {
         waitForTurn();
     }
 
-    //
-    /**
-     * When a shot has been fired, either at this players board or the opponents board,
-     * this method should call the necessary methods to update the correct board
-     * @param x = coordinate
-     * @param y = coordinate
-     * @param isMainBoard = if its the board of this player or opponent
-     * @param shipWasHit = if the fire hit a ship or not
-     */
-    public void incomingFire(int x, int y, boolean isMainBoard, boolean shipWasHit) {
-        BoardGUI board;
-        if (isMainBoard) {
-            board = getThisPlayersBoard();
+    public void changeLabel() {
+        if (opponentIsMainView) {
+            drawLabel(opponentName);
         } else {
-            board = getOtherPlayersBoard();
+            drawLabel(playerName);
         }
-        board.fireAtCell(x, y, shipWasHit);
     }
 
     public void btnSwitchClicked() {
+        opponentIsMainView = !opponentIsMainView;
+        changeLabel();
         changeBoards();
     }
 

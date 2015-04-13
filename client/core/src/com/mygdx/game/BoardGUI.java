@@ -77,10 +77,10 @@ public class BoardGUI extends Table {
     }
 
     public boolean isMainBoard() {
-        // Funke rett ikje sant?
         return !opponentBoard;
     }
 
+    // @ todo delete this method obsolete
     public void fireAtCell(int x, int y, boolean shipWasHit) {
         //@todo Tegn brettet med koordinat x,y som shipWasHit, eg fatte ikje drawCells
         // fyll inn marker, change

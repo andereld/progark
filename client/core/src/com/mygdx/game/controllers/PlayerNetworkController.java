@@ -61,11 +61,7 @@ public class PlayerNetworkController {
                             List<String> coordinates = Arrays.asList(str.split(","));
                             int x = Integer.valueOf(coordinates.get(0));
                             int y = Integer.valueOf(coordinates.get(1));
-                            boolean hit = player.getBoard().getCell(x,y).isContainsShip();
-                            if (x == -1 || y == -1) {
-                                hit = false;
-                            }
-                            battleshipGame.getGameScreen().incomingFire(x, y, true, hit);
+                            fireAtThisBoard(x,y);
                             setPlayersTurn(true);
                             cancel();
                         } else{
@@ -87,6 +83,17 @@ public class PlayerNetworkController {
         }, Constants.REGULAR_REQUEST_TIME);
     }
 
+    public void fireAtThisBoard(int x, int y) {
+        boolean hit = true;
+        if (x == -1 || y == -1) {
+            hit = false;
+        }
+        player.getBoard().getCell(x,y).setHit(hit);
+    }
+
+    public void fireAtOpponentBoard(int x, int y, boolean hit) {
+        opponent.getBoard().getCell(x,y).setHit(hit);
+    }
 
     /**
      * fireAtLocation
@@ -115,9 +122,9 @@ public class PlayerNetworkController {
 
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("shipWasHit").asBoolean() == true) {
-                    battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, false, true);
+                    fireAtOpponentBoard(jsonData.x, jsonData.y, true);
                 } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
-                    battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, false, false);
+                    fireAtOpponentBoard(jsonData.x, jsonData.y, false);
                 } else if (jsonResponse.get("message").equals("No game was found")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("Ongoing game")){

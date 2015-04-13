@@ -33,9 +33,11 @@ public class Battleship extends Game {
         background = new Image(backgroundTexture);
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
-        fontScalingRatio = (skin.getFont("default-font").getScaleY()/Battleship.VIRTUAL_HEIGHT) * Gdx.graphics.getHeight();
 
+        fontScalingRatio = 1;
         if(Gdx.app.getType().equals(Application.ApplicationType.Android)) {
+
+            fontScalingRatio = (skin.getFont("default-font").getScaleY()/Battleship.VIRTUAL_HEIGHT) * Gdx.graphics.getHeight();
             width = Gdx.graphics.getWidth();
             height = Gdx.graphics.getHeight();
             skin.getFont("default-font").setScale(fontScalingRatio);
@@ -47,7 +49,7 @@ public class Battleship extends Game {
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
         waitingScreen = new WaitingScreen(this);
-        gameScreen = new GameScreen(this);
+        //gameScreen = new GameScreen(this);
         setScreen(gameOverScreen);
     }
 
