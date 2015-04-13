@@ -6,6 +6,8 @@ import com.mygdx.game.Battleship;
 import com.mygdx.game.Constants;
 import com.mygdx.game.models.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -54,8 +56,17 @@ public class PlayerNetworkController {
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
                         JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                         if (jsonResponse.get("username").equals(getPlayer().getUsername())){
+                            // Handle the response when the opponent fires at your board
+                            String str = jsonResponse.get("lastMove").asString();
+                            List<String> coordinates = Arrays.asList(str.split(","));
+                            int x = Integer.valueOf(coordinates.get(0));
+                            int y = Integer.valueOf(coordinates.get(1));
+                            boolean hit = player.getBoard().getCell(x,y).isContainsShip();
+                            if (x == -1 || y == -1) {
+                                hit = false;
+                            }
+                            battleshipGame.getGameScreen().incomingFire(x, y, true, hit);
                             setPlayersTurn(true);
-
                             cancel();
                         } else{
                             setPlayersTurn(false);
@@ -75,9 +86,6 @@ public class PlayerNetworkController {
             }
         }, Constants.REGULAR_REQUEST_TIME);
     }
-
-    // @todo: we need a method that is called when the opponent fires (fireAtLocation is only called when this player fires??)
-    // battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, true, true);
 
 
     /**
