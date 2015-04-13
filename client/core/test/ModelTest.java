@@ -75,13 +75,13 @@ public class ModelTest {
         assertNotNull(cell1);
         assertNotNull(cell2);
 
-        JsonValue jsonCell1 = game.get("Boards").get(0).get((y1*10 + x1));
-        JsonValue jsonCell2 = game.get("Boards").get(1).get((y2*10) + x2);
+        JsonValue jsonCell1 = game.get("Boards").get(0).get("cells").get((y1*10 + x1));
+        JsonValue jsonCell2 = game.get("Boards").get(1).get("cells").get((y2*10) + x2);
 
-        assertEquals("Cell has same isHit value as the JSON given", cell1.isHit(), jsonCell1.get("hasBeenHit").asBoolean());
+        assertEquals("Cell has same isHit value as the JSON given", cell1.isHit(), jsonCell1.getBoolean("hasBeenHit"));
         assertEquals("Cell has same isContainsShip value as the JSON given", cell1.isContainsShip(), jsonCell1.get("containsShip").asBoolean());
 
-        assertEquals("Cell has same isHit value as the JSON given", cell2.isHit(), jsonCell2.get("hasBeenHit").asBoolean() );
+        assertEquals("Cell has same isHit value as the JSON given", cell2.isHit(), jsonCell2.getBoolean("hasBeenHit"));
         assertEquals("Cell has same isContainsShip value as the JSON given", cell2.isContainsShip(), jsonCell2.get("containsShip").asBoolean());
 
     }
