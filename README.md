@@ -50,13 +50,20 @@ Res: `{game: GAME OBJECT}` (null if a game doesn't exist)
 
 #### Turn
 
-To get the next player turn in the game.
+To get the player whose turn it is at the moment.
+
+The returned JSON includes the last move made by a player, which, if it just
+became your turn, will be the last move your opponent made. The client needs
+this value to update the local state of the board. The format of this string is
+`x,y` where x and y are integer coordinates for the cell which was last fired
+upon. At the beginning of the game, before any shots have been fired, the value
+is `-1,-1`.
 
 ```
 GET /api/turn/:username
 ```
 
-Res: `{username: STRING}`
+Res: `{username: STRING, lastMove: STRING}`
 
 #### Fire 
 
