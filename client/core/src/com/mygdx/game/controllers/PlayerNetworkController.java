@@ -106,9 +106,9 @@ public class PlayerNetworkController {
 
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("shipWasHit").asBoolean() == true) {
-                    battleshipGame.getGameScreen().incomingFire(x,y, false, true);
+                    battleshipGame.getGameScreen().incomingFire(jsonData.x,jsonData.y, false, true);
                 } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
-                    battleshipGame.getGameScreen().incomingFire(x,y, false, false);
+                    battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, false, false);
                 } else if (jsonResponse.get("message").equals("No game was found")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("Ongoing game")){
