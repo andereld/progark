@@ -2,7 +2,6 @@ package com.mygdx.game.controllers;
 
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
 import com.mygdx.game.Battleship;
 import com.mygdx.game.Constants;
 import com.mygdx.game.models.*;
@@ -66,13 +65,14 @@ public class GameNetworkController {
                     Board playerBoard = new Board();
                     Board opponentBoard = new Board();
 
-                    String player = game.get("player1").asString().equals(username) ? "0" : "1";
-                    String opponent = player.equals("2") ? "0" : "1";
+                    int player = game.get("player1").asString().equals(username) ? 0: 1;
+                    int opponent = player == 1 ?  0: 1;
 
                     playerBoard.createFromJson(JsonHelper.prettyPrint(game.get("Boards").get(player)));
                     opponentBoard.createFromJson(JsonHelper.prettyPrint(game.get("Boards").get(opponent)));
 
                     // Add values to models
+                    opponent += 1;
                     playerController.getPlayer().setBoard(playerBoard);
                     playerController.setOpponent(new Player(game.get("player"+opponent).asString(), opponentBoard));
                 }
@@ -97,7 +97,7 @@ public class GameNetworkController {
      * waitForOpponent
      * @description Pulls the play-API regularly until the game object is not null, which means there is a game ready to play
      */
-    public void waitForOpponent() {
+    private void waitForOpponent() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

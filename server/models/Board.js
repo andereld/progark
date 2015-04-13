@@ -9,6 +9,8 @@
 //    'S' represents a cell occupied by a ship which has not been hit,
 //    'h' represents a cell of clear ocean which has been hit, and
 //    'H' represents a cell occupied by a ship which has been hit.
+var levelGenerator = require('../generator/Levels');
+
 function Cell(containsShip, hasBeenHit) {
     this.containsShip = containsShip;
     this.hasBeenHit = hasBeenHit;
@@ -30,12 +32,8 @@ module.exports = function(sequelize, DataTypes) {
           GameId = opts.belongsTo;
         }
 
-        var levels = ["...XX........XX..XXX...XX..........................X.........X...XXX...X.........X..XX..............",
-          ".XXX.......XXX....X.........X.........X....XX...X.............X..XXX....X.........X.................",
-          "................................XX.........XXX........XXXX.....XXX.....XXX.......XXX................"];
-
         return Board.create({
-          cellString: levels[Math.floor(Math.random() * levels.length)],
+          cellString: levelGenerator.getRandomBoardAsString(),
           GameId: GameId
         });
       }

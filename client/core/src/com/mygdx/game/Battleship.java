@@ -95,7 +95,7 @@ public class Battleship extends Game {
     }
 
     public void exit() {
-        // @todo Close network connections etc
+        closeNetwork();
         Gdx.app.exit();
     }
 
@@ -105,7 +105,6 @@ public class Battleship extends Game {
     }
 
     public void cancelFindMatch() {
-        // TODO Cancel network requests etc?
         setMainMenuScreen();
     }
 
@@ -119,6 +118,10 @@ public class Battleship extends Game {
 
     public TextButton.TextButtonStyle getStyle() {
         return style;
+    }
+
+    public void closeNetwork() {
+        // If needed to close sockets etc
     }
 
     public com.badlogic.gdx.files.FileHandle getFile(String filename) {

@@ -80,12 +80,6 @@ public class BoardGUI extends Table {
         return !opponentBoard;
     }
 
-    // @ todo delete this method obsolete
-    public void fireAtCell(int x, int y, boolean shipWasHit) {
-        //@todo Tegn brettet med koordinat x,y som shipWasHit, eg fatte ikje drawCells
-        // fyll inn marker, change
-        drawCells(x, y, true,true);
-    }
 
     public int getMarkedRow() {
         return markedRow;

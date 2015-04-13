@@ -1,8 +1,13 @@
+function coordinatesToString(x, y) {
+  return x + ',' + y;
+}
+
 module.exports = function(sequelize, DataTypes) {
   var Game = sequelize.define('Game', {
     player1: {type: DataTypes.STRING},
     player2: {type: DataTypes.STRING},
     next: {type: DataTypes.STRING},
+    lastMove: {type: DataTypes.STRING, allowNull: false, defaultValue: '-1,-1'},
     finished: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false}
   }, {
 
@@ -16,18 +21,19 @@ module.exports = function(sequelize, DataTypes) {
       fire: function (player, x, y) {
         if (player === this.player1) {
           this.next = this.player2;
-          this.save();
-
-          return this.Boards[0].fire(x, y);
-        } else if (player === this.player2) {
-          this.next = this.player1;
+          this.lastMove = coordinatesToString(x, y);
           this.save();
 
           return this.Boards[1].fire(x, y);
+        } else if (player === this.player2) {
+          this.next = this.player1;
+          this.lastMove = coordinatesToString(x, y);
+          this.save();
+
+          return this.Boards[0].fire(x, y);
         }
       }
     }
-
   });
 
   return Game;
