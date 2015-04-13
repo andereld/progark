@@ -1,6 +1,5 @@
 package com.mygdx.game.models;
 
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;

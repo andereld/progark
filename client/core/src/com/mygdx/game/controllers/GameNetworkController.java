@@ -2,7 +2,6 @@ package com.mygdx.game.controllers;
 
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
 import com.mygdx.game.Battleship;
 import com.mygdx.game.Constants;
 import com.mygdx.game.models.*;
@@ -97,7 +96,7 @@ public class GameNetworkController {
      * waitForOpponent
      * @description Pulls the play-API regularly until the game object is not null, which means there is a game ready to play
      */
-    public void waitForOpponent() {
+    private void waitForOpponent() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

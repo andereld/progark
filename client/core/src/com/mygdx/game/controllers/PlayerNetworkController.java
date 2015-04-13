@@ -24,6 +24,7 @@ public class PlayerNetworkController {
         opponent = null;
         player = null;
         playersTurn = false;
+        this.battleshipGame = battleshipGame;
     }
 
     public Player getPlayer() {
@@ -117,7 +118,6 @@ public class PlayerNetworkController {
                 } else if (jsonResponse.get("message").equals("You won")) {
                     battleshipGame.setGameOverScreen(true);
                 }
-
             }
 
             @Override
