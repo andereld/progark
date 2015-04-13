@@ -3,7 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -11,16 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
- * @author Haakon Meyer Tørnquist <haakon.t@gmail.com>
+ * @author Haakon Meyer Toernquist <haakon.t@gmail.com>
  *         Date: 12.03.2015 14:23.
  */
 public class GameScreen implements Screen {
 
     private Battleship game;
-    private BoardGUI mainBoard, secondaryBoard;
+    private BoardGUI bigBoard, smallBoard;
     private Stage stage;
     private Skin skin;
-    TextButton btnFire;
+    private TextButton btnFire;
     private int border;
     private float btnWidth, btnHeight;
 
@@ -29,29 +28,24 @@ public class GameScreen implements Screen {
      * @param game connects the GameGUI to a Battleship instance
      */
     public GameScreen(Battleship game) {
-        this.game = game;
 
+        this.game = game;
         this.stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
         skin = game.getSkin();
-        Texture backgroundTexture = new Texture("background.jpg");
-        Image background = new Image(backgroundTexture);
 
-        stage.addActor(background);
-        background.setFillParent(true);
+        stage.addActor(game.getBackground());
+        game.getBackground().setFillParent(true);
 
-        border = Gdx.graphics.getWidth()/24;
+        border = game.getBorder();
 
-        mainBoard = new BoardGUI(this, true);
-        secondaryBoard = new BoardGUI(this, false);
+        bigBoard = new BoardGUI(this, true, false);
+        smallBoard = new BoardGUI(this, false, true);
 
         drawButtons();
         drawBoards();
-        //stage.addActor(mainBoard);
-        //stage.addActor(secondaryBoard);
         drawLabel("QK");
-
         waitForTurn();
     }
 
@@ -67,23 +61,24 @@ public class GameScreen implements Screen {
      * This method is responsible for drawing the big board and the small board
      */
     public void drawBoards() {
-        mainBoard.setPosition(border, Gdx.graphics.getHeight() - (11 * mainBoard.getCellSize()) - border - 30);
+
+        bigBoard.setPosition(border, Gdx.graphics.getHeight() - (11 * bigBoard.getCellSize()) - border - 30);
         int mainBoardSize = Gdx.graphics.getWidth() - (2 * border) - 30;
-        mainBoard.setSize(mainBoardSize, mainBoardSize);
+        bigBoard.setSize(mainBoardSize, mainBoardSize);
 
-        secondaryBoard.setPosition((2 * border) + btnWidth, border);
+        smallBoard.setPosition((2 * border) + btnWidth, border);
         int secondaryBoardSize = Gdx.graphics.getWidth() - (3 * border) - Math.round(btnWidth);
-        secondaryBoard.setSize(secondaryBoardSize, secondaryBoardSize);
+        smallBoard.setSize(secondaryBoardSize, secondaryBoardSize);
 
-        stage.addActor(mainBoard);
-        stage.addActor(secondaryBoard);
+        stage.addActor(bigBoard);
+        stage.addActor(smallBoard);
     }
 
     /**
-     * This method is responsible for drawing the two buttons
+     * This method is responsible for drawing the three buttons
      */
     public void drawButtons() {
-        double bW = Gdx.graphics.getWidth()/2.4, bH = (4 * secondaryBoard.getCellSize()) - border;
+        double bW = Gdx.graphics.getWidth()/2.4, bH = (4 * smallBoard.getCellSize()) - border;
         btnWidth = (float) bW;
         btnHeight = (float) bH;
 
@@ -113,6 +108,7 @@ public class GameScreen implements Screen {
 
         // "Fire" button
         btnFire = new TextButton("Fire", skin);
+        btnFire.setColor(Color.RED);
         btnFire.setPosition(border, 3 * border + 2 * btnHeight);
         btnFire.setSize(btnWidth, btnHeight);
         btnFire.addListener(new ClickListener() {
@@ -126,15 +122,13 @@ public class GameScreen implements Screen {
         stage.addActor(btnFire);
         stage.addActor(btnSwitch);
         stage.addActor(btnQuit);
-
-        btnFire.setText("balle");
     }
 
     public void drawLabel(String text) {
         Label label = new Label(text, skin);
         label.setSize(300, 50);
-        float labelHeight = (Gdx.graphics.getHeight() - border - 11 * (secondaryBoard.getCellSize() + mainBoard.getCellSize()))/2 + (11 * secondaryBoard.getCellSize());
-        label.setPosition(Gdx.graphics.getWidth()/2, labelHeight);
+        float labelHeight = (Gdx.graphics.getHeight() - border - 11 * (smallBoard.getCellSize() + bigBoard.getCellSize()))/2 + (11 * smallBoard.getCellSize());
+        label.setPosition(Gdx.graphics.getWidth() / 2, labelHeight);
         stage.addActor(label);
     }
 
@@ -166,36 +160,23 @@ public class GameScreen implements Screen {
         } else {
             board = getOtherPlayersBoard();
         }
-        board.fireAtCell(x,y,shipWasHit);
+        board.fireAtCell(x, y, shipWasHit);
     }
 
     public void btnSwitchClicked() {
         changeBoards();
     }
 
-    // Should return the board of this player
-    private BoardGUI getThisPlayersBoard() {
-        if (mainBoard.isMainBoard()) {
-            return mainBoard;
-        }
-        return secondaryBoard;
-    }
-
-    // Should return the board of the opponent
-    private BoardGUI getOtherPlayersBoard() {
-        if (!mainBoard.isMainBoard()) {
-            return mainBoard;
-        }
-        return secondaryBoard;
-    }
-
     /**
      * This method moves the small board up to the big board screen, and vice versa
      */
     public void changeBoards() {
-        BoardGUI mainBoardOld = mainBoard;
-        mainBoard = secondaryBoard;
-        secondaryBoard = mainBoardOld;
+        BoardGUI mainBoardOld = bigBoard;
+        bigBoard = smallBoard;
+        smallBoard = mainBoardOld;
+
+        bigBoard.drawCells(0, 0, false, true);
+        smallBoard.drawCells(0, 0, false, true);
 
         drawBoards();
     }
@@ -229,6 +210,23 @@ public class GameScreen implements Screen {
 
     }
 
+    // @todo haakon: virke disse metodene?
+    // Should return the board of this player
+    private BoardGUI getThisPlayersBoard() {
+        if (bigBoard.isMainBoard()) {
+            return bigBoard;
+        }
+        return smallBoard;
+    }
+
+    // Should return the board of the opponent
+    private BoardGUI getOtherPlayersBoard() {
+        if (!bigBoard.isMainBoard()) {
+            return bigBoard;
+        }
+        return smallBoard;
+    }
+
     @Override
     public void hide() {
         dispose();
@@ -237,7 +235,6 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        skin.dispose();
     }
 
     public int getBorder() {

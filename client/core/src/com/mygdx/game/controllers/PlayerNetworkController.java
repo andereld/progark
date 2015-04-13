@@ -55,6 +55,7 @@ public class PlayerNetworkController {
                         JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                         if (jsonResponse.get("username").equals(getPlayer().getUsername())){
                             setPlayersTurn(true);
+
                             cancel();
                         } else{
                             setPlayersTurn(false);
@@ -76,6 +77,8 @@ public class PlayerNetworkController {
     }
 
     // @todo: we need a method that is called when the opponent fires (fireAtLocation is only called when this player fires??)
+    // battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, true, true);
+
 
     /**
      * fireAtLocation
@@ -101,8 +104,6 @@ public class PlayerNetworkController {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 // Res: {shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "You lost" OR "You won"}
-                //player.getBoard().getCell(jsonData.x, jsonData.y).setHit(true);
-                //battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, true, true);
 
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("shipWasHit").asBoolean() == true) {

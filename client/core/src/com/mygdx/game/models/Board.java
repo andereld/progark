@@ -28,6 +28,9 @@ public class Board {
         return null;
     }
 
+    public ArrayList<Cell> getCells() {
+        return board;
+    }
 
     /**
      * createFromJson
