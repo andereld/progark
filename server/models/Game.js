@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
 
           return this.Boards[0].fire(x, y);
         }
+      },
+
+      gameOver: function() {
+        return Boards[0].gameOver() || Boards[1].gameOver();
       }
     }
   });

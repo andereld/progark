@@ -8,10 +8,12 @@ exports.fire = function (req, res) {
 
   GameController.findGame(player).then(function(game) {
     if (game != null) {
-      // TODO: Fix this. Game cannot be over (see findGame).
-      // If game is already over, it means the other player won.
+      // If game is over, the other player won.
+      // The game's finished field is then set to true, so that findGame will not return it anymore..
       if (game.gameOver) {
         res.json({'message': "You lost"});
+        game.finished = true;
+        game.save();
         return;
       }
 
