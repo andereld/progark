@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
- * @author Håkon Meyer Tørnquist <haakon.t@gmail.com>
+ * @author haakon Meyer Tørnquist <haakon.t@gmail.com>
  *         Date: 12.03.2015 14:23.
  */
 public class BoardGUI extends Table {
@@ -63,9 +63,9 @@ public class BoardGUI extends Table {
         return isMainBoard;
     }
 
-    public void fireAtCell(int x, int y, boolean isHit) {
+    public void fireAtCell(int x, int y, boolean shipWasHit) {
         Texture texture;
-        if (isHit) {
+        if (shipWasHit) {
             texture = hit;
         } else {
             texture = miss;

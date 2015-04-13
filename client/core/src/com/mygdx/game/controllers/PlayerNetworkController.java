@@ -101,21 +101,22 @@ public class PlayerNetworkController {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 // Res: {shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "You lost" OR "You won"}
-                player.getBoard().getCell(jsonData.x, jsonData.y).setHit(true);
+                //player.getBoard().getCell(jsonData.x, jsonData.y).setHit(true);
+                //battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, true, true);
 
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("shipWasHit").asBoolean() == true) {
-                    battleshipGame.getGameScreen().incomingFire(x,y, false, true);
+                    battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, false, true);
                 } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
-                    battleshipGame.getGameScreen().incomingFire(x,y, false, false);
+                    battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, false, false);
                 } else if (jsonResponse.get("message").equals("No game was found")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("Ongoing game")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("You lost")) {
-                    battleshipGame.setGameOverScreen(false);
+                    battleshipGame.setGameOver(false);
                 } else if (jsonResponse.get("message").equals("You won")) {
-                    battleshipGame.setGameOverScreen(true);
+                    battleshipGame.setGameOver(true);
                 }
 
             }
