@@ -54,4 +54,17 @@ public class Board {
             }
          }
     }
+
+    /**
+     * toString
+     * @return String representation of the board
+     */
+    public String toString(){
+        String toReturn = "";
+        for (Cell c: board){
+            toReturn += c + "\n";
+        }
+
+        return toReturn;
+    }
 }
