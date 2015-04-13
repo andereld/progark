@@ -31,6 +31,9 @@ exports.startGame = function(player1, player2) {
 
     game.setBoards([player1Board, player2Board]);
 
-    return game;
+    return models.Game.find({
+      include: [models.Board],
+      where: {id: game.id}
+    });
   });
 };

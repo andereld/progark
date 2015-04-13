@@ -1,3 +1,4 @@
+var models = require('../models');
 var GameController = require("./GameController");
 
 var playerQueue = [];
@@ -15,7 +16,12 @@ exports.startGame = function(req, res) {
     // Start a new game if opponent exists and opponent is not the same player. Pops the last element in queue.
     else if (playerQueue.length > 0 && playerQueue.indexOf(player1) === -1) {
       GameController.startGame(player1, playerQueue.pop()).then(function(game) {
-        res.json({'game': game});
+        models.Game.find({
+          include: [models.Board],
+          where: {id: game.id}
+        }).then(function(game) {
+          res.json({'game': game});
+        });
       });
     }
 
