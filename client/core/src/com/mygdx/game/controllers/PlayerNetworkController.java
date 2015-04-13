@@ -75,6 +75,8 @@ public class PlayerNetworkController {
         }, Constants.REGULAR_REQUEST_TIME);
     }
 
+    // @todo: we need a method that is called when the opponent fires (fireAtLocation is only called when this player fires??)
+
     /**
      * fireAtLocation
      * @param x
@@ -103,9 +105,9 @@ public class PlayerNetworkController {
 
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("shipWasHit").asBoolean() == true) {
-                    // @ todo Integrate with BoardGUI class
+                    battleshipGame.getGameScreen().incomingFire(x,y, false, true);
                 } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
-                    // @ todo Integrate with BoardGUI class
+                    battleshipGame.getGameScreen().incomingFire(x,y, false, false);
                 } else if (jsonResponse.get("message").equals("No game was found")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("Ongoing game")){
@@ -129,7 +131,6 @@ public class PlayerNetworkController {
             }
         });
     }
-
 
     public Player getOpponent() {
         return opponent;
