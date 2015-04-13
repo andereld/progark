@@ -28,4 +28,12 @@ public class Player {
         this.board = board;
     }
 
+    /**
+     * toString
+     * @return String representation of the player
+     */
+    public String toString(){
+        return "Username is " + username + "\n this player has the following board: \n" + board;
+    }
+
 }

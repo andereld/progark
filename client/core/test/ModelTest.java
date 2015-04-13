@@ -1,14 +1,15 @@
 
 
 import com.badlogic.gdx.utils.JsonValue;
-import com.badlogic.gdx.utils.JsonWriter;
 import com.mygdx.game.models.Board;
 import com.mygdx.game.models.Cell;
 import com.mygdx.game.models.Player;
 
 import json.JsonHelper;
-import org.junit.Test;
+
 import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 /**
@@ -18,11 +19,11 @@ public class ModelTest {
 
     private Board board1, board2;
     private Player player1, player2;
-    private String gameString = "";
+    private String gameString = "{\"game\":{\"id\":6,\"player1\":\"esso3\",\"player2\":\"esso2\",\"next\":\"esso3\",\"finished\":false,\"createdAt\":\"2015-04-10T13:46:34.091Z\",\"updatedAt\":\"2015-04-10T13:46:34.091Z\",\"Boards\":[{\"cells\":[{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false}],\"gameOver\":false,\"id\":11,\"cellString\":\"................................SS.........SSS........SSSS.....SSS.....SSS.......SSS................\",\"createdAt\":\"2015-04-10T13:46:34.116Z\",\"updatedAt\":\"2015-04-10T13:46:34.116Z\",\"GameId\":6},{\"cells\":[{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":true,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false},{\"containsShip\":false,\"hasBeenHit\":false}],\"gameOver\":false,\"id\":12,\"cellString\":\"................................SS.........SSS........SSSS.....SSS.....SSS.......SSS................\",\"createdAt\":\"2015-04-10T13:46:34.117Z\",\"updatedAt\":\"2015-04-10T13:46:34.117Z\",\"GameId\":6}]}}";
     private JsonValue game;
 
 
-    @Test
+    @Before
     public void testBoardCreation() {
         this.board1 = new Board();
         this.board2 = new Board();
@@ -42,6 +43,9 @@ public class ModelTest {
 
         assertEquals("Given username is the same as in the model for player 1", player1.getUsername().toString(), game.get("player1").toString());
         assertEquals("Given username is the same as in the model for player 2", player2.getUsername().toString(), game.get("player2").toString());
+
+        assertNotNull(player1.getBoard());
+        assertNotNull(player2.getBoard());
     }
 
     @Test
@@ -52,7 +56,7 @@ public class ModelTest {
         cell.createFromJson(json);
 
         assertEquals(false, cell.isHit());
-        assertEquals(true, cell.isShip());
+        assertEquals(true, cell.isContainsShip());
 
     }
 
@@ -71,14 +75,14 @@ public class ModelTest {
         assertNotNull(cell1);
         assertNotNull(cell2);
 
-        JsonValue jsonCell1 = game.get("Boards").get(0).get((y1*10 + x1));
-        JsonValue jsonCell2 = game.get("Boards").get(1).get((y2*10) + x2);
+        JsonValue jsonCell1 = game.get("Boards").get(0).get("cells").get((y1*10 + x1));
+        JsonValue jsonCell2 = game.get("Boards").get(1).get("cells").get((y2*10) + x2);
 
-        assertEquals("Cell has same isHit value as the JSON given", cell1.isHit(), jsonCell1.get("hasBeenHit").asBoolean());
-        assertEquals("Cell has same isShip value as the JSON given", cell1.isShip(), jsonCell1.get("containsShip").asBoolean());
+        assertEquals("Cell has same isHit value as the JSON given", cell1.isHit(), jsonCell1.getBoolean("hasBeenHit"));
+        assertEquals("Cell has same isContainsShip value as the JSON given", cell1.isContainsShip(), jsonCell1.get("containsShip").asBoolean());
 
-        assertEquals("Cell has same isHit value as the JSON given", cell2.isHit(), jsonCell2.get("hasBeenHit").asBoolean() );
-        assertEquals("Cell has same isShip value as the JSON given", cell2.isShip(), jsonCell2.get("containsShip").asBoolean());
+        assertEquals("Cell has same isHit value as the JSON given", cell2.isHit(), jsonCell2.getBoolean("hasBeenHit"));
+        assertEquals("Cell has same isContainsShip value as the JSON given", cell2.isContainsShip(), jsonCell2.get("containsShip").asBoolean());
 
     }
 
