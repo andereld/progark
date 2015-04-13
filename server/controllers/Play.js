@@ -10,7 +10,7 @@ exports.fire = function (req, res) {
     if (game != null) {
       // If game is over, the other player won.
       // The game's finished field is then set to true, so that findGame will not return it anymore..
-      if (game.gameOver) {
+      if (game.gameOver()) {
         res.json({'message': "You lost"});
         game.finished = true;
         game.save();
