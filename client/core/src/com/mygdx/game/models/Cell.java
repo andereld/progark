@@ -48,6 +48,7 @@ public class Cell {
         containsShip = jsonObject.getBoolean("containsShip");
     }
 
+
     /**
      * toString
      * @return String representation of the cell
