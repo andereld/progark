@@ -6,6 +6,8 @@ import com.mygdx.game.Battleship;
 import com.mygdx.game.Constants;
 import com.mygdx.game.models.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,7 +45,8 @@ public class PlayerNetworkController {
 
     /**
      * waitForTurn
-     * @description Checks regularly if it's this players turn or not
+     * @description Checks regularly if it's this players turn or not, and if so,
+     * retrieves the coordinates for the last shot from the opponent
      */
     public void waitForTurn() {
         Timer timer = new Timer();
@@ -55,6 +58,12 @@ public class PlayerNetworkController {
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
                         JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                         if (jsonResponse.get("username").equals(getPlayer().getUsername())){
+                            // Handle the response when the opponent fires at your board
+                            String str = jsonResponse.get("lastMove").asString();
+                            List<String> coordinates = Arrays.asList(str.split(","));
+                            int x = Integer.valueOf(coordinates.get(0));
+                            int y = Integer.valueOf(coordinates.get(1));
+                            fireAtThisBoard(x,y);
                             setPlayersTurn(true);
                             cancel();
                         } else{
@@ -76,7 +85,17 @@ public class PlayerNetworkController {
         }, Constants.REGULAR_REQUEST_TIME);
     }
 
-    // @todo: we need a method that is called when the opponent fires (fireAtLocation is only called when this player fires??)
+    private void fireAtThisBoard(int x, int y) {
+        boolean hit = true;
+        if (x == -1 || y == -1) {
+            hit = false;
+        }
+        player.getBoard().getCell(x,y).setHit(hit);
+    }
+
+    private void fireAtOpponentBoard(int x, int y, boolean hit) {
+        opponent.getBoard().getCell(x,y).setHit(hit);
+    }
 
     /**
      * fireAtLocation
@@ -102,21 +121,20 @@ public class PlayerNetworkController {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 // Res: {shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "You lost" OR "You won"}
-                player.getBoard().getCell(jsonData.x, jsonData.y).setHit(true);
 
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("shipWasHit").asBoolean() == true) {
-                    battleshipGame.getGameScreen().incomingFire(jsonData.x,jsonData.y, false, true);
+                    fireAtOpponentBoard(jsonData.x, jsonData.y, true);
                 } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
-                    battleshipGame.getGameScreen().incomingFire(jsonData.x, jsonData.y, false, false);
+                    fireAtOpponentBoard(jsonData.x, jsonData.y, false);
                 } else if (jsonResponse.get("message").equals("No game was found")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("Ongoing game")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("You lost")) {
-                    battleshipGame.setGameOverScreen(false);
+                    battleshipGame.setGameOver(false);
                 } else if (jsonResponse.get("message").equals("You won")) {
-                    battleshipGame.setGameOverScreen(true);
+                    battleshipGame.setGameOver(true);
                 }
             }
 

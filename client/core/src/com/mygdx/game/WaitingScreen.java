@@ -16,53 +16,59 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Created by Torstein on 17.03.2015.
  */
 public class WaitingScreen implements Screen{
-    SpriteBatch batch;
-    Stage stage;
-    Image shipImg;
-    TextButton cancelButton;
-    Label waitingLabel;
-    Label titleLabel;
-    Battleship battleshipGame;
-    Skin skin;
-    int width, height;
-    TextButton.TextButtonStyle style;
+    private SpriteBatch batch;
+    private Stage stage;
+    private Image shipImg;
+    private TextButton cancelButton;
+    private Label waitingLabel;
+    private Label titleLabel;
+    private Battleship battleshipGame;
+    private Skin skin;
+    private int width, height;
+    private TextButton.TextButtonStyle style;
 
     public WaitingScreen (Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
-        width = battleshipGame.width;
-        height = battleshipGame.height;
-        skin = battleshipGame.skin;
+        width = battleshipGame.getWidth();
+        height = battleshipGame.getHeight();
+        skin = battleshipGame.getSkin();
     }
 
     @Override
     public void show() {
-        style = battleshipGame.style;
+        style = battleshipGame.getStyle();
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
 
+        stage.addActor(battleshipGame.getBackground());
+        battleshipGame.getBackground().setFillParent(true);
+
         // Create menu elements
-        shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
+        shipImg = new Image(new Texture("explosion_2.png"));
         titleLabel = new Label("Sea Battle", skin, "default-font", Color.RED);
-        waitingLabel = new Label("Finding match...", skin, "default-font", Color.BLACK);
+        waitingLabel = new Label("Finding match...", skin);
         waitingLabel.setAlignment(Align.center);
         cancelButton = new TextButton("Cancel", skin);
 
         // Set element sizes
-        shipImg.setSize(width-100, 300);
-        titleLabel.setFontScale(3);
-        titleLabel.setSize(width-100, 200);
-        waitingLabel.setFontScale(2);
-        waitingLabel.setSize(60, 30);
-        int btnSizeW = 300;
-        int btnSizeH = 100;
+        float shipWidth = width - (2*battleshipGame.getBorder());
+        float shipHeight = (shipWidth/shipImg.getWidth()) * shipImg.getHeight();
+        shipImg.setSize(shipWidth, shipHeight);
+        titleLabel.setFontScale(3 * battleshipGame.getFontScalingRatio());
+        waitingLabel.setSize(width / 18, height / 64);
+        double bW = width/2.4, bH = bW/3;
+        float btnSizeW = (float) bW;
+        float btnSizeH = (float) bH;
         cancelButton.setSize(btnSizeW,btnSizeH);
 
         // Set element positions
-        titleLabel.setPosition(width/2-100, height-350);
-        shipImg.setPosition(45,height-600);
-        waitingLabel.setPosition(width/2-35, height/2);
-        cancelButton.setPosition(width/2-btnSizeW/2,height/2-130);
+        titleLabel.setPosition((width/2) - (titleLabel.getWidth()/2), height - titleLabel.getHeight() - battleshipGame.getBorder());
+        titleLabel.setAlignment(0);
+        shipImg.setPosition(battleshipGame.getBorder(), height - (2*battleshipGame.getBorder()) - titleLabel.getHeight() - shipHeight);
+        waitingLabel.setPosition(width/2, height - (3 * battleshipGame.getBorder()) - titleLabel.getHeight() - shipHeight - waitingLabel.getHeight());
+        waitingLabel.setAlignment(0);
+        cancelButton.setPosition(width/2-btnSizeW/2,height - waitingLabel.getHeight() - (4 * battleshipGame.getBorder()) - cancelButton.getHeight() - shipHeight - titleLabel.getHeight());
 
         // Add groups and elements to the stage
         stage.addActor(titleLabel);
@@ -84,6 +90,7 @@ public class WaitingScreen implements Screen{
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.enableBlending();
         batch.begin();
         stage.draw();
         batch.end();

@@ -3,40 +3,54 @@ package com.mygdx.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.controllers.GameNetworkController;
 
 public class Battleship extends Game {
-    MainMenuScreen mainMenuScreen;
-    WaitingScreen waitingScreen;
-    GameOverScreen gameOverScreen;
-    GameScreen gameScreen;
-    GameNetworkController gameNetworkController;
-    int width, height;
-    Skin skin;
-    TextButton.TextButtonStyle style;
-
     public static final int VIRTUAL_WIDTH = 405, VIRTUAL_HEIGHT = 720;
+    private MainMenuScreen mainMenuScreen;
+    private WaitingScreen waitingScreen;
+    private GameOverScreen gameOverScreen;
+    private GameScreen gameScreen;
+    private int border;
+    private Image background;
+    private int width, height;
+    private Skin skin;
+    private TextButton.TextButtonStyle style;
+    private float fontScalingRatio;
+    private GameNetworkController gameNetworkController;
 
     @Override
     public void create() {
-        //width = Gdx.graphics.getWidth();
-        //height = Gdx.graphics.getHeight();
-        width = 1080;
-        height = 1920;
-        createStyle();
-
         gameNetworkController = new GameNetworkController(this);
-        Gdx.graphics.setDisplayMode(1080,1920,false);
+        width = VIRTUAL_WIDTH;
+        height = VIRTUAL_HEIGHT;
+
+        Texture backgroundTexture = new Texture("background.jpg");
+        background = new Image(backgroundTexture);
+
+        skin = new Skin(Gdx.files.internal("uiskin.json"));
+
+        fontScalingRatio = 1;
+        if(Gdx.app.getType().equals(Application.ApplicationType.Android)) {
+
+            fontScalingRatio = (skin.getFont("default-font").getScaleY()/Battleship.VIRTUAL_HEIGHT) * Gdx.graphics.getHeight();
+            width = Gdx.graphics.getWidth();
+            height = Gdx.graphics.getHeight();
+            skin.getFont("default-font").setScale(fontScalingRatio);
+        }
+
+        border = width/24;
+        style = new TextButton.TextButtonStyle();
+
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
         waitingScreen = new WaitingScreen(this);
-        setScreen(mainMenuScreen);
+        //gameScreen = new GameScreen(this);
+        setScreen(gameOverScreen);
     }
 
     public Skin getSkin() {
@@ -47,41 +61,37 @@ public class Battleship extends Game {
         return gameNetworkController;
     }
 
-    private void createStyle() {
-        //BitmapFont font = new BitmapFont();
-        skin = new Skin(getFile("uiskin.json"), new TextureAtlas(getFile("uiskin.atlas")));
-        style = new TextButton.TextButtonStyle();
-        //Create a texture
-        Pixmap pixmap = new Pixmap((int)Gdx.graphics.getWidth()/4,(int)Gdx.graphics.getHeight()/10, Pixmap.Format.RGB888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.fill();
-        skin.add("background", new Texture(pixmap));
-        style.up = skin.newDrawable("background", Color.GRAY);
-        style.down = skin.newDrawable("background", Color.DARK_GRAY);
-        style.checked = skin.newDrawable("background", Color.DARK_GRAY);
-        style.over = skin.newDrawable("background", Color.LIGHT_GRAY);
-        style.font = skin.getFont("default-font");
-        if(Gdx.app.getType().equals(Application.ApplicationType.Android)) {
-            style.font.scale(Gdx.graphics.getHeight() / Battleship.VIRTUAL_HEIGHT);
-        }
-        skin.add("default", style);
-    }
-
     public void setMainMenuScreen() {
         setScreen(mainMenuScreen);
-    }
-
-    public GameScreen getGameScreen() {
-        return gameScreen;
     }
 
     public void setGameScreen() {
         setScreen(gameScreen);
     }
 
-    public void setGameOverScreen(boolean thisPlayerWon) {
-        gameOverScreen.setWinningPlayer(thisPlayerWon);
+    public void setGameOverScreen() {
         setScreen(gameOverScreen);
+    }
+
+    public GameScreen getGameScreen() {
+        return gameScreen;
+    }
+
+    public void setGameOver(boolean thisPlayerWon) {
+        gameOverScreen.setWinningPlayer(thisPlayerWon);
+        setGameOverScreen();
+    }
+
+    public float getFontScalingRatio() {
+        return fontScalingRatio;
+    }
+
+    public int getBorder() {
+        return border;
+    }
+
+    public Image getBackground() {
+        return background;
     }
 
     public void exit() {
@@ -95,7 +105,20 @@ public class Battleship extends Game {
     }
 
     public void cancelFindMatch() {
+        // Can do other stuff here like cancel network requests
         setMainMenuScreen();
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public TextButton.TextButtonStyle getStyle() {
+        return style;
     }
 
     public void closeNetwork() {
@@ -106,6 +129,4 @@ public class Battleship extends Game {
         String path = "" + filename;
         return Gdx.files.internal(path);
     }
-
-
 }

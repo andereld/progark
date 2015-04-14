@@ -10,7 +10,7 @@ import json.JsonHelper;
  * Created by esso on 13.03.15.
  */
 public class Board {
-    private ArrayList<Cell> board = new ArrayList<Cell>();
+    private ArrayList<Cell> cells = new ArrayList<Cell>();
 
     /**
      * getCell
@@ -19,7 +19,7 @@ public class Board {
      * @return Cell and that location
      */
     public Cell getCell(int x, int y){
-        for (Cell c : board){
+        for (Cell c : cells){
             if (c.getX() == x && c.getY() == y){
                 return c;
             }
@@ -27,6 +27,9 @@ public class Board {
         return null;
     }
 
+    public ArrayList<Cell> getCells() {
+        return cells;
+    }
 
     /**
      * createFromJson
@@ -34,7 +37,7 @@ public class Board {
      * @description Takes string of board json and creates cells from it. Adds cells to board
      */
     public void createFromJson(String json){
-        board = new ArrayList<Cell>();
+        cells = new ArrayList<Cell>();
         JsonValue jsonObject = JsonHelper.parseJson(json);
         JsonValue jsonBoard = jsonObject.get("cells");
         int X = 0;
@@ -44,7 +47,7 @@ public class Board {
             Cell c = new Cell(X, Y);
             c.createFromJson(JsonHelper.prettyPrint(jsonCell));
 
-            board.add(c);
+            cells.add(c);
             X += 1;
 
             if (X%10 == 0){
@@ -60,7 +63,7 @@ public class Board {
      */
     public String toString(){
         String toReturn = "";
-        for (Cell c: board){
+        for (Cell c: cells){
             toReturn += c + "\n";
         }
 

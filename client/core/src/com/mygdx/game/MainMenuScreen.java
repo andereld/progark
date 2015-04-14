@@ -18,63 +18,65 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Created by Torstein on 16.03.2015.
  */
 public class MainMenuScreen implements Screen{
-    SpriteBatch batch;
-    Stage stage;
-    Image shipImg;
-    TextField nickNameField;
-    String nickName;
-    TextButton playButton;
-    TextButton exitButton;
-    Label titleLabel;
-    Label nickNameLabel;
-    Battleship battleshipGame;
-    Skin skin;
-    TextButton.TextButtonStyle style;
-    int width, height;
+    private SpriteBatch batch;
+    private Stage stage;
+    private Image shipImg;
+    private TextField nickNameField;
+    private TextButton playButton;
+    private TextButton exitButton;
+    private Label titleLabel;
+    private Label nickNameLabel;
+    private Battleship battleshipGame;
+    private Skin skin;
+    private TextButton.TextButtonStyle style;
+    private int width, height;
 
     public MainMenuScreen(Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
-        width = battleshipGame.width;
-        height = battleshipGame.height;
-        skin = battleshipGame.skin;
+        width = battleshipGame.getWidth();
+        height = battleshipGame.getHeight();
+        skin = battleshipGame.getSkin();
     }
 
     @Override
     public void show() {
-        style = battleshipGame.style;
+        style = battleshipGame.getStyle();
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
 
-        // Set up layout
+        stage.addActor(battleshipGame.getBackground());
+        battleshipGame.getBackground().setFillParent(true);
 
         // Create menu elements
         titleLabel = new Label("Sea Battle", skin, "default-font", Color.RED);
-        shipImg = new Image(new Texture(battleshipGame.getFile("battleship.jpg")));
-        nickNameLabel = new Label("Enter nickname:", skin, "default-font", Color.BLACK);
+        shipImg = new Image(new Texture("explosion_2.png"));
+        nickNameLabel = new Label("Enter nickname:", skin);
         nickNameField = new TextField("", skin);
         playButton = new TextButton("Find match", skin);
         exitButton = new TextButton("Exit", skin);
 
         // Set element sizes
-        shipImg.setSize(width-100, 300);
-        titleLabel.setFontScale(3);
-        titleLabel.setSize(width-100, 200);
-        nickNameLabel.setFontScale(2);
-        nickNameLabel.setSize(60, 30);
-        nickNameField.setSize(240,50);
-        int btnSizeW = 300;
-        int btnSizeH = 100;
+        float shipWidth = width - (2*battleshipGame.getBorder());
+        float shipHeight = (shipWidth/shipImg.getWidth()) * shipImg.getHeight();
+        shipImg.setSize(shipWidth, shipHeight);
+        titleLabel.setFontScale(3 * battleshipGame.getFontScalingRatio());
+        double fieldWidth = width/4.5, fieldHeight = height/38.4;
+        nickNameField.setSize((float) fieldWidth, (float) fieldHeight);
+        double bW = width/2.4, bH = bW/3;
+        float btnSizeW = (float) bW;
+        float btnSizeH = (float) bH;
         playButton.setSize(btnSizeW,btnSizeH);
         exitButton.setSize(btnSizeW, btnSizeH);
 
         // Set element positions
-        titleLabel.setPosition(width/2-100, height-350);
-        shipImg.setPosition(45,height-600);
-        nickNameLabel.setPosition(width/2-250, height/2);
-        nickNameField.setPosition(width/2, height/2-5);
-        playButton.setPosition(width-btnSizeW-50,100);
-        exitButton.setPosition(50,100);
+        titleLabel.setPosition((width/2) - (titleLabel.getWidth()/2), height - titleLabel.getHeight() - battleshipGame.getBorder());
+        titleLabel.setAlignment(0);
+        shipImg.setPosition(battleshipGame.getBorder(), height - (2*battleshipGame.getBorder()) - titleLabel.getHeight() - shipHeight);
+        nickNameLabel.setPosition((width/2)-nickNameLabel.getWidth() - (battleshipGame.getBorder()/2), height - (3*battleshipGame.getBorder()) - titleLabel.getHeight() - shipHeight - nickNameLabel.getHeight());
+        nickNameField.setPosition(width/2 + (battleshipGame.getBorder()/2), height - (3*battleshipGame.getBorder()) - titleLabel.getHeight() - shipHeight - nickNameLabel.getHeight() + 5);
+        playButton.setPosition(battleshipGame.getBorder(), battleshipGame.getBorder());
+        exitButton.setPosition(width - btnSizeW - battleshipGame.getBorder(),battleshipGame.getBorder());
 
         // Add groups and elements to the stage
         stage.addActor(titleLabel);
@@ -85,16 +87,10 @@ public class MainMenuScreen implements Screen{
         stage.addActor(exitButton);
 
         // Create listeners
-        nickNameField.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char key) {
-                nickName = textField.getText();
-            }
-        });
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                battleshipGame.findMatch(nickName);
+                battleshipGame.findMatch(nickNameField.getText());
             }
         });
         exitButton.addListener(new ClickListener() {
@@ -109,6 +105,7 @@ public class MainMenuScreen implements Screen{
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.enableBlending();
         batch.begin();
         stage.draw();
         batch.end();
