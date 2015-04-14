@@ -36,7 +36,7 @@ public class BoardGUI extends Table {
      * @param gameScreen connects this BoardGUI with a GameGUI
      * @param opponentBoard says if this BoardGUI is your or your opponent's board
      */
-    public BoardGUI(final GameScreen gameScreen, boolean opponentBoard, boolean smallBoard) {
+    public BoardGUI(final GameScreen gameScreen, boolean opponentBoard, boolean smallBoard, Board board) {
         this.gameScreen = gameScreen;
         this.opponentBoard = opponentBoard;
         this.smallBoard = smallBoard;
@@ -54,7 +54,7 @@ public class BoardGUI extends Table {
         oceanMarked = new Image(oceanMarkedTex);
 
         // TODO: Fetch board.
-        // this.board = SOMETHING;
+        this.board = board;
         cells = new Actor[10][10];
         cellSpacing = 3;
         cellSize = (Gdx.graphics.getWidth() - (2 * gameScreen.getBorder()))/11 - cellSpacing;
@@ -126,33 +126,31 @@ public class BoardGUI extends Table {
             for(int j = 0; j < 10; j++) {
                 for(Cell cell : board.getCells()) {
                     if(cell.getX() == i && cell.getY() == j) {
-                        if(cell.isContainsShip()) {
-                            if(opponentBoard) {
-                                if(cell.isHit()) {
-                                    cells[i][j] = hit;
+                        if (cell.isContainsShip()) {
+                            if (opponentBoard) {
+                                if (cell.isHit()) {
+                                    cells[i][j] = new Image(hitTex);
+                                } else {
+                                    cells[i][j] = new Image(oceanTex);
                                 }
-                                else {
-                                    cells[i][j] = ocean;
-                                }
+                            } else {
+                                cells[i][j] = new Image(shipTex);
                             }
-                            else {
-                                cells[i][j] = ship;
-                            }
-                        }
-                        else {
-                            cells[cell.getX()][cell.getY()] = ocean;
+                        } else {
+                            cells[i][j] = new Image(oceanTex);
                         }
                     }
-                    Actor cellActor = cells[i][j];
-                    final int row = i, column = j;
-                    cellActor.addListener(new ClickListener() {
-                        @Override
-                        public void touchUp(InputEvent e, float x, float y, int point, int button) {
-                            cellClicked(row, column);
-                        }
-                    });
-                    this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
                 }
+                Actor cellActor = cells[i][j];
+
+                final int row = i, column = j;
+                cellActor.addListener(new ClickListener() {
+                    @Override
+                    public void touchUp(InputEvent e, float x, float y, int point, int button) {
+                        cellClicked(row, column);
+                    }
+                });
+                this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
                 if(i == x && j == y && marker && cells[i][j].equals(ocean)) {
                     cells[x][y] = oceanMarked;
                 }
