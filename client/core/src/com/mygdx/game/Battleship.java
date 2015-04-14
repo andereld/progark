@@ -104,8 +104,7 @@ public class Battleship extends Game {
         gameNetworkController.startGame(userName);
     }
 
-    public void startGame(String opponentName) {
-        waitingScreen.foundMatch(opponentName);
+    public void startGame() {
         setGameScreen();
     }
 

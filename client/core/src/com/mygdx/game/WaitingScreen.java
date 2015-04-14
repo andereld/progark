@@ -86,16 +86,6 @@ public class WaitingScreen implements Screen{
         });
     }
 
-    public void foundMatch(String opponentName) {
-        float delay = 1; // seconds
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                waitingLabel.setText("Found match against: " +  opponentName);
-            }
-        }, delay);
-    }
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
