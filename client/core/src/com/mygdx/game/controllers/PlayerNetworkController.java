@@ -94,7 +94,8 @@ public class PlayerNetworkController {
     }
 
     private void fireAtOpponentBoard(int x, int y, boolean hit) {
-        opponent.getBoard().getCell(x,y).setHit(hit);
+        opponent.getBoard().getCell(x,y).setContainsShip(hit);
+        opponent.getBoard().getCell(x,y).setHit(true);
     }
 
     /**
