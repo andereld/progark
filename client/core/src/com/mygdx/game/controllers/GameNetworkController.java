@@ -89,7 +89,7 @@ public class GameNetworkController {
                 // @todo
             }
         });
-        battleshipGame.setGameScreen();
+        battleshipGame.startGame(playerController.getOpponent().getUsername());
     }
 
 

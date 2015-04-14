@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Timer;
 
 /**
  * Created by Torstein on 17.03.2015.
@@ -83,7 +84,16 @@ public class WaitingScreen implements Screen{
                 battleshipGame.cancelFindMatch();
             }
         });
+    }
 
+    public void foundMatch(String opponentName) {
+        float delay = 1; // seconds
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                waitingLabel.setText("Found match against: " +  opponentName);
+            }
+        }, delay);
     }
 
     @Override
