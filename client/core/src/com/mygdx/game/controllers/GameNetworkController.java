@@ -79,7 +79,7 @@ public class GameNetworkController {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            battleshipGame.setGameScreen();
+                            battleshipGame.startGame();
                         }
                     });
 
@@ -97,9 +97,6 @@ public class GameNetworkController {
                 // @todo
             }
         });
-
-
-
     }
 
 

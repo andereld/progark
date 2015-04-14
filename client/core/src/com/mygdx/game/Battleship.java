@@ -104,6 +104,10 @@ public class Battleship extends Game {
         gameNetworkController.startGame(userName);
     }
 
+    public void startGame() {
+        setGameScreen();
+    }
+
     public void cancelFindMatch() {
         // Can do other stuff here like cancel network requests
         setMainMenuScreen();
