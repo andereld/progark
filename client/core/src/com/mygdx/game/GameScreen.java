@@ -20,6 +20,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private TextButton btnFire;
+    private Label boardLabel;
     private int border;
     private float btnWidth, btnHeight;
     private String playerName;
@@ -50,11 +51,10 @@ public class GameScreen implements Screen {
 
         drawButtons();
         drawBoards();
-        //@todo draw correct labels
         drawLabel(opponentName);
         waitForTurn();
     }
-
+    
     public void waitForTurn() {
         btnFire.setText("Wait for turn");
         btnFire.setTouchable(Touchable.disabled);
@@ -131,11 +131,11 @@ public class GameScreen implements Screen {
     }
 
     public void drawLabel(String text) {
-        Label label = new Label(text, skin);
-        label.setSize(300, 50);
+        boardLabel = new Label(text, skin);
+        boardLabel.setSize(300, 50);
         float labelHeight = (Gdx.graphics.getHeight() - border - 11 * (smallBoard.getCellSize() + bigBoard.getCellSize()))/2 + (11 * smallBoard.getCellSize());
-        label.setPosition(Gdx.graphics.getWidth() / 2, labelHeight);
-        stage.addActor(label);
+        boardLabel.setPosition(Gdx.graphics.getWidth() / 2, labelHeight);
+        stage.addActor(boardLabel);
     }
 
     public void btnQuitClicked() {
@@ -144,23 +144,23 @@ public class GameScreen implements Screen {
 
     public void btnFireClicked() {
         BoardGUI board = getOpponentBoard();
-        int x = board.getMarkedRow();
-        int y = board.getMarkedColumn();
+        int x = board.getMarkedColumn();
+        int y = board.getMarkedRow();
         game.getGameNetworkController().getPlayerController().fireAtLocation(x, y);
         waitForTurn();
     }
 
-    public void changeLabel() {
+    public void changeBoardLabel() {
         if (opponentIsMainView) {
-            drawLabel(opponentName);
+            boardLabel.setText(opponentName);
         } else {
-            drawLabel(playerName);
+            boardLabel.setText(playerName);
         }
     }
 
     public void btnSwitchClicked() {
         opponentIsMainView = !opponentIsMainView;
-        changeLabel();
+        changeBoardLabel();
         changeBoards();
     }
 
