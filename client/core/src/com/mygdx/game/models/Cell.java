@@ -57,4 +57,9 @@ public class Cell {
         return "X: " + Integer.toString(x) + " Y: " + Integer.toString(y) + " isHit: " + isHit + " containsShip: " + containsShip;
     }
 
+    // When printing the whole board this can be useful
+    public String toString2() {
+        return isHit + "/" + containsShip;
+    }
+
 }

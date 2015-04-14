@@ -54,7 +54,7 @@ public class GameScreen implements Screen {
         drawLabel(opponentName);
         waitForTurn();
     }
-    
+
     public void waitForTurn() {
         btnFire.setText("Wait for turn");
         btnFire.setTouchable(Touchable.disabled);
