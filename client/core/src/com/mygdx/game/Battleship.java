@@ -65,21 +65,21 @@ public class Battleship extends Game {
         setScreen(mainMenuScreen);
     }
 
-    public GameScreen getGameScreen() {
-        return gameScreen;
-    }
-
     public void setGameScreen() {
         setScreen(gameScreen);
+    }
+
+    public void setGameOverScreen() {
+        setScreen(gameOverScreen);
+    }
+
+    public GameScreen getGameScreen() {
+        return gameScreen;
     }
 
     public void setGameOver(boolean thisPlayerWon) {
         gameOverScreen.setWinningPlayer(thisPlayerWon);
         setGameOverScreen();
-    }
-
-    public void setGameOverScreen() {
-        setScreen(gameOverScreen);
     }
 
     public float getFontScalingRatio() {
@@ -105,6 +105,7 @@ public class Battleship extends Game {
     }
 
     public void cancelFindMatch() {
+        // Can do other stuff here like cancel network requests
         setMainMenuScreen();
     }
 
@@ -128,6 +129,4 @@ public class Battleship extends Game {
         String path = "" + filename;
         return Gdx.files.internal(path);
     }
-
-
 }

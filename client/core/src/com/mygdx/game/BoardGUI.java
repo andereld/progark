@@ -80,7 +80,6 @@ public class BoardGUI extends Table {
         return !opponentBoard;
     }
 
-
     public int getMarkedRow() {
         return markedRow;
     }

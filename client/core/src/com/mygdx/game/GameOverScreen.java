@@ -25,7 +25,6 @@ public class GameOverScreen implements Screen {
     private Label playerWonLabel;
     private TextButton mainMenuButton;
     private TextButton exitButton;
-    private VerticalGroup group;
     private Battleship battleshipGame;
     private Skin skin;
     private TextButton.TextButtonStyle style;
@@ -110,6 +109,11 @@ public class GameOverScreen implements Screen {
             }
         });
     }
+
+    public void setWinningPlayer(boolean thisPlayerWon) {
+        this.thisPlayerWon = thisPlayerWon;
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
@@ -117,10 +121,6 @@ public class GameOverScreen implements Screen {
         batch.begin();
         stage.draw();
         batch.end();
-    }
-
-    public void setWinningPlayer(boolean thisPlayerWon) {
-        this.thisPlayerWon = thisPlayerWon;
     }
 
     @Override

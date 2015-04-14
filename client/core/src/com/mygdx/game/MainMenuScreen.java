@@ -48,8 +48,6 @@ public class MainMenuScreen implements Screen{
         stage.addActor(battleshipGame.getBackground());
         battleshipGame.getBackground().setFillParent(true);
 
-        // Set up layout
-
         // Create menu elements
         titleLabel = new Label("Sea Battle", skin, "default-font", Color.RED);
         shipImg = new Image(new Texture("explosion_2.png"));

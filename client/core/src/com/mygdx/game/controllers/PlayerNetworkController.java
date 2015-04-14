@@ -45,7 +45,8 @@ public class PlayerNetworkController {
 
     /**
      * waitForTurn
-     * @description Checks regularly if it's this players turn or not
+     * @description Checks regularly if it's this players turn or not, and if so,
+     * retrieves the coordinates for the last shot from the opponent
      */
     public void waitForTurn() {
         Timer timer = new Timer();
@@ -84,7 +85,7 @@ public class PlayerNetworkController {
         }, Constants.REGULAR_REQUEST_TIME);
     }
 
-    public void fireAtThisBoard(int x, int y) {
+    private void fireAtThisBoard(int x, int y) {
         boolean hit = true;
         if (x == -1 || y == -1) {
             hit = false;
@@ -92,7 +93,7 @@ public class PlayerNetworkController {
         player.getBoard().getCell(x,y).setHit(hit);
     }
 
-    public void fireAtOpponentBoard(int x, int y, boolean hit) {
+    private void fireAtOpponentBoard(int x, int y, boolean hit) {
         opponent.getBoard().getCell(x,y).setHit(hit);
     }
 

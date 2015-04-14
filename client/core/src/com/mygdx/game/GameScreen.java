@@ -139,11 +139,11 @@ public class GameScreen implements Screen {
     }
 
     public void btnQuitClicked() {
-        game.setScreen(new MainMenuScreen(game));
+        game.setMainMenuScreen();
     }
 
     public void btnFireClicked() {
-        BoardGUI board = getThisPlayersBoard();
+        BoardGUI board = getOpponentBoard();
         int x = board.getMarkedRow();
         int y = board.getMarkedColumn();
         game.getGameNetworkController().getPlayerController().fireAtLocation(x, y);
@@ -178,9 +178,24 @@ public class GameScreen implements Screen {
         drawBoards();
     }
 
+    // Returns the board of this player
+    private BoardGUI getMainBoard() {
+        if (bigBoard.isMainBoard()) {
+            return bigBoard;
+        }
+        return smallBoard;
+    }
+
+    // Should return the board of the opponent
+    private BoardGUI getOpponentBoard() {
+        if (!bigBoard.isMainBoard()) {
+            return bigBoard;
+        }
+        return smallBoard;
+    }
+
     @Override
     public void show() {
-
     }
 
     @Override
@@ -194,34 +209,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
     }
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
-    }
-
-    // @todo haakon: virke disse metodene?
-    // Should return the board of this player
-    private BoardGUI getThisPlayersBoard() {
-        if (bigBoard.isMainBoard()) {
-            return bigBoard;
-        }
-        return smallBoard;
-    }
-
-    // Should return the board of the opponent
-    private BoardGUI getOtherPlayersBoard() {
-        if (!bigBoard.isMainBoard()) {
-            return bigBoard;
-        }
-        return smallBoard;
     }
 
     @Override
