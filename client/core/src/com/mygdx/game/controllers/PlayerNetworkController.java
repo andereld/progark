@@ -86,15 +86,16 @@ public class PlayerNetworkController {
     }
 
     private void fireAtThisBoard(int x, int y) {
-        boolean hit = true;
+        // Coordinates are -1, -1 at the start of the game, when no shots have been fired.
         if (x == -1 || y == -1) {
-            hit = false;
+            return;
         }
-        player.getBoard().getCell(x,y).setHit(hit);
+        player.getBoard().getCell(x,y).setHit(true);
     }
 
     private void fireAtOpponentBoard(int x, int y, boolean hit) {
-        opponent.getBoard().getCell(x,y).setHit(hit);
+        opponent.getBoard().getCell(x,y).setContainsShip(hit);
+        opponent.getBoard().getCell(x,y).setHit(true);
     }
 
     /**

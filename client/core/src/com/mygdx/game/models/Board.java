@@ -66,7 +66,20 @@ public class Board {
         for (Cell c: cells){
             toReturn += c + "\n";
         }
+        return toReturn;
+    }
 
+    // A more natural representation of the board
+    public String toString2() {
+        int boardDimension = 10;
+        String toReturn = "";
+        for (int i=0; i< cells.size(); i++) {
+            String spacing = " ";
+            if (i % boardDimension == 0) {
+                spacing = "\n";
+            }
+            toReturn += cells.get(i).toString2() + spacing;
+        }
         return toReturn;
     }
 }

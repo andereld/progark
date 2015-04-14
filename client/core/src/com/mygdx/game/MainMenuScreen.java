@@ -70,13 +70,13 @@ public class MainMenuScreen implements Screen{
         exitButton.setSize(btnSizeW, btnSizeH);
 
         // Set element positions
-        titleLabel.setPosition((width/2) - (titleLabel.getWidth()/2), height - titleLabel.getHeight() - battleshipGame.getBorder());
+        titleLabel.setPosition((width / 2) - (titleLabel.getWidth() / 2), height - titleLabel.getHeight() - battleshipGame.getBorder());
         titleLabel.setAlignment(0);
         shipImg.setPosition(battleshipGame.getBorder(), height - (2*battleshipGame.getBorder()) - titleLabel.getHeight() - shipHeight);
         nickNameLabel.setPosition((width/2)-nickNameLabel.getWidth() - (battleshipGame.getBorder()/2), height - (3*battleshipGame.getBorder()) - titleLabel.getHeight() - shipHeight - nickNameLabel.getHeight());
         nickNameField.setPosition(width/2 + (battleshipGame.getBorder()/2), height - (3*battleshipGame.getBorder()) - titleLabel.getHeight() - shipHeight - nickNameLabel.getHeight() + 5);
         playButton.setPosition(battleshipGame.getBorder(), battleshipGame.getBorder());
-        exitButton.setPosition(width - btnSizeW - battleshipGame.getBorder(),battleshipGame.getBorder());
+        exitButton.setPosition(width - btnSizeW - battleshipGame.getBorder(), battleshipGame.getBorder());
 
         // Add groups and elements to the stage
         stage.addActor(titleLabel);
@@ -86,11 +86,16 @@ public class MainMenuScreen implements Screen{
         stage.addActor(playButton);
         stage.addActor(exitButton);
 
+        nickNameField.setMessageText("DefaultPlayer");
         // Create listeners
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                battleshipGame.findMatch(nickNameField.getText());
+                String t = nickNameField.getText();
+                if (t.length() == 0) {
+                    t = "DefaultPlayer";
+                }
+                battleshipGame.findMatch(t);
             }
         });
         exitButton.addListener(new ClickListener() {
