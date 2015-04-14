@@ -49,7 +49,7 @@ public class Battleship extends Game {
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
         waitingScreen = new WaitingScreen(this);
-        setScreen(gameOverScreen);
+        setScreen(mainMenuScreen);
     }
 
     public Skin getSkin() {
