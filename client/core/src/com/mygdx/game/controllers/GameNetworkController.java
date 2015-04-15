@@ -106,7 +106,7 @@ public class GameNetworkController {
      */
     private void waitForOpponent() {
         Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 class JsonData{
@@ -134,7 +134,7 @@ public class GameNetworkController {
                     }
                 });
             }
-        }, Constants.REGULAR_REQUEST_TIME);
+        }, 0, Constants.REGULAR_REQUEST_TIME);
     }
 
 }
