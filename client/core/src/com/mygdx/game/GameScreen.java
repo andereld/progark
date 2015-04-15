@@ -46,8 +46,8 @@ public class GameScreen implements Screen {
 
         border = game.getBorder();
 
-        bigBoard = new BoardGUI(this, true, false);
-        smallBoard = new BoardGUI(this, false, true);
+        bigBoard = new BoardGUI(this, true, false, game.getGameNetworkController().getPlayerController().getPlayer().getBoard());
+        smallBoard = new BoardGUI(this, false, true, game.getGameNetworkController().getPlayerController().getOpponent().getBoard());
 
         drawButtons();
         drawBoards();

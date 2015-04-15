@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Battleship;
 import com.mygdx.game.Constants;
 import com.mygdx.game.models.*;
+import com.badlogic.gdx.Gdx;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -52,7 +53,6 @@ public class GameNetworkController {
                     waitForOpponent();
                 } else{
                     JsonValue game = jsonResponse.get("game");
-
                     String username = playerController.getPlayer().getUsername();
 
                     if (game.get("next").asString().equals(username)){
@@ -75,6 +75,14 @@ public class GameNetworkController {
                     opponent += 1;
                     playerController.getPlayer().setBoard(playerBoard);
                     playerController.setOpponent(new Player(game.get("player"+opponent).asString(), opponentBoard));
+
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            battleshipGame.startGame();
+                        }
+                    });
+
                 }
             }
 
@@ -89,7 +97,6 @@ public class GameNetworkController {
                 // @todo
             }
         });
-        battleshipGame.startGame();
     }
 
 
