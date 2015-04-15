@@ -49,6 +49,7 @@ public class GameScreen implements Screen {
         bigBoard = new BoardGUI(this, true, false, game.getGameNetworkController().getPlayerController().getPlayer().getBoard());
         smallBoard = new BoardGUI(this, false, true, game.getGameNetworkController().getPlayerController().getOpponent().getBoard());
 
+        boardLabel = new Label("", skin);
         drawButtons();
         drawBoards();
         drawLabel(opponentName);
@@ -131,10 +132,11 @@ public class GameScreen implements Screen {
     }
 
     public void drawLabel(String text) {
-        boardLabel = new Label(text, skin);
-        boardLabel.setSize(300, 50);
-        float labelHeight = (Gdx.graphics.getHeight() - border - 11 * (smallBoard.getCellSize() + bigBoard.getCellSize()))/2 + (11 * smallBoard.getCellSize());
-        boardLabel.setPosition(Gdx.graphics.getWidth() / 2, labelHeight);
+        boardLabel.setText(text);
+        float boardLabelPosX = game.getWidth()/2;
+        float boardLabelPosY = bigBoard.getY() - border - boardLabel.getHeight();
+        boardLabel.setPosition(boardLabelPosX, boardLabelPosY);
+        boardLabel.setAlignment(0);
         stage.addActor(boardLabel);
     }
 
@@ -178,7 +180,7 @@ public class GameScreen implements Screen {
         drawBoards();
     }
 
-    // Returns the board of this player
+    /** Returns the board of this player **/
     private BoardGUI getMainBoard() {
         if (bigBoard.isMainBoard()) {
             return bigBoard;
@@ -186,7 +188,7 @@ public class GameScreen implements Screen {
         return smallBoard;
     }
 
-    // Should return the board of the opponent
+    /** Should return the board of the opponent **/
     private BoardGUI getOpponentBoard() {
         if (!bigBoard.isMainBoard()) {
             return bigBoard;

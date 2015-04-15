@@ -16,7 +16,7 @@ public class Battleship extends Game {
     private GameOverScreen gameOverScreen;
     private GameScreen gameScreen;
     private int border;
-    private Image background;
+    private Image background, shipImg, titleImg;
     private int width, height;
     private Skin skin;
     private TextButton.TextButtonStyle style;
@@ -29,8 +29,9 @@ public class Battleship extends Game {
         width = VIRTUAL_WIDTH;
         height = VIRTUAL_HEIGHT;
 
-        Texture backgroundTexture = new Texture("background.jpg");
-        background = new Image(backgroundTexture);
+        background = new Image(new Texture("background.jpg"));
+        titleImg = new Image(new Texture("toptext.png"));
+        shipImg = new Image(new Texture("explosion_2.png"));
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
@@ -45,6 +46,23 @@ public class Battleship extends Game {
 
         border = width/24;
         style = new TextButton.TextButtonStyle();
+
+        /** Set size and position for Title and Ship sprites **/
+        float shipWidth = width - (2*border);
+        float shipHeight = (shipWidth/shipImg.getWidth()) * shipImg.getHeight();
+        shipImg.setSize(shipWidth, shipHeight);
+
+        float titleWidth = width - (2 * border);
+        float titleHeight = (titleWidth/titleImg.getWidth()) * titleImg.getHeight();
+        titleImg.setSize(titleWidth, titleHeight);
+
+        float titleImgPosX = (width/2) - (titleImg.getWidth()/2);
+        float titleImgPosY = height - border - titleImg.getHeight();
+        titleImg.setPosition(titleImgPosX, titleImgPosY);
+
+        float shipImgPosX = border;
+        float shipImgPosY = titleImgPosY - border - shipHeight;
+        shipImg.setPosition(shipImgPosX, shipImgPosY);
 
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
@@ -132,5 +150,13 @@ public class Battleship extends Game {
     public com.badlogic.gdx.files.FileHandle getFile(String filename) {
         String path = "" + filename;
         return Gdx.files.internal(path);
+    }
+
+    public Image getShipImg() {
+        return shipImg;
+    }
+
+    public Image getTitleImg() {
+        return titleImg;
     }
 }
