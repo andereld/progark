@@ -32,6 +32,12 @@ module.exports = function(sequelize, DataTypes) {
 
           return this.Boards[0].fire(x, y);
         }
+      },
+    },
+
+    getterMethods: {
+      gameOver: function() {
+        return this.Boards[0].gameOver || this.Boards[1].gameOver;
       }
     }
   });
