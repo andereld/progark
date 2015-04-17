@@ -60,7 +60,10 @@ public class GameScreen implements Screen {
         btnFire.setText("Wait for turn");
         btnFire.setTouchable(Touchable.disabled);
         game.getGameNetworkController().getPlayerController().waitForTurn();
-        btnFire.setText("Fire!");
+    }
+
+    public void myTurn() {
+        btnFire.setText("Fire");
         btnFire.setTouchable(Touchable.enabled);
     }
 
