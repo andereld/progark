@@ -174,8 +174,8 @@ public class GameScreen implements Screen {
         bigBoard = smallBoard;
         smallBoard = mainBoardOld;
 
-        bigBoard.drawCells(0, 0, false, true);
-        smallBoard.drawCells(0, 0, false, true);
+        bigBoard.drawCells(0, 0, true);
+        smallBoard.drawCells(0, 0, true);
 
         drawBoards();
     }

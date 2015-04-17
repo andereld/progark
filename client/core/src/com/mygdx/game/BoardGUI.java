@@ -52,7 +52,7 @@ public class BoardGUI extends Table {
         if(smallBoard) {
             cellSize /=2;
         }
-        drawCells(0, 0, false, false);
+        drawCells(0, 0, false);
     }
 
     /**
@@ -61,7 +61,8 @@ public class BoardGUI extends Table {
      * @param column = column of the clicked cell
      */
     public void cellClicked(int row, int column) {
-        drawCells(row, column, true, false);
+        markCell(row, column);
+        //drawCells(row, column, true, false);
         markedColumn = column;
         markedRow = row;
     }
@@ -82,10 +83,9 @@ public class BoardGUI extends Table {
      * Responsible for drawing and updating the cells when needed
      * @param x = if a single cell is being changed, this is its row
      * @param y = this is its column
-     * @param marker = what?
      * @param change = what?
      */
-    public void drawCells(int x, int y, boolean marker, boolean change) {
+    public void drawCells(int x, int y, boolean change) {
         if(!this.smallBoard && change) {
             this.smallBoard = true;
             cellSize /= 2;
@@ -111,32 +111,27 @@ public class BoardGUI extends Table {
 
         // Make labels for the letters on the left side of the board and draw the cells
         for(int i = 0; i < 10; i++) {
+
             label = new Label(letters[i], gameScreen.getSkin());
             this.add(label).width(cellSize).height(cellSize).space(cellSpacing);
+
             for(int j = 0; j < 10; j++) {
                 for(Cell cell : board.getCells()) {
                     if(cell.getX() == i && cell.getY() == j) {
                         if (cell.isContainsShip()) {
                             if (opponentBoard) {
                                 if (cell.isHit()) {
-                                    cells[i][j] = new Image(hitTex);
-                                    cells[i][j].setName("hit");
+                                    drawCell(i, j, hitTex);
                                 } else {
-                                    cells[i][j] = new Image(oceanTex);
-                                    cells[i][j].setName("ocean");
+                                    drawCell(i, j, oceanTex);
                                 }
                             } else {
-                                cells[i][j] = new Image(shipTex);
-                                cells[i][j].setName("ship");
+                                drawCell(i, j, shipTex);
                             }
                         } else {
-                            cells[i][j] = new Image(oceanTex);
-                            cells[i][j].setName("ocean");
+                            drawCell(i, j, oceanTex);
                         }
                     }
-                }
-                if(i == x && j == y && marker && cells[x][y].getName().equals("ocean")) {
-                    cells[x][y] = new Image(oceanMarkedTex);
                 }
                 Actor cellActor = cells[i][j];
                 final int row = i, column = j;
@@ -149,6 +144,22 @@ public class BoardGUI extends Table {
                 this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
             }
             this.row();
+        }
+    }
+
+    public void drawCell(int i, int j, Texture texture) {
+        cells[i][j].clear();
+        cells[i][j] = new Image(texture);
+        cells[i][j].setName(texture.toString().substring(0, texture.toString().length() - 3));
+    }
+
+    public void markCell(int x, int y) {
+        for(int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++) {
+                if(i == x && j == y && cells[i][j].getName().equals("ocean")) {
+                    drawCell(x, y, oceanMarkedTex);
+                }
+            }
         }
     }
 
