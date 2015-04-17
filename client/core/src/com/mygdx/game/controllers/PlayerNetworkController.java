@@ -1,5 +1,6 @@
 package com.mygdx.game.controllers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
 import com.mygdx.game.Battleship;
@@ -50,23 +51,27 @@ public class PlayerNetworkController {
      */
     public void waitForTurn() {
         Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 NetworkHelper.sendGetRequest("/turn/" + getPlayer().getUsername(), new Net.HttpResponseListener() {
                     @Override
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
                         JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
-                        if (jsonResponse.get("username").equals(getPlayer().getUsername())){
+                        if (jsonResponse.get("username").asString().equals(getPlayer().getUsername())) {
                             // Handle the response when the opponent fires at your board
                             String str = jsonResponse.get("lastMove").asString();
                             List<String> coordinates = Arrays.asList(str.split(","));
                             int x = Integer.valueOf(coordinates.get(0));
                             int y = Integer.valueOf(coordinates.get(1));
-                            fireAtThisBoard(x,y);
+                            fireAtThisBoard(x, y);
+                            Gdx.app.postRunnable(new Runnable() {
+                                @Override
+                                public void run() {battleshipGame.getGameScreen().myTurn();}
+                            });
                             setPlayersTurn(true);
                             cancel();
-                        } else{
+                        } else {
                             setPlayersTurn(false);
                         }
                     }
@@ -82,7 +87,7 @@ public class PlayerNetworkController {
                     }
                 });
             }
-        }, Constants.REGULAR_REQUEST_TIME);
+        }, 0, Constants.REGULAR_REQUEST_TIME);
     }
 
     private void fireAtThisBoard(int x, int y) {
