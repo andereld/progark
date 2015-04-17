@@ -155,4 +155,9 @@ public class BoardGUI extends Table {
     public int getCellSize() {
         return cellSize;
     }
+
+    public void setBoard(Board board) {
+        this.board = board;
+        drawCells(0,0,false,false);
+    }
 }

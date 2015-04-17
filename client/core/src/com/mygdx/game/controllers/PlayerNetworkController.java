@@ -58,6 +58,7 @@ public class PlayerNetworkController {
                     @Override
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
                         JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
+
                         if (jsonResponse.get("username").asString().equals(getPlayer().getUsername())) {
                             // Handle the response when the opponent fires at your board
                             String str = jsonResponse.get("lastMove").asString();
@@ -96,11 +97,24 @@ public class PlayerNetworkController {
             return;
         }
         player.getBoard().getCell(x,y).setHit(true);
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                battleshipGame.getGameScreen().getMainBoard().setBoard(player.getBoard());
+            }
+        });
     }
 
     private void fireAtOpponentBoard(int x, int y, boolean hit) {
         opponent.getBoard().getCell(x,y).setContainsShip(hit);
         opponent.getBoard().getCell(x,y).setHit(true);
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
+                battleshipGame.getGameScreen().getOpponentBoard().setBoard(opponent.getBoard());
+                battleshipGame.getGameScreen().waitForTurn();
+            }
+        });
     }
 
     /**
@@ -115,6 +129,8 @@ public class PlayerNetworkController {
             private String username;
             public void setX(int x) { this.x = x; }
             public void setY(int y) {this.y = y;}
+            public int getX() {return x;}
+            public int getY() {return y;}
             public void setUsername(String username) {this.username = username;}
         }
 
@@ -130,9 +146,9 @@ public class PlayerNetworkController {
 
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("shipWasHit").asBoolean() == true) {
-                    fireAtOpponentBoard(jsonData.x, jsonData.y, true);
+                    fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), true);
                 } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
-                    fireAtOpponentBoard(jsonData.x, jsonData.y, false);
+                    fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), false);
                 } else if (jsonResponse.get("message").equals("No game was found")){
                     // @todo DO SOMETHING
                 } else if (jsonResponse.get("message").equals("Ongoing game")){

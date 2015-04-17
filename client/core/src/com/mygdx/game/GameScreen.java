@@ -152,7 +152,6 @@ public class GameScreen implements Screen {
         int x = board.getMarkedColumn();
         int y = board.getMarkedRow();
         game.getGameNetworkController().getPlayerController().fireAtLocation(x, y);
-        waitForTurn();
     }
 
     public void changeBoardLabel() {
@@ -184,7 +183,7 @@ public class GameScreen implements Screen {
     }
 
     /** Returns the board of this player **/
-    private BoardGUI getMainBoard() {
+    public BoardGUI getMainBoard() {
         if (bigBoard.isMainBoard()) {
             return bigBoard;
         }
@@ -192,7 +191,7 @@ public class GameScreen implements Screen {
     }
 
     /** Should return the board of the opponent **/
-    private BoardGUI getOpponentBoard() {
+    public BoardGUI getOpponentBoard() {
         if (!bigBoard.isMainBoard()) {
             return bigBoard;
         }
