@@ -25,8 +25,8 @@ exports.startGame = function(req, res) {
       });
     }
 
-    // If no players in queue, put this player in start of queue.
-    else  {
+    // Put the player in the queue if the player isn't already there
+    else if(playerQueue.indexOf(player1) === -1)  {
       playerQueue.unshift(player1);
       res.json({'game': null});
     }
