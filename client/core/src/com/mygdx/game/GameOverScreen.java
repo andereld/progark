@@ -2,14 +2,11 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 
@@ -19,15 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class GameOverScreen implements Screen {
     private SpriteBatch batch;
     private Stage stage;
-    private Image shipImg;
     private Label gameOverLabel;
-    private Label titleLabel;
     private Label playerWonLabel;
     private TextButton mainMenuButton;
     private TextButton exitButton;
     private Battleship battleshipGame;
     private Skin skin;
-    private TextButton.TextButtonStyle style;
     private int width, height;
     private boolean thisPlayerWon;
 
@@ -35,7 +29,6 @@ public class GameOverScreen implements Screen {
         this.battleshipGame = battleshipGame;
         width = battleshipGame.getWidth();
         height = battleshipGame.getHeight();
-        style = battleshipGame.getStyle();
     }
 
     @Override
@@ -45,57 +38,52 @@ public class GameOverScreen implements Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
 
-        stage.addActor(battleshipGame.getBackground());
-        battleshipGame.getBackground().setFillParent(true);
-
-        // Create menu elements
-        shipImg = new Image(new Texture("explosion_2.png"));
-        titleLabel = new Label("Sea Battle", skin, "default-font", Color.RED);
+        /** Create menu elements **/
         gameOverLabel = new Label("Game over!", skin);
-        String whoWon;
-        if (thisPlayerWon) {
-            whoWon = "You win!";
-        } else {
-            whoWon = "You lose!";
-        }
-        playerWonLabel = new Label(whoWon, skin);
-        gameOverLabel.setAlignment(Align.center);
+        playerWonLabel = new Label(thisPlayerWon ? "You win!" : "You lose!", skin);
         mainMenuButton = new TextButton("Main Menu", skin);
         exitButton = new TextButton("Exit", skin);
 
-        // Set element sizes
-        float shipWidth = width - (2*battleshipGame.getBorder());
-        float shipHeight = (shipWidth/shipImg.getWidth()) * shipImg.getHeight();
-        shipImg.setSize(shipWidth, shipHeight);
-        titleLabel.setFontScale(3 * battleshipGame.getFontScalingRatio());
+        /** Set element sizes **/
         gameOverLabel.setSize(width/18, height/64);
         playerWonLabel.setSize(width/18, height/64);
+
         double bW = width/2.4, bH = bW/3;
         float btnSizeW = (float) bW;
         float btnSizeH = (float) bH;
         mainMenuButton.setSize(btnSizeW, btnSizeH);
         exitButton.setSize(btnSizeW, btnSizeH);
 
-        // Set element positions
-        titleLabel.setPosition((width/2) - (titleLabel.getWidth()/2), height - titleLabel.getHeight() - battleshipGame.getBorder());
-        titleLabel.setAlignment(0);
-        shipImg.setPosition(battleshipGame.getBorder(), height - (2 * battleshipGame.getBorder()) - titleLabel.getHeight() - shipHeight);
-        gameOverLabel.setPosition(width / 2, height - (3 * battleshipGame.getBorder()) - gameOverLabel.getHeight() - shipHeight - titleLabel.getHeight());
+        /** Set element positions **/
+        float gameOverLabelPosX = width/2;
+        float gameOverLabelPosY = battleshipGame.getShipImg().getY() - battleshipGame.getBorder() - gameOverLabel.getHeight();
+        gameOverLabel.setPosition(gameOverLabelPosX, gameOverLabelPosY);
         gameOverLabel.setAlignment(0);
-        playerWonLabel.setPosition(width/2, height - (4 * battleshipGame.getBorder()) - gameOverLabel.getHeight() - playerWonLabel.getHeight() - shipHeight - titleLabel.getHeight());
-        playerWonLabel.setAlignment(0);
-        mainMenuButton.setPosition(battleshipGame.getBorder(), battleshipGame.getBorder());
-        exitButton.setPosition(width - battleshipGame.getBorder() - btnSizeW, battleshipGame.getBorder());
 
-        // Add groups and elements to the stage
-        stage.addActor(titleLabel);
-        stage.addActor(shipImg);
+        float playerWonLabelPosX = width/2;
+        float playerWonLabelPosY = gameOverLabel.getY() - battleshipGame.getBorder() - playerWonLabel.getHeight();
+        playerWonLabel.setPosition(playerWonLabelPosX, playerWonLabelPosY);
+        playerWonLabel.setAlignment(0);
+
+        float mainMenuButtonPosX = battleshipGame.getBorder();
+        float mainMenuButtonPosY = battleshipGame.getBorder();
+        mainMenuButton.setPosition(mainMenuButtonPosX, mainMenuButtonPosY);
+
+        float exitButtonPosX = width - battleshipGame.getBorder() - btnSizeW;
+        float exitButtonPosY = battleshipGame.getBorder();
+        exitButton.setPosition(exitButtonPosX, exitButtonPosY);
+
+        /** Add groups and elements to the stage **/
+        stage.addActor(battleshipGame.getBackground());
+        battleshipGame.getBackground().setFillParent(true);
+        stage.addActor(battleshipGame.getTitleImg());
+        stage.addActor(battleshipGame.getShipImg());
         stage.addActor(gameOverLabel);
         stage.addActor(playerWonLabel);
         stage.addActor(mainMenuButton);
         stage.addActor(exitButton);
 
-        // Create listeners
+        /** Add listeners **/
         mainMenuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
