@@ -135,8 +135,10 @@ public class BoardGUI extends Table {
                         }
                     }
                 }
+                if(i == x && j == y && marker && cells[x][y].getName().equals("ocean")) {
+                    cells[x][y] = new Image(oceanMarkedTex);
+                }
                 Actor cellActor = cells[i][j];
-
                 final int row = i, column = j;
                 cellActor.addListener(new ClickListener() {
                     @Override
@@ -145,9 +147,6 @@ public class BoardGUI extends Table {
                     }
                 });
                 this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
-                if(i == x && j == y && marker && cells[x][y].getName().equals("ocean")) {
-                    cells[x][y] = new Image(oceanMarkedTex);
-                }
             }
             this.row();
         }
