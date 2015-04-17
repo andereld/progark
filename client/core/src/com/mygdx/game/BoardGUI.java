@@ -19,10 +19,7 @@ public class BoardGUI extends Table {
 
     private GameScreen gameScreen;
 
-    // Textures and images
     private Texture shipTex, hitTex, missTex, oceanTex, oceanMarkedTex;
-    private Image   ship, hit, miss, ocean, oceanMarked;
-
     private Actor[][] cells;
     private int cellSize;
     private int markedRow, markedColumn;
@@ -47,13 +44,6 @@ public class BoardGUI extends Table {
         oceanTex = new Texture("ocean64x64.png");
         oceanMarkedTex = new Texture("oceanMarked64x64.png");
 
-        ship = new Image(shipTex);
-        hit = new Image(hitTex);
-        miss = new Image(missTex);
-        ocean = new Image(oceanTex);
-        oceanMarked = new Image(oceanMarkedTex);
-
-        // TODO: Fetch board.
         this.board = board;
         cells = new Actor[10][10];
         cellSpacing = 3;
@@ -130,19 +120,25 @@ public class BoardGUI extends Table {
                             if (opponentBoard) {
                                 if (cell.isHit()) {
                                     cells[i][j] = new Image(hitTex);
+                                    cells[i][j].setName("hit");
                                 } else {
                                     cells[i][j] = new Image(oceanTex);
+                                    cells[i][j].setName("ocean");
                                 }
                             } else {
                                 cells[i][j] = new Image(shipTex);
+                                cells[i][j].setName("ship");
                             }
                         } else {
                             cells[i][j] = new Image(oceanTex);
+                            cells[i][j].setName("ocean");
                         }
                     }
                 }
+                if(i == x && j == y && marker && cells[x][y].getName().equals("ocean")) {
+                    cells[x][y] = new Image(oceanMarkedTex);
+                }
                 Actor cellActor = cells[i][j];
-
                 final int row = i, column = j;
                 cellActor.addListener(new ClickListener() {
                     @Override
@@ -151,9 +147,6 @@ public class BoardGUI extends Table {
                     }
                 });
                 this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
-                if(i == x && j == y && marker && cells[i][j].equals(ocean)) {
-                    cells[x][y] = oceanMarked;
-                }
             }
             this.row();
         }
