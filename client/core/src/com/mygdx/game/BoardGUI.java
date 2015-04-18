@@ -18,7 +18,6 @@ import com.mygdx.game.models.Cell;
 public class BoardGUI extends Table {
 
     private GameScreen gameScreen;
-
     private Texture shipTex, hitTex, missTex, oceanTex, oceanMarkedTex;
     private Actor[][] cells;
     private int cellSize;
@@ -83,7 +82,7 @@ public class BoardGUI extends Table {
      * @param x = if a single cell is being changed, this is its row
      * @param y = this is its column
      * @param marker = what?
-     * @param change = what?
+     * @param change = If changing the draw size of the board
      */
     public void drawCells(int x, int y, boolean marker, boolean change) {
         if(!this.smallBoard && change) {
@@ -97,6 +96,7 @@ public class BoardGUI extends Table {
 
         this.clearChildren();
 
+        // @todo Maybe the labels should be drawn in GameScreen instead? Then we only have to draw them once (they are not board-dependent)
         Label label = new Label("", gameScreen.getSkin());
         label.setAlignment(1);
         this.add(label).width(cellSize).height(cellSize).space(cellSpacing);
@@ -116,7 +116,7 @@ public class BoardGUI extends Table {
             for(int j = 0; j < 10; j++) {
                 for(Cell cell : board.getCells()) {
                     if(cell.getX() == i && cell.getY() == j) {
-                        // There is something funky here. Where should the missTex be?
+                        // @todo There is something funky here. Where should the missTex be?
                         if (cell.isContainsShip()) {
                             if (opponentBoard) {
                                 if (cell.isHit()) {
