@@ -116,6 +116,7 @@ public class BoardGUI extends Table {
             for(int j = 0; j < 10; j++) {
                 for(Cell cell : board.getCells()) {
                     if(cell.getX() == i && cell.getY() == j) {
+                        // There is something funky here. Where should the missTex be?
                         if (cell.isContainsShip()) {
                             if (opponentBoard) {
                                 if (cell.isHit()) {
@@ -138,15 +139,20 @@ public class BoardGUI extends Table {
                 if(i == x && j == y && marker && cells[x][y].getName().equals("ocean")) {
                     cells[x][y] = new Image(oceanMarkedTex);
                 }
-                Actor cellActor = cells[i][j];
-                final int row = i, column = j;
-                cellActor.addListener(new ClickListener() {
-                    @Override
-                    public void touchUp(InputEvent e, float x, float y, int point, int button) {
-                        cellClicked(row, column);
-                    }
-                });
-                this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
+
+                // @todo ANDREAS PLEASE TEST AND VERIFY THIS
+                // There should only be listeners on the opponents board (you never fire at your own board!)
+                if (opponentBoard) {
+                    Actor cellActor = cells[i][j];
+                    final int row = i, column = j;
+                    cellActor.addListener(new ClickListener() {
+                        @Override
+                        public void touchUp(InputEvent e, float x, float y, int point, int button) {
+                            cellClicked(row, column);
+                        }
+                    });
+                    this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
+                }
             }
             this.row();
         }

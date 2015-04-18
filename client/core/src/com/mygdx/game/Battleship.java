@@ -87,12 +87,12 @@ public class Battleship extends Game {
         setScreen(gameScreen);
     }
 
-    public void setGameOverScreen() {
-        setScreen(gameOverScreen);
-    }
-
     public GameScreen getGameScreen() {
         return gameScreen;
+    }
+
+    public void setGameOverScreen() {
+        setScreen(gameOverScreen);
     }
 
     public void setGameOver(boolean thisPlayerWon) {

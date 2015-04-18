@@ -69,7 +69,6 @@ public class MainMenuScreen implements Screen{
         float exitButtonPosY = battleshipGame.getBorder();
         exitButton.setPosition(exitButtonPosX, exitButtonPosY);
 
-
         /** Add groups and elements to the stage **/
         stage.addActor(battleshipGame.getBackground());
         battleshipGame.getBackground().setFillParent(true);
@@ -85,11 +84,11 @@ public class MainMenuScreen implements Screen{
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                String t = nickNameField.getText();
-                if (t.length() == 0) {
-                    t = "DefaultPlayer";
+                String nickName = nickNameField.getText();
+                if (nickName.length() == 0) {
+                    nickName = "DefaultPlayer";
                 }
-                battleshipGame.findMatch(t);
+                battleshipGame.findMatch(nickName);
             }
         });
         exitButton.addListener(new ClickListener() {

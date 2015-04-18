@@ -23,7 +23,6 @@ public class GameNetworkController {
     public GameNetworkController(Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
     }
-
     public PlayerNetworkController getPlayerController(){
         return playerController;
     }

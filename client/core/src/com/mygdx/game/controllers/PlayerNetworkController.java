@@ -78,14 +78,10 @@ public class PlayerNetworkController {
                     }
 
                     @Override
-                    public void failed(Throwable t) {
-
-                    }
+                    public void failed(Throwable t) {}
 
                     @Override
-                    public void cancelled() {
-
-                    }
+                    public void cancelled() {}
                 });
             }
         }, 0, Constants.REGULAR_REQUEST_TIME);
@@ -105,8 +101,8 @@ public class PlayerNetworkController {
         });
     }
 
-    private void fireAtOpponentBoard(int x, int y, boolean hit) {
-        opponent.getBoard().getCell(x,y).setContainsShip(hit);
+    private void fireAtOpponentBoard(int x, int y, boolean shipHit) {
+        opponent.getBoard().getCell(x,y).setContainsShip(shipHit);
         opponent.getBoard().getCell(x,y).setHit(true);
         Gdx.app.postRunnable(new Runnable() {
             @Override
@@ -150,9 +146,9 @@ public class PlayerNetworkController {
                 } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
                     fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), false);
                 } else if (jsonResponse.get("message").equals("No game was found")){
-                    // @todo DO SOMETHING
+                    // @todo What are we supposed to do with this message?
                 } else if (jsonResponse.get("message").equals("Ongoing game")){
-                    // @todo DO SOMETHING
+                    // @todo What are we supposed to do with this message?
                 } else if (jsonResponse.get("message").equals("You lost")) {
                     battleshipGame.setGameOver(false);
                 } else if (jsonResponse.get("message").equals("You won")) {
@@ -161,14 +157,10 @@ public class PlayerNetworkController {
             }
 
             @Override
-            public void failed(Throwable t) {
-
-            }
+            public void failed(Throwable t) {}
 
             @Override
-            public void cancelled() {
-
-            }
+            public void cancelled() {}
         });
     }
 

@@ -43,7 +43,6 @@ public class GameScreen implements Screen {
         opponentIsMainView = true;
         stage.addActor(game.getBackground());
         game.getBackground().setFillParent(true);
-
         border = game.getBorder();
 
         bigBoard = new BoardGUI(this, true, false, game.getGameNetworkController().getPlayerController().getPlayer().getBoard());
@@ -148,9 +147,8 @@ public class GameScreen implements Screen {
     }
 
     public void btnFireClicked() {
-        BoardGUI board = getOpponentBoard();
-        int x = board.getMarkedColumn();
-        int y = board.getMarkedRow();
+        int x = getOpponentBoard().getMarkedColumn();
+        int y = getOpponentBoard().getMarkedRow();
         game.getGameNetworkController().getPlayerController().fireAtLocation(x, y);
     }
 
@@ -162,6 +160,8 @@ public class GameScreen implements Screen {
         }
     }
 
+    // For switching between what player and opponent board
+    // Maybe this should be done automatically, depending on who's turn it is??
     public void btnSwitchClicked() {
         opponentIsMainView = !opponentIsMainView;
         changeBoardLabel();
@@ -190,7 +190,7 @@ public class GameScreen implements Screen {
         return smallBoard;
     }
 
-    /** Should return the board of the opponent **/
+    /** Returns the board of the opponent **/
     public BoardGUI getOpponentBoard() {
         if (!bigBoard.isMainBoard()) {
             return bigBoard;
