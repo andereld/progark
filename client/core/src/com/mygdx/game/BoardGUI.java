@@ -115,38 +115,40 @@ public class BoardGUI extends Table {
             this.add(label).width(cellSize).height(cellSize).space(cellSpacing);
             for(int j = 0; j < 10; j++) {
                 for(Cell cell : board.getCells()) {
-                    if(cell.getX() == i && cell.getY() == j) {
-                        // @todo There is something funky here. Where should the missTex be?
-                        if (cell.isContainsShip()) {
-                            if (opponentBoard) {
-                                if (cell.isHit()) {
-                                    cells[i][j] = new Image(hitTex);
-                                    cells[i][j].setName("hit");
-                                } else {
-                                    cells[i][j] = new Image(oceanTex);
-                                    cells[i][j].setName("ocean");
-                                }
-                            } else {
-                                cells[i][j] = new Image(shipTex);
-                                cells[i][j].setName("ship");
-                            }
-                        } else {
+                    if(cell.getX() == j && cell.getY() == i) {
+                        if(opponentBoard && cell.isContainsShip() && !cell.isHit()) {
                             cells[i][j] = new Image(oceanTex);
                             cells[i][j].setName("ocean");
                         }
+                        else if (cell.isContainsShip() && !cell.isHit()) {
+                            cells[i][j] = new Image(shipTex);
+                            cells[i][j].setName("ship");
+                        }
+                        else if(cell.isHit() && cell.isContainsShip()) {
+                            cells[i][j] = new Image(hitTex);
+                            cells[i][j].setName("hit");
+                        }
+                        else if(!cell.isContainsShip() && cell.isHit()) {
+                            cells[i][j] = new Image(missTex);
+                            cells[i][j].setName("miss");
+                        }
+                        else {
+                            cells[i][j] = new Image(oceanTex);
+                            cells[i][j].setName("ocean");
+                        }
+
                     }
                 }
                 if(i == x && j == y && marker && cells[x][y].getName().equals("ocean")) {
                     cells[x][y] = new Image(oceanMarkedTex);
                 }
                 Actor cellActor = cells[i][j];
-                // @todo ANDREAS PLEASE TEST AND VERIFY THIS
                 // There should only be listeners on the opponents board (you never fire at your own board!)
                 if (opponentBoard) {
                     final int row = i, column = j;
                     cellActor.addListener(new ClickListener() {
                         @Override
-                        public void touchUp(InputEvent e, float x, float y, int point, int button) {
+                        public void clicked(InputEvent e, float x, float y) {
                             cellClicked(row, column);
                         }
                     });
