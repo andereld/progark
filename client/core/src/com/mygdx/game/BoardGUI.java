@@ -139,11 +139,10 @@ public class BoardGUI extends Table {
                 if(i == x && j == y && marker && cells[x][y].getName().equals("ocean")) {
                     cells[x][y] = new Image(oceanMarkedTex);
                 }
-
+                Actor cellActor = cells[i][j];
                 // @todo ANDREAS PLEASE TEST AND VERIFY THIS
                 // There should only be listeners on the opponents board (you never fire at your own board!)
                 if (opponentBoard) {
-                    Actor cellActor = cells[i][j];
                     final int row = i, column = j;
                     cellActor.addListener(new ClickListener() {
                         @Override
@@ -151,8 +150,9 @@ public class BoardGUI extends Table {
                             cellClicked(row, column);
                         }
                     });
-                    this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
                 }
+                this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
+
             }
             this.row();
         }
