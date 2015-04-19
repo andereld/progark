@@ -143,20 +143,20 @@ public class PlayerNetworkController {
                 if (jsonResponse.get("message").equals("No game was found")){
                     // @todo What are we supposed to do with this message?
                     // nothing for know
-                } else if (jsonResponse.get("message").equals("Ongoing game")){
+                } else if (jsonResponse.get("message").asString().equals("Ongoing game")){
                     if (jsonResponse.get("shipWasHit").asBoolean() == true) {
                         fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), true);
                     } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
                         fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), false);
                     }
-                } else if (jsonResponse.get("message").equals("You lost")) {
+                } else if (jsonResponse.get("message").asString().equals("You lost")) {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
                             battleshipGame.setGameOver(false);
                         }
                     });
-                } else if (jsonResponse.get("message").equals("You won")) {
+                } else if (jsonResponse.get("message").asString().equals("You won")) {
                     fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), true);
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
