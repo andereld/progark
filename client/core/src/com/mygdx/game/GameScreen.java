@@ -45,8 +45,8 @@ public class GameScreen implements Screen {
         game.getBackground().setFillParent(true);
         border = game.getBorder();
 
-        bigBoard = new BoardGUI(this, true, false, game.getGameNetworkController().getPlayerController().getPlayer().getBoard());
-        smallBoard = new BoardGUI(this, false, true, game.getGameNetworkController().getPlayerController().getOpponent().getBoard());
+        bigBoard = new BoardGUI(this, true, false, game.getGameNetworkController().getPlayerController().getOpponent().getBoard());
+        smallBoard = new BoardGUI(this, false, true, game.getGameNetworkController().getPlayerController().getPlayer().getBoard());
 
         boardLabel = new Label("", skin);
         drawButtons();
@@ -98,7 +98,7 @@ public class GameScreen implements Screen {
         btnQuit.addListener(new ClickListener() {
 
             @Override
-            public void touchUp(InputEvent e, float x, float y, int point, int button) {
+            public void clicked(InputEvent e, float x, float y) {
                 btnQuitClicked();
             }
         });
@@ -110,7 +110,7 @@ public class GameScreen implements Screen {
         btnSwitch.addListener(new ClickListener() {
 
             @Override
-            public void touchUp(InputEvent e, float x, float y, int point, int button) {
+            public void clicked(InputEvent e, float x, float y) {
                 btnSwitchClicked();
             }
         });
@@ -121,11 +121,10 @@ public class GameScreen implements Screen {
         btnFire.setPosition(border, 3 * border + 2 * btnHeight);
         btnFire.setSize(btnWidth, btnHeight);
         btnFire.addListener(new ClickListener() {
-
             @Override
-            public void touchUp(InputEvent e, float x, float y, int point, int button) {
+            public void clicked(InputEvent event, float x, float y) {
                 btnFireClicked();
-            }
+            };
         });
 
         stage.addActor(btnFire);
