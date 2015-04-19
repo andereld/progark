@@ -140,18 +140,30 @@ public class PlayerNetworkController {
                 // Res: {shipWasHit: BOOLEAN, message: "No game was found" OR "Ongoing game" OR "You lost" OR "You won"}
 
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
-                if (jsonResponse.get("shipWasHit").asBoolean() == true) {
-                    fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), true);
-                } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
-                    fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), false);
-                } else if (jsonResponse.get("message").equals("No game was found")){
+                if (jsonResponse.get("message").equals("No game was found")){
                     // @todo What are we supposed to do with this message?
+                    // nothing for know
                 } else if (jsonResponse.get("message").equals("Ongoing game")){
-                    // @todo What are we supposed to do with this message?
+                    if (jsonResponse.get("shipWasHit").asBoolean() == true) {
+                        fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), true);
+                    } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
+                        fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), false);
+                    }
                 } else if (jsonResponse.get("message").equals("You lost")) {
-                    battleshipGame.setGameOver(false);
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            battleshipGame.setGameOver(false);
+                        }
+                    });
                 } else if (jsonResponse.get("message").equals("You won")) {
-                    battleshipGame.setGameOver(true);
+                    fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), true);
+                    Gdx.app.postRunnable(new Runnable() {
+                        @Override
+                        public void run() {
+                            battleshipGame.setGameOver(true);
+                        }
+                    });
                 }
             }
 
