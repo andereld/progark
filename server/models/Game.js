@@ -19,18 +19,22 @@ module.exports = function(sequelize, DataTypes) {
 
     instanceMethods: {
       fire: function (player, x, y) {
+        function byId(game1, game2) {
+          return game1.id > game2.id;
+        }
+
         if (player === this.player1) {
           this.next = this.player2;
           this.lastMove = coordinatesToString(x, y);
           this.save();
 
-          return this.Boards[1].fire(x, y);
+          return this.Boards.sort(byId)[1].fire(x, y);
         } else if (player === this.player2) {
           this.next = this.player1;
           this.lastMove = coordinatesToString(x, y);
           this.save();
 
-          return this.Boards[0].fire(x, y);
+          return this.Boards.sort(byId)[0].fire(x, y);
         }
       },
     },
