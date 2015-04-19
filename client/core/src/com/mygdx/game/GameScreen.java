@@ -20,7 +20,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private TextButton btnFire;
-    private Label boardLabel;
+    private Label boardLabel, gameLabel;
     private int border;
     private float btnWidth, btnHeight;
     private String playerName;
@@ -49,20 +49,24 @@ public class GameScreen implements Screen {
         smallBoard = new BoardGUI(this, false, true, game.getGameNetworkController().getPlayerController().getPlayer().getBoard());
 
         boardLabel = new Label("", skin);
+        gameLabel = new Label(playerName + " vs " + opponentName, skin);
         drawButtons();
         drawBoards();
-        drawLabel(opponentName);
+        drawOpponentLabel(opponentName);
+        drawGameLabel();
         waitForTurn();
     }
 
     public void waitForTurn() {
         btnFire.setText("Wait for turn");
+        btnFire.setColor(Color.RED);
         btnFire.setTouchable(Touchable.disabled);
         game.getGameNetworkController().getPlayerController().waitForTurn();
     }
 
     public void myTurn() {
         btnFire.setText("Fire");
+        btnFire.setColor(Color.GREEN);
         btnFire.setTouchable(Touchable.enabled);
     }
 
@@ -132,13 +136,20 @@ public class GameScreen implements Screen {
         stage.addActor(btnQuit);
     }
 
-    public void drawLabel(String text) {
+    public void drawOpponentLabel(String text) {
         boardLabel.setText(text);
         float boardLabelPosX = game.getWidth()/2;
         float boardLabelPosY = bigBoard.getY() - border - boardLabel.getHeight();
         boardLabel.setPosition(boardLabelPosX, boardLabelPosY);
         boardLabel.setAlignment(0);
         stage.addActor(boardLabel);
+    }
+
+    public void drawGameLabel() {
+        float gameLabelPosX = game.getWidth()/2 - gameLabel.getWidth()/2;
+        float gameLabelPosY = bigBoard.getY() - 3 * border - gameLabel.getHeight() - boardLabel.getHeight();
+        gameLabel.setPosition(gameLabelPosX, gameLabelPosY);
+        stage.addActor(gameLabel);
     }
 
     public void btnQuitClicked() {
