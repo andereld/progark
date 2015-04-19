@@ -102,7 +102,6 @@ public class PlayerNetworkController {
     }
 
     private void fireAtOpponentBoard(int x, int y, boolean shipHit) {
-        opponent.getBoard().getCell(x,y).setContainsShip(shipHit);
         opponent.getBoard().getCell(x,y).setHit(true);
         Gdx.app.postRunnable(new Runnable() {
             @Override
