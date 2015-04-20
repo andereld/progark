@@ -46,8 +46,6 @@ public class GameNetworkController {
         JsonData jsonData = new JsonData();
         jsonData.setUsername(username);
 
-        usernameOfWaitingPlayer = username;
-
         NetworkHelper.sendPostRequest("/play", JsonHelper.buildJson(jsonData), new Net.HttpResponseListener() {
             @Override
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -148,7 +146,7 @@ public class GameNetworkController {
 
         // Send a network request to remove this player from the player queue:
         JsonData jsonData = new JsonData();
-        jsonData.setUsername(usernameOfWaitingPlayer);
+        jsonData.setUsername(playerController.getPlayer().getUsername());
 
         NetworkHelper.sendPostRequest("/cancel", JsonHelper.buildJson(jsonData), new Net.HttpResponseListener() {
             @Override
