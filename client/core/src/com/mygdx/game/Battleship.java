@@ -15,6 +15,7 @@ public class Battleship extends Game {
     private WaitingScreen waitingScreen;
     private GameOverScreen gameOverScreen;
     private GameScreen gameScreen;
+    private TutorialScreen tutorialScreen;
     private int border;
     private Image background, shipImg, titleImg;
     private int width, height;
@@ -31,7 +32,7 @@ public class Battleship extends Game {
 
         background = new Image(new Texture("background.jpg"));
         titleImg = new Image(new Texture("toptext.png"));
-        shipImg = new Image(new Texture("explosion_2.png"));
+        shipImg = new Image(new Texture("explosion.png"));
 
         skin = new Skin(Gdx.files.internal("uiskin.json"));
 
@@ -64,6 +65,7 @@ public class Battleship extends Game {
         float shipImgPosY = titleImgPosY - border - shipHeight;
         shipImg.setPosition(shipImgPosX, shipImgPosY);
 
+        tutorialScreen = new TutorialScreen(this);
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
         waitingScreen = new WaitingScreen(this);
@@ -93,6 +95,11 @@ public class Battleship extends Game {
 
     public void setGameOverScreen() {
         setScreen(gameOverScreen);
+    }
+
+    public void setTutorialScreen() {
+        tutorialScreen = new TutorialScreen(this);
+        setScreen(tutorialScreen);
     }
 
     public void setGameOver(boolean thisPlayerWon) {
