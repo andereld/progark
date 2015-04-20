@@ -20,7 +20,7 @@ router.route('/fire')
   .post(playController.fire);
 
 router.route('/cancel')
-  .post(matchmaker.cancel);
+  .post(matchmaker.cancelWaitForGame);
 
 router.route('/turn/:username')
   .get(turnController.nextPlayer);

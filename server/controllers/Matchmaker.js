@@ -36,7 +36,7 @@ exports.startGame = function(req, res) {
 exports.cancelWaitForGame = function(req, res) {
 
   var player = req.body.username;
-  var index = array.indexOf(player);
+  var index = playerQueue.indexOf(player);
 
   if (index > -1) {
     playerQueue.splice(index, 1);
