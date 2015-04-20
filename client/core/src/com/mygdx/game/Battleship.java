@@ -127,8 +127,8 @@ public class Battleship extends Game {
     }
 
     public void cancelFindMatch() {
-        // Can do other stuff here like cancel network requests
         setMainMenuScreen();
+        gameNetworkController.cancelWaitForOpponent();
     }
 
     public int getWidth() {
