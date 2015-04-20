@@ -18,13 +18,18 @@ public class Board {
      * @param y
      * @return Cell and that location
      */
-    public Cell getCell(int x, int y){
+    // OLD, SLOW, UNUSED
+    public Cell getCell2(int x, int y){
         for (Cell c : cells){
             if (c.getX() == x && c.getY() == y){
                 return c;
             }
         }
         return null;
+    }
+
+    public Cell getCell(int x, int y) {
+        return cells.get(y*10 + x);
     }
 
     public ArrayList<Cell> getCells() {

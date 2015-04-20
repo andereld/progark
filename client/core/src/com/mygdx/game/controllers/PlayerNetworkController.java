@@ -101,7 +101,7 @@ public class PlayerNetworkController {
         });
     }
 
-    private void fireAtOpponentBoard(int x, int y, boolean shipHit) {
+    private void fireAtOpponentBoard(int x, int y) {
         opponent.getBoard().getCell(x,y).setHit(true);
         Gdx.app.postRunnable(new Runnable() {
             @Override
@@ -142,13 +142,9 @@ public class PlayerNetworkController {
                 JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
                 if (jsonResponse.get("message").equals("No game was found")){
                     // @todo What are we supposed to do with this message?
-                    // nothing for know
+                    // nothing for now
                 } else if (jsonResponse.get("message").asString().equals("Ongoing game")){
-                    if (jsonResponse.get("shipWasHit").asBoolean() == true) {
-                        fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), true);
-                    } else if (jsonResponse.get("shipWasHit").asBoolean() == false){
-                        fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), false);
-                    }
+                    fireAtOpponentBoard(jsonData.getX(), jsonData.getY());
                 } else if (jsonResponse.get("message").asString().equals("You lost")) {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
@@ -157,7 +153,7 @@ public class PlayerNetworkController {
                         }
                     });
                 } else if (jsonResponse.get("message").asString().equals("You won")) {
-                    fireAtOpponentBoard(jsonData.getX(), jsonData.getY(), true);
+                    fireAtOpponentBoard(jsonData.getX(), jsonData.getY());
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
