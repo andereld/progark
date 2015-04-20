@@ -18,7 +18,7 @@ import com.mygdx.game.models.Cell;
 public class BoardGUI extends Table {
 
     private GameScreen gameScreen;
-    private Texture shipTex, hitTex, missTex, oceanTex, oceanMarkedTex;
+    private BoardTexture shipTex, hitTex, missTex, oceanTex, oceanMarkedTex;
     private Actor[][] cells;
     private int cellSize;
     private int markedRow, markedColumn;
@@ -26,6 +26,8 @@ public class BoardGUI extends Table {
     private final String[] letters = new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
     private boolean opponentBoard, smallBoard;
     private Board board;
+    private boolean init;
+    private boolean markCell;
 
     /**
      * Constructor
@@ -37,11 +39,11 @@ public class BoardGUI extends Table {
         this.opponentBoard = opponentBoard;
         this.smallBoard = smallBoard;
 
-        shipTex = new Texture("ship64x64.png");
-        hitTex = new Texture("hit64x64.png");
-        missTex = new Texture("miss64x64.png");
-        oceanTex = new Texture("ocean64x64.png");
-        oceanMarkedTex = new Texture("oceanMarked64x64.png");
+        shipTex = new BoardTexture("ship64x64.png");
+        hitTex = new BoardTexture("hit64x64.png");
+        missTex = new BoardTexture("miss64x64.png");
+        oceanTex = new BoardTexture("ocean64x64.png");
+        oceanMarkedTex = new BoardTexture("oceanMarked64x64.png");
 
         this.board = board;
         cells = new Actor[10][10];
@@ -51,7 +53,10 @@ public class BoardGUI extends Table {
         if(smallBoard) {
             cellSize /=2;
         }
-        drawCells(0, 0, false, false);
+        markCell = false;
+        init = true;
+        drawCells();
+        init = false;
     }
 
     /**
@@ -60,9 +65,12 @@ public class BoardGUI extends Table {
      * @param column = column of the clicked cell
      */
     public void cellClicked(int row, int column) {
-        drawCells(row, column, true, false);
-        markedColumn = column;
-        markedRow = row;
+        if (cells[row][column].getName().equals("ocean")) {
+            markedRow = row;
+            markedColumn = column;
+            markCell = true;
+            drawCells();
+        }
     }
 
     public boolean isMainBoard() {
@@ -77,26 +85,22 @@ public class BoardGUI extends Table {
         return markedColumn;
     }
 
-    /**
-     * Responsible for drawing and updating the cells when needed
-     * @param x = if a single cell is being changed, this is its row
-     * @param y = this is its column
-     * @param marker = what?
-     * @param change = If changing the draw size of the board
-     */
-    public void drawCells(int x, int y, boolean marker, boolean change) {
-        if(!this.smallBoard && change) {
-            this.smallBoard = true;
+    public void toggleSize() {
+        if(smallBoard) {
+            cellSize *= 2;
+        } else {
             cellSize /= 2;
         }
-        else if(this.smallBoard && change) {
-            this.smallBoard = false;
-            cellSize *= 2;
-        }
+        smallBoard = !smallBoard;
+        drawCells();
+    }
 
+    /**
+     * Responsible for drawing and updating the cells when needed
+     */
+    public void drawCells() {
         this.clearChildren();
 
-        // @todo Maybe the labels should be drawn in GameScreen instead? Then we only have to draw them once (they are not board-dependent)
         Label label = new Label("", gameScreen.getSkin());
         label.setAlignment(1);
         this.add(label).width(cellSize).height(cellSize).space(cellSpacing);
@@ -115,39 +119,30 @@ public class BoardGUI extends Table {
             this.add(label).width(cellSize).height(cellSize).space(cellSpacing);
             for(int j = 0; j < 10; j++) {
                 Cell cell = board.getCell(j,i);
-                if(opponentBoard && cell.containsShip() && !cell.isHit()) {
-                    cells[i][j] = new Image(oceanTex);
-                    cells[i][j].setName("ocean");
+                if(opponentBoard && cell.containsShip() && !cell.isHit() && !markCell) {
+                    drawCell(i,j, oceanTex);
                 }
-                else if (cell.containsShip() && !cell.isHit()) {
-                    cells[i][j] = new Image(shipTex);
-                    cells[i][j].setName("ship");
+                else if (!opponentBoard && cell.containsShip() && !cell.isHit()) {
+                    drawCell(i,j, shipTex);
                 }
                 else if(cell.isHit() && cell.containsShip()) {
-                    cells[i][j] = new Image(hitTex);
-                    cells[i][j].setName("hit");
+                    drawCell(i,j, hitTex);
                 }
                 else if(!cell.containsShip() && cell.isHit()) {
-                    cells[i][j] = new Image(missTex);
-                    cells[i][j].setName("miss");
+                    drawCell(i,j, missTex);
+                }
+                else if(!init && (i == markedRow && j == markedColumn && markCell)) {
+                    drawCell(i, j, oceanMarkedTex);
+                    markCell = false;
                 }
                 else {
-                    cells[i][j] = new Image(oceanTex);
-                    cells[i][j].setName("ocean");
+                    drawCell(i,j, oceanTex);
                 }
-                if(i == x && j == y && marker && cells[i][j].getName().equals("ocean")) {
-                    cells[i][j] = new Image(oceanMarkedTex);
-                }
+
                 Actor cellActor = cells[i][j];
                 // There should only be listeners on the opponents board (you never fire at your own board!)
                 if (opponentBoard) {
-                    final int row = i, column = j;
-                    cellActor.addListener(new ClickListener() {
-                        @Override
-                        public void clicked(InputEvent e, float x, float y) {
-                            cellClicked(row, column);
-                        }
-                    });
+                    cellActor.addListener(cellListener(i, j));
                 }
                 this.add(cellActor).width(cellSize).height(cellSize).space(cellSpacing);
 
@@ -156,12 +151,28 @@ public class BoardGUI extends Table {
         }
     }
 
+    private ClickListener cellListener(int row, int column) {
+        final int fRow = row, fColumn = column;
+        return (new ClickListener() {
+            @Override
+            public void clicked(InputEvent e, float x, float y) {
+                cellClicked(fRow, fColumn);
+            }
+        });
+    }
+
     public int getCellSize() {
         return cellSize;
     }
 
     public void setBoard(Board board) {
         this.board = board;
-        drawCells(0,0,false,false);
+        drawCells();
     }
+
+    public void drawCell(int i, int j, BoardTexture texture) {
+        cells[i][j] = new Image(texture);
+        cells[i][j].setName(texture.getName());
+    }
+
 }
