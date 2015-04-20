@@ -98,6 +98,7 @@ public class Battleship extends Game {
     }
 
     public void setTutorialScreen() {
+        tutorialScreen = new TutorialScreen(this);
         setScreen(tutorialScreen);
     }
 

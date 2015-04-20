@@ -127,7 +127,6 @@ public class TutorialScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setMainMenuScreen();
-                System.out.println("clicked");
             }
         });
     }
