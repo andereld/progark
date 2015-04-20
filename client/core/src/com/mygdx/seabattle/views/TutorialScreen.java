@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.seabattle.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -10,14 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.seabattle.SeaBattle;
 
 /**
- * @author Håkon Meyer Tørnquist <haakon.t@gmail.com>
+ * @author Hï¿½kon Meyer Tï¿½rnquist <haakon.t@gmail.com>
  *         Date: 20.04.2015 11:22.
  */
 public class TutorialScreen implements Screen {
 
-    private Battleship game;
+    private SeaBattle game;
     private Stage stage;
     private int width, height;
     private Skin skin;
@@ -28,7 +29,7 @@ public class TutorialScreen implements Screen {
     private Table container, introContainer;
     private float imageSize, cellSpacing, labelWidth, labelHeight, introLabelWidth, introLabelHeight;
 
-    public TutorialScreen(Battleship game) {
+    public TutorialScreen(SeaBattle game) {
         this.game = game;
         this.stage = new Stage();
         Gdx.input.setInputProcessor(stage);

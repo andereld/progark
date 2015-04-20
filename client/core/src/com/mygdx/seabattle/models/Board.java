@@ -1,10 +1,10 @@
-package com.mygdx.game.models;
+package com.mygdx.seabattle.models;
 
 import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.ArrayList;
 
-import json.JsonHelper;
+import com.mygdx.seabattle.json.JsonHelper;
 
 /**
  * Created by esso on 13.03.15.
@@ -29,7 +29,7 @@ public class Board {
     /**
      * createFromJson
      * @param json
-     * @description Takes string of board json and creates cells from it. Adds cells to board
+     * @description Takes string of board com.mygdx.seabattle.json and creates cells from it. Adds cells to board
      */
     public void createFromJson(String json){
         cells = new ArrayList<Cell>();

@@ -3,22 +3,20 @@
  */
 
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.Before;
 import static org.junit.Assert.*;
 
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
-import com.mygdx.game.Battleship;
-import com.mygdx.game.controllers.GameNetworkController;
-import com.mygdx.game.controllers.PlayerNetworkController;
+import com.mygdx.seabattle.SeaBattle;
+import com.mygdx.seabattle.controllers.GameNetworkController;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import json.JsonHelper;
-import network.NetworkHelper;
+import com.mygdx.seabattle.json.JsonHelper;
+import com.mygdx.seabattle.network.NetworkHelper;
 
 
 public class NetworkTest {
@@ -31,8 +29,8 @@ public class NetworkTest {
 
     @Before
     public void setup() {
-        game1 = new GameNetworkController(new Battleship());
-        game2 = new GameNetworkController(new Battleship());
+        game1 = new GameNetworkController(new SeaBattle());
+        game2 = new GameNetworkController(new SeaBattle());
         player1 = "andybb" + (int)(Math.random() * 10000);
         player2 = "mats" + (int)(Math.random() * 10000);
     }

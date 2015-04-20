@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.seabattle.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.seabattle.SeaBattle;
 
 /**
  * @author Haakon Meyer Toernquist <haakon.t@gmail.com>
@@ -15,7 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  */
 public class GameScreen implements Screen {
 
-    private Battleship game;
+    private SeaBattle game;
     private BoardGUI bigBoard, smallBoard;
     private Stage stage;
     private Skin skin;
@@ -31,7 +32,7 @@ public class GameScreen implements Screen {
      * Constructor
      * @param game connects the GameGUI to a Battleship instance
      */
-    public GameScreen(Battleship game) {
+    public GameScreen(SeaBattle game) {
 
         this.game = game;
         this.stage = new Stage();

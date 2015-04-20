@@ -1,4 +1,4 @@
-package json;
+package com.mygdx.seabattle.json;
 
 /**
  * Created by mats on 20.04.15.

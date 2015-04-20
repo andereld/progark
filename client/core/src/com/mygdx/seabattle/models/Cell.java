@@ -1,8 +1,8 @@
-package com.mygdx.game.models;
+package com.mygdx.seabattle.models;
 
 import com.badlogic.gdx.utils.JsonValue;
 
-import json.JsonHelper;
+import com.mygdx.seabattle.json.JsonHelper;
 
 /**
  * Created by esso on 13.03.15.
@@ -38,7 +38,7 @@ public class Cell {
     /**
      * createFromJson
      * @param json
-     * @description Takes json data and puts it into this cell object
+     * @description Takes com.mygdx.seabattle.json data and puts it into this cell object
      */
 
     public void createFromJson(String json){

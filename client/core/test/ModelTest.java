@@ -1,11 +1,11 @@
 
 
 import com.badlogic.gdx.utils.JsonValue;
-import com.mygdx.game.models.Board;
-import com.mygdx.game.models.Cell;
-import com.mygdx.game.models.Player;
+import com.mygdx.seabattle.models.Board;
+import com.mygdx.seabattle.models.Cell;
+import com.mygdx.seabattle.models.Player;
 
-import json.JsonHelper;
+import com.mygdx.seabattle.json.JsonHelper;
 
 import org.junit.Before;
 import org.junit.Test;

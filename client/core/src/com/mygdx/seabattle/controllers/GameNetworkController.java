@@ -1,30 +1,30 @@
-package com.mygdx.game.controllers;
+package com.mygdx.seabattle.controllers;
 
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
-import com.mygdx.game.Battleship;
-import com.mygdx.game.Constants;
-import com.mygdx.game.models.*;
+import com.mygdx.seabattle.SeaBattle;
+import com.mygdx.seabattle.Constants;
+import com.mygdx.seabattle.models.*;
 import com.badlogic.gdx.Gdx;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import json.JsonData;
-import json.JsonHelper;
-import network.HttpResponseListener;
-import network.NetworkHelper;
+import com.mygdx.seabattle.json.JsonData;
+import com.mygdx.seabattle.json.JsonHelper;
+import com.mygdx.seabattle.network.HttpResponseListener;
+import com.mygdx.seabattle.network.NetworkHelper;
 
 /**
  * Created by esso on 13.03.15.
  */
 public class GameNetworkController {
     private PlayerNetworkController playerController;
-    private Battleship battleshipGame;
+    private SeaBattle seaBattleGame;
     private Timer waitForOpponentTimer;
 
-    public GameNetworkController(Battleship battleshipGame) {
-        this.battleshipGame = battleshipGame;
+    public GameNetworkController(SeaBattle seaBattleGame) {
+        this.seaBattleGame = seaBattleGame;
     }
     public PlayerNetworkController getPlayerController(){
         return playerController;
@@ -36,7 +36,7 @@ public class GameNetworkController {
      * @description Requests for a game. If game, get data and parse it.
      */
     public void startGame(String username){
-        playerController = new PlayerNetworkController(battleshipGame);
+        playerController = new PlayerNetworkController(seaBattleGame);
         playerController.setPlayer(new Player(username, null));
 
         NetworkHelper.sendPostRequest("/play", JsonHelper.buildJson(new JsonData(username)), new HttpResponseListener() {
@@ -73,7 +73,7 @@ public class GameNetworkController {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            battleshipGame.startGame();
+                            seaBattleGame.startGame();
                         }
                     });
 
@@ -110,7 +110,7 @@ public class GameNetworkController {
 
     /*
      * cancelWaitForOpponent
-     * @description Cancels the network requests when the player presses cancel.
+     * @description Cancels the com.mygdx.seabattle.network requests when the player presses cancel.
      */
     public void cancelWaitForOpponent() {
 
@@ -118,7 +118,7 @@ public class GameNetworkController {
         waitForOpponentTimer.cancel();
         waitForOpponentTimer.purge();
 
-        // Send a network request to remove this player from the player queue:
+        // Send a com.mygdx.seabattle.network request to remove this player from the player queue:
         JsonData jsonData = new JsonData(playerController.getPlayer().getUsername());
         NetworkHelper.sendPostRequest("/cancel", JsonHelper.buildJson(jsonData), new HttpResponseListener());
     }
