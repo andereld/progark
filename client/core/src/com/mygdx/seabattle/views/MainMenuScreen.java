@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.seabattle.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.seabattle.SeaBattle;
 
 /**
  * Created by Torstein on 16.03.2015.
@@ -18,15 +19,15 @@ public class MainMenuScreen implements Screen{
     private TextField nickNameField;
     private TextButton playButton, exitButton, howToPlayButton;
     private Label nickNameLabel;
-    private Battleship battleshipGame;
+    private SeaBattle seaBattleGame;
     private Skin skin;
     private int width, height;
 
-    public MainMenuScreen(Battleship battleshipGame) {
-        this.battleshipGame = battleshipGame;
-        width = battleshipGame.getWidth();
-        height = battleshipGame.getHeight();
-        skin = battleshipGame.getSkin();
+    public MainMenuScreen(SeaBattle seaBattleGame) {
+        this.seaBattleGame = seaBattleGame;
+        width = seaBattleGame.getWidth();
+        height = seaBattleGame.getHeight();
+        skin = seaBattleGame.getSkin();
     }
 
     @Override
@@ -46,7 +47,7 @@ public class MainMenuScreen implements Screen{
         double nickNameFieldWidth = nickNameLabel.getWidth(), nickNameFieldHeight = height/38.4;
         nickNameField.setSize((float) nickNameFieldWidth, (float) nickNameFieldHeight);
 
-        double bW = width/2.4, bH = (height - (7* battleshipGame.getBorder()) - battleshipGame.getTitleImg().getHeight() - battleshipGame.getShipImg().getHeight() - nickNameLabel.getHeight())/3;
+        double bW = width/2.4, bH = (height - (7* seaBattleGame.getBorder()) - seaBattleGame.getTitleImg().getHeight() - seaBattleGame.getShipImg().getHeight() - nickNameLabel.getHeight())/3;
         float btnSizeW = (float) bW;
         float btnSizeH = (float) bH;
         playButton.setSize(btnSizeW,btnSizeH);
@@ -54,31 +55,31 @@ public class MainMenuScreen implements Screen{
         howToPlayButton.setSize(btnSizeW, btnSizeH);
 
         /** Calculate and set element positions **/
-        float nickNameLabelPosX = (width/2) - nickNameLabel.getWidth() - (battleshipGame.getBorder()/2);
-        float nickNameLabelPosY = battleshipGame.getShipImg().getY() - battleshipGame.getBorder() - nickNameLabel.getHeight();
+        float nickNameLabelPosX = (width/2) - nickNameLabel.getWidth() - (seaBattleGame.getBorder()/2);
+        float nickNameLabelPosY = seaBattleGame.getShipImg().getY() - seaBattleGame.getBorder() - nickNameLabel.getHeight();
         nickNameLabel.setPosition(nickNameLabelPosX, nickNameLabelPosY);
 
-        float nickNameFieldPosX = (width/2) + (battleshipGame.getBorder()/2);
+        float nickNameFieldPosX = (width/2) + (seaBattleGame.getBorder()/2);
         float nickNameFieldPosY = nickNameLabelPosY + 5;
         nickNameField.setPosition(nickNameFieldPosX, nickNameFieldPosY);
 
         float playButtonPosX = (width/2) - (btnSizeW/2);
-        float playButtonPosY = nickNameLabelPosY - (battleshipGame.getBorder()) - btnSizeH;
+        float playButtonPosY = nickNameLabelPosY - (seaBattleGame.getBorder()) - btnSizeH;
         playButton.setPosition(playButtonPosX, playButtonPosY);
 
         float howToPlayButtonPosX = playButtonPosX;
-        float howToPlayButtonPosY = playButtonPosY - battleshipGame.getBorder() - btnSizeH;
+        float howToPlayButtonPosY = playButtonPosY - seaBattleGame.getBorder() - btnSizeH;
         howToPlayButton.setPosition(howToPlayButtonPosX, howToPlayButtonPosY);
 
         float exitButtonPosX = playButtonPosX;
-        float exitButtonPosY = howToPlayButtonPosY - battleshipGame.getBorder() - btnSizeH;
+        float exitButtonPosY = howToPlayButtonPosY - seaBattleGame.getBorder() - btnSizeH;
         exitButton.setPosition(exitButtonPosX, exitButtonPosY);
 
         /** Add groups and elements to the stage **/
-        stage.addActor(battleshipGame.getBackground());
-        battleshipGame.getBackground().setFillParent(true);
-        stage.addActor(battleshipGame.getTitleImg());
-        stage.addActor(battleshipGame.getShipImg());
+        stage.addActor(seaBattleGame.getBackground());
+        seaBattleGame.getBackground().setFillParent(true);
+        stage.addActor(seaBattleGame.getTitleImg());
+        stage.addActor(seaBattleGame.getShipImg());
         stage.addActor(nickNameLabel);
         stage.addActor(nickNameField);
         nickNameField.setMessageText("DefaultPlayer");
@@ -94,19 +95,19 @@ public class MainMenuScreen implements Screen{
                 if (nickName.length() == 0) {
                     nickName = "DefaultPlayer";
                 }
-                battleshipGame.findMatch(nickName);
+                seaBattleGame.findMatch(nickName);
             }
         });
         howToPlayButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                battleshipGame.setTutorialScreen();
+                seaBattleGame.setTutorialScreen();
             }
         });
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                battleshipGame.exit();
+                seaBattleGame.exit();
             }
         });
     }

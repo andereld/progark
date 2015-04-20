@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.seabattle.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.seabattle.SeaBattle;
 
 
 /**
@@ -20,20 +21,20 @@ public class GameOverScreen implements Screen {
     private Label playerWonLabel;
     private TextButton mainMenuButton;
     private TextButton exitButton;
-    private Battleship battleshipGame;
+    private SeaBattle seaBattleGame;
     private Skin skin;
     private int width, height;
     private boolean thisPlayerWon;
 
-    public GameOverScreen(Battleship battleshipGame) {
-        this.battleshipGame = battleshipGame;
-        width = battleshipGame.getWidth();
-        height = battleshipGame.getHeight();
+    public GameOverScreen(SeaBattle seaBattleGame) {
+        this.seaBattleGame = seaBattleGame;
+        width = seaBattleGame.getWidth();
+        height = seaBattleGame.getHeight();
     }
 
     @Override
     public void show() {
-        skin = battleshipGame.getSkin();
+        skin = seaBattleGame.getSkin();
         batch = new SpriteBatch();
         stage = new Stage();
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
@@ -56,28 +57,28 @@ public class GameOverScreen implements Screen {
 
         /** Set element positions **/
         float gameOverLabelPosX = width/2;
-        float gameOverLabelPosY = battleshipGame.getShipImg().getY() - battleshipGame.getBorder() - gameOverLabel.getHeight();
+        float gameOverLabelPosY = seaBattleGame.getShipImg().getY() - seaBattleGame.getBorder() - gameOverLabel.getHeight();
         gameOverLabel.setPosition(gameOverLabelPosX, gameOverLabelPosY);
         gameOverLabel.setAlignment(0);
 
         float playerWonLabelPosX = width/2;
-        float playerWonLabelPosY = gameOverLabel.getY() - battleshipGame.getBorder() - playerWonLabel.getHeight();
+        float playerWonLabelPosY = gameOverLabel.getY() - seaBattleGame.getBorder() - playerWonLabel.getHeight();
         playerWonLabel.setPosition(playerWonLabelPosX, playerWonLabelPosY);
         playerWonLabel.setAlignment(0);
 
-        float mainMenuButtonPosX = battleshipGame.getBorder();
-        float mainMenuButtonPosY = battleshipGame.getBorder();
+        float mainMenuButtonPosX = seaBattleGame.getBorder();
+        float mainMenuButtonPosY = seaBattleGame.getBorder();
         mainMenuButton.setPosition(mainMenuButtonPosX, mainMenuButtonPosY);
 
-        float exitButtonPosX = width - battleshipGame.getBorder() - btnSizeW;
-        float exitButtonPosY = battleshipGame.getBorder();
+        float exitButtonPosX = width - seaBattleGame.getBorder() - btnSizeW;
+        float exitButtonPosY = seaBattleGame.getBorder();
         exitButton.setPosition(exitButtonPosX, exitButtonPosY);
 
         /** Add groups and elements to the stage **/
-        stage.addActor(battleshipGame.getBackground());
-        battleshipGame.getBackground().setFillParent(true);
-        stage.addActor(battleshipGame.getTitleImg());
-        stage.addActor(battleshipGame.getShipImg());
+        stage.addActor(seaBattleGame.getBackground());
+        seaBattleGame.getBackground().setFillParent(true);
+        stage.addActor(seaBattleGame.getTitleImg());
+        stage.addActor(seaBattleGame.getShipImg());
         stage.addActor(gameOverLabel);
         stage.addActor(playerWonLabel);
         stage.addActor(mainMenuButton);
@@ -87,13 +88,13 @@ public class GameOverScreen implements Screen {
         mainMenuButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                battleshipGame.setMainMenuScreen();
+                seaBattleGame.setMainMenuScreen();
             }
         });
         exitButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                battleshipGame.exit();
+                seaBattleGame.exit();
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.seabattle.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -10,14 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.seabattle.SeaBattle;
 
 /**
- * @author Håkon Meyer Tørnquist <haakon.t@gmail.com>
+ * @author Hï¿½kon Meyer Tï¿½rnquist <haakon.t@gmail.com>
  *         Date: 20.04.2015 11:22.
  */
 public class TutorialScreen implements Screen {
 
-    private Battleship game;
+    private SeaBattle game;
     private Stage stage;
     private int width, height;
     private Skin skin;
@@ -28,7 +29,7 @@ public class TutorialScreen implements Screen {
     private Table container, introContainer;
     private float imageSize, cellSpacing, labelWidth, labelHeight, introLabelWidth, introLabelHeight;
 
-    public TutorialScreen(Battleship game) {
+    public TutorialScreen(SeaBattle game) {
         this.game = game;
         this.stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -48,7 +49,7 @@ public class TutorialScreen implements Screen {
         oceanImg = new Image(new Texture("ocean64x64.png"));
         shipImg = new Image(new Texture("ship64x64.png"));
 
-        introLabel = new Label("Welcome to Sea Battle. The purpose of this game is to sink all of your enemy's ships before he or she can sink yours. This is done by firing shots at a grid of squares of sea that may or may not contain a ship. For each shot, you will be told whether it was a miss or a hit. The game is over when one player has destroyed all of the opponent's ship.", skin);
+        introLabel = new Label("Welcome to Sea Battle. The purpose of this game is to sink all of your enemy's ships before he or she can sink yours. This is done by firing shots at a grid of squares of sea that may or may not contain a ship. For each shot, you will be told whether it was a miss or a hit. The game is over when one player has destroyed all of the opponent's ships.", skin);
         introLabel.setAlignment(Align.center);
         hitLabel = new Label("This image means that the shot fired at this cell was a hit.", skin);
         missLabel = new Label("This image means that the shot fired at this cell was a miss.", skin);

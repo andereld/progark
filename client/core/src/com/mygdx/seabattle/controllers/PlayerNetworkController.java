@@ -1,19 +1,19 @@
-package com.mygdx.game.controllers;
+package com.mygdx.seabattle.controllers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.utils.JsonValue;
-import com.mygdx.game.Battleship;
-import com.mygdx.game.Constants;
-import com.mygdx.game.models.*;
+import com.mygdx.seabattle.SeaBattle;
+import com.mygdx.seabattle.Constants;
+import com.mygdx.seabattle.models.*;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import json.JsonHelper;
-import network.NetworkHelper;
+import com.mygdx.seabattle.json.JsonHelper;
+import com.mygdx.seabattle.network.NetworkHelper;
 
 /**
  * Created by esso on 16.03.15.
@@ -21,13 +21,13 @@ import network.NetworkHelper;
 public class PlayerNetworkController {
     private Player player, opponent;
     private boolean playersTurn;
-    private Battleship battleshipGame;
+    private SeaBattle seaBattleGame;
 
-    public PlayerNetworkController(Battleship battleshipGame){
+    public PlayerNetworkController(SeaBattle seaBattleGame){
         opponent = null;
         player = null;
         playersTurn = false;
-        this.battleshipGame = battleshipGame;
+        this.seaBattleGame = seaBattleGame;
     }
 
     public Player getPlayer() {
@@ -68,7 +68,8 @@ public class PlayerNetworkController {
                             fireAtThisBoard(x, y);
                             Gdx.app.postRunnable(new Runnable() {
                                 @Override
-                                public void run() {battleshipGame.getGameScreen().myTurn();}
+                                public void run() {
+                                    seaBattleGame.getGameScreen().myTurn();}
                             });
                             setPlayersTurn(true);
                             cancel();
@@ -96,7 +97,7 @@ public class PlayerNetworkController {
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-                battleshipGame.getGameScreen().getMainBoard().setBoard(player.getBoard());
+                seaBattleGame.getGameScreen().getMainBoard().setBoard(player.getBoard());
             }
         });
     }
@@ -106,8 +107,8 @@ public class PlayerNetworkController {
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-                battleshipGame.getGameScreen().getOpponentBoard().setBoard(opponent.getBoard());
-                battleshipGame.getGameScreen().waitForTurn();
+                seaBattleGame.getGameScreen().getOpponentBoard().setBoard(opponent.getBoard());
+                seaBattleGame.getGameScreen().waitForTurn();
             }
         });
     }
@@ -149,7 +150,7 @@ public class PlayerNetworkController {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            battleshipGame.setGameOver(false);
+                            seaBattleGame.setGameOver(false);
                         }
                     });
                 } else if (jsonResponse.get("message").asString().equals("You won")) {
@@ -157,7 +158,7 @@ public class PlayerNetworkController {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            battleshipGame.setGameOver(true);
+                            seaBattleGame.setGameOver(true);
                         }
                     });
                 }

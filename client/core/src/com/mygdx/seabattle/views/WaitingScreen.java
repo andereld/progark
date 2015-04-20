@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.seabattle.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.mygdx.seabattle.SeaBattle;
 
 /**
  * Created by Torstein on 17.03.2015.
@@ -18,15 +19,15 @@ public class WaitingScreen implements Screen{
     private Stage stage;
     private TextButton cancelButton;
     private Label waitingLabel;
-    private Battleship battleshipGame;
+    private SeaBattle seaBattleGame;
     private Skin skin;
     private int width, height;
 
-    public WaitingScreen (Battleship battleshipGame) {
-        this.battleshipGame = battleshipGame;
-        width = battleshipGame.getWidth();
-        height = battleshipGame.getHeight();
-        skin = battleshipGame.getSkin();
+    public WaitingScreen (SeaBattle seaBattleGame) {
+        this.seaBattleGame = seaBattleGame;
+        width = seaBattleGame.getWidth();
+        height = seaBattleGame.getHeight();
+        skin = seaBattleGame.getSkin();
     }
 
     @Override
@@ -49,19 +50,19 @@ public class WaitingScreen implements Screen{
 
         /** Set element positions **/
         float waitingLabelPosX = (width/2);
-        float waitingLabelPosY = battleshipGame.getShipImg().getY() - battleshipGame.getBorder() - waitingLabel.getHeight();
+        float waitingLabelPosY = seaBattleGame.getShipImg().getY() - seaBattleGame.getBorder() - waitingLabel.getHeight();
         waitingLabel.setPosition(waitingLabelPosX, waitingLabelPosY);
         waitingLabel.setAlignment(0);
 
         float cancelButtonPosX = (width/2) - (btnSizeW/2);
-        float cancelButtonPosY = waitingLabelPosY - battleshipGame.getBorder() - cancelButton.getHeight();
+        float cancelButtonPosY = waitingLabelPosY - seaBattleGame.getBorder() - cancelButton.getHeight();
         cancelButton.setPosition(cancelButtonPosX, cancelButtonPosY);
 
         /** Add groups and elements to the stage **/
-        stage.addActor(battleshipGame.getBackground());
-        battleshipGame.getBackground().setFillParent(true);
-        stage.addActor(battleshipGame.getTitleImg());
-        stage.addActor(battleshipGame.getShipImg());
+        stage.addActor(seaBattleGame.getBackground());
+        seaBattleGame.getBackground().setFillParent(true);
+        stage.addActor(seaBattleGame.getTitleImg());
+        stage.addActor(seaBattleGame.getShipImg());
         stage.addActor(waitingLabel);
         stage.addActor(cancelButton);
 
@@ -69,7 +70,7 @@ public class WaitingScreen implements Screen{
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                battleshipGame.cancelFindMatch();
+                seaBattleGame.cancelFindMatch();
             }
         });
     }

@@ -1,15 +1,14 @@
-package com.mygdx.game;
+package com.mygdx.seabattle.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mygdx.game.models.Board;
-import com.mygdx.game.models.Cell;
+import com.mygdx.seabattle.models.Board;
+import com.mygdx.seabattle.models.Cell;
 
 /**
  * @author Haakon Meyer Toernquist <haakon.t@gmail.com>

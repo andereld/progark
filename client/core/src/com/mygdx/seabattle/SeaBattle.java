@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.seabattle;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
@@ -9,9 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.mygdx.game.controllers.GameNetworkController;
+import com.mygdx.seabattle.controllers.GameNetworkController;
+import com.mygdx.seabattle.views.*;
 
-public class Battleship extends Game {
+public class SeaBattle extends Game {
     public static final int VIRTUAL_WIDTH = 405, VIRTUAL_HEIGHT = 720;
     private MainMenuScreen mainMenuScreen;
     private WaitingScreen waitingScreen;
@@ -42,7 +43,7 @@ public class Battleship extends Game {
         fontScalingRatio = 1;
         if(Gdx.app.getType().equals(Application.ApplicationType.Android)) {
 
-            fontScalingRatio = (skin.getFont("default-font").getScaleY()/Battleship.VIRTUAL_HEIGHT) * Gdx.graphics.getHeight();
+            fontScalingRatio = (skin.getFont("default-font").getScaleY()/ SeaBattle.VIRTUAL_HEIGHT) * Gdx.graphics.getHeight();
             width = Gdx.graphics.getWidth();
             height = Gdx.graphics.getHeight();
             skin.getFont("default-font").setScale(fontScalingRatio);

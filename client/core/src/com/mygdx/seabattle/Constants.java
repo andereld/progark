@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.seabattle;
 
 /**
  * Created by esso on 18.03.15.

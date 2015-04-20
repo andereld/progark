@@ -1,4 +1,4 @@
-package network;
+package com.mygdx.seabattle.network;
 
 import com.badlogic.gdx.Net;
 
