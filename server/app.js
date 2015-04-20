@@ -19,7 +19,7 @@ router.route('/play')
 router.route('/fire')
   .post(playController.fire);
 
-router.route('/cancel/:username')
+router.route('/cancel')
   .post(matchmaker.cancel);
 
 router.route('/turn/:username')
