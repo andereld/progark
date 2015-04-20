@@ -30,6 +30,10 @@ exports.startGame = function(req, res) {
       playerQueue.unshift(player1);
       res.json({'game': null});
     }
+    // If a game doesn't exit yet
+    else {
+      res.json({'game': null});
+    }
   })
 };
 

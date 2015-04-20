@@ -185,10 +185,8 @@ public class GameScreen implements Screen {
         BoardGUI mainBoardOld = bigBoard;
         bigBoard = smallBoard;
         smallBoard = mainBoardOld;
-
-        bigBoard.drawCells(0, 0, false, true);
-        smallBoard.drawCells(0, 0, false, true);
-
+        bigBoard.toggleSize();
+        smallBoard.toggleSize();
         drawBoards();
     }
 
