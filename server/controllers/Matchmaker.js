@@ -30,5 +30,15 @@ exports.startGame = function(req, res) {
       playerQueue.unshift(player1);
       res.json({'game': null});
     }
-  });
+  })
+};
+
+exports.cancelWaitForGame = function(req, res) {
+
+  var player = req.body.username;
+  var index = playerQueue.indexOf(player);
+
+  if (index > -1) {
+    playerQueue.splice(index, 1);
+  }
 };

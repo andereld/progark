@@ -19,6 +19,7 @@ import network.NetworkHelper;
 public class GameNetworkController {
     private PlayerNetworkController playerController;
     private Battleship battleshipGame;
+    private Timer waitForOpponentTimer;
 
     public GameNetworkController(Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
@@ -27,6 +28,10 @@ public class GameNetworkController {
         return playerController;
     }
 
+    class JsonData{
+        private String username;
+        public void setUsername(String username){this.username = username; }
+    }
     /**
      * startGame
      * @param username
@@ -35,11 +40,6 @@ public class GameNetworkController {
     public void startGame(String username){
         playerController = new PlayerNetworkController(battleshipGame);
         playerController.setPlayer(new Player(username, null));
-
-        class JsonData{
-            private String username;
-            public void setUsername(String username){this.username = username; }
-        }
 
         JsonData jsonData = new JsonData();
         jsonData.setUsername(username);
@@ -104,19 +104,18 @@ public class GameNetworkController {
      * @description Pulls the play-API regularly until the game object is not null, which means there is a game ready to play
      */
     private void waitForOpponent() {
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        final JsonData jsonData = new JsonData();
+        jsonData.setUsername(playerController.getPlayer().getUsername());
+        waitForOpponentTimer = new Timer();
+        waitForOpponentTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                class JsonData{
-                    private String username = playerController.getPlayer().getUsername();
-                }
 
-                NetworkHelper.sendPostRequest("/play", JsonHelper.buildJson(new JsonData()), new Net.HttpResponseListener() {
+                NetworkHelper.sendPostRequest("/play", JsonHelper.buildJson(jsonData), new Net.HttpResponseListener() {
                     @Override
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
                         JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
-                        if (!jsonResponse.get("game").isNull()){ // It's not null
+                        if (!jsonResponse.get("game").isNull()) { // It's not null
                             startGame(playerController.getPlayer().getUsername());
                             cancel(); // Stop timer task
                         }
@@ -134,6 +133,35 @@ public class GameNetworkController {
                 });
             }
         }, 0, Constants.REGULAR_REQUEST_TIME);
+    }
+
+    /*
+     * cancelWaitForOpponent
+     * @description Cancels the network requests when the player presses cancel.
+     */
+    public void cancelWaitForOpponent() {
+
+        // Kill recurring timer task
+        waitForOpponentTimer.cancel();
+        waitForOpponentTimer.purge();
+
+        // Send a network request to remove this player from the player queue:
+        JsonData jsonData = new JsonData();
+        jsonData.setUsername(playerController.getPlayer().getUsername());
+
+        NetworkHelper.sendPostRequest("/cancel", JsonHelper.buildJson(jsonData), new Net.HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+            }
+
+            @Override
+            public void failed(Throwable t) {
+            }
+
+            @Override
+            public void cancelled() {
+            }
+        });
     }
 
 }

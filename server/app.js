@@ -5,7 +5,7 @@ var router = express.Router();
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(process.env.DATABASE_URL);
 
-var gameController = require('./controllers/Matchmaker');
+var matchmaker = require('./controllers/Matchmaker');
 var playController = require('./controllers/Play');
 var turnController = require('./controllers/Turn');
 
@@ -14,10 +14,13 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
 router.route('/play')
-  .post(gameController.startGame);
+  .post(matchmaker.startGame);
 
 router.route('/fire')
   .post(playController.fire);
+
+router.route('/cancel')
+  .post(matchmaker.cancelWaitForGame);
 
 router.route('/turn/:username')
   .get(turnController.nextPlayer);
