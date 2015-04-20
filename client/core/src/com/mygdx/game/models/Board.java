@@ -12,13 +12,8 @@ import json.JsonHelper;
 public class Board {
     private ArrayList<Cell> cells = new ArrayList<Cell>();
 
-    /**
-     * getCell
-     * @param x
-     * @param y
-     * @return Cell and that location
-     */
-    // OLD, SLOW, UNUSED
+
+    // OBSOLETE
     public Cell getCell2(int x, int y){
         for (Cell c : cells){
             if (c.getX() == x && c.getY() == y){
@@ -28,6 +23,12 @@ public class Board {
         return null;
     }
 
+    /**
+     * getCell
+     * @param x
+     * @param y
+     * @return Cell and that location
+     */
     public Cell getCell(int x, int y) {
         return cells.get(y*10 + x);
     }

@@ -27,14 +27,13 @@ public class Cell {
         this.isHit = isHit;
     }
 
-    public boolean isContainsShip() {
+    public boolean containsShip() {
         return containsShip;
     }
 
     public void setContainsShip(boolean isShip) {
         this.containsShip = isShip;
     }
-
 
     /**
      * createFromJson
@@ -47,7 +46,6 @@ public class Cell {
         isHit = jsonObject.getBoolean("hasBeenHit");
         containsShip = jsonObject.getBoolean("containsShip");
     }
-
 
     /**
      * toString

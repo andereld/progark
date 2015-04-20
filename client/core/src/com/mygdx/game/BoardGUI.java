@@ -115,19 +115,19 @@ public class BoardGUI extends Table {
             this.add(label).width(cellSize).height(cellSize).space(cellSpacing);
             for(int j = 0; j < 10; j++) {
                 Cell cell = board.getCell(i,j);
-                    if(opponentBoard && cell.isContainsShip() && !cell.isHit()) {
+                    if(opponentBoard && cell.containsShip() && !cell.isHit()) {
                         cells[i][j] = new Image(oceanTex);
                         cells[i][j].setName("ocean");
                     }
-                    else if (cell.isContainsShip() && !cell.isHit()) {
+                    else if (cell.containsShip() && !cell.isHit()) {
                         cells[i][j] = new Image(shipTex);
                         cells[i][j].setName("ship");
                     }
-                    else if(cell.isHit() && cell.isContainsShip()) {
+                    else if(cell.isHit() && cell.containsShip()) {
                         cells[i][j] = new Image(hitTex);
                         cells[i][j].setName("hit");
                     }
-                    else if(!cell.isContainsShip() && cell.isHit()) {
+                    else if(!cell.containsShip() && cell.isHit()) {
                         cells[i][j] = new Image(missTex);
                         cells[i][j].setName("miss");
                     }
