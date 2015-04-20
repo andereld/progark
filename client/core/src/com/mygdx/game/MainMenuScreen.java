@@ -16,8 +16,7 @@ public class MainMenuScreen implements Screen{
     private SpriteBatch batch;
     private Stage stage;
     private TextField nickNameField;
-    private TextButton playButton;
-    private TextButton exitButton;
+    private TextButton playButton, exitButton, howToPlayButton;
     private Label nickNameLabel;
     private Battleship battleshipGame;
     private Skin skin;
@@ -41,9 +40,10 @@ public class MainMenuScreen implements Screen{
         nickNameField = new TextField("", skin);
         playButton = new TextButton("Find match", skin);
         exitButton = new TextButton("Exit", skin);
+        howToPlayButton = new TextButton("How to play", skin);
 
         /** Calculate and set element sizes **/
-        double nickNameFieldWidth = width/4.5, nickNameFieldHeight = height/38.4;
+        double nickNameFieldWidth = nickNameLabel.getWidth(), nickNameFieldHeight = height/38.4;
         nickNameField.setSize((float) nickNameFieldWidth, (float) nickNameFieldHeight);
 
         double bW = width/2.4, bH = bW/3;
@@ -51,6 +51,7 @@ public class MainMenuScreen implements Screen{
         float btnSizeH = (float) bH;
         playButton.setSize(btnSizeW,btnSizeH);
         exitButton.setSize(btnSizeW, btnSizeH);
+        howToPlayButton.setSize(btnSizeW, btnSizeH);
 
         /** Calculate and set element positions **/
         float nickNameLabelPosX = (width/2) - nickNameLabel.getWidth() - (battleshipGame.getBorder()/2);
@@ -61,12 +62,16 @@ public class MainMenuScreen implements Screen{
         float nickNameFieldPosY = nickNameLabelPosY + 5;
         nickNameField.setPosition(nickNameFieldPosX, nickNameFieldPosY);
 
-        float playButtonPosX = battleshipGame.getBorder();
-        float playButtonPosY = battleshipGame.getBorder();
+        float playButtonPosX = (width/2) - (btnSizeW/2);
+        float playButtonPosY = nickNameLabelPosY - battleshipGame.getBorder() - btnSizeH;
         playButton.setPosition(playButtonPosX, playButtonPosY);
 
-        float exitButtonPosX = width - btnSizeW - battleshipGame.getBorder();
-        float exitButtonPosY = battleshipGame.getBorder();
+        float howToPlayButtonPosX = playButtonPosX;
+        float howToPlayButtonPosY = playButtonPosY - battleshipGame.getBorder() - btnSizeH;
+        howToPlayButton.setPosition(howToPlayButtonPosX, howToPlayButtonPosY);
+
+        float exitButtonPosX = playButtonPosX;
+        float exitButtonPosY = howToPlayButtonPosY - battleshipGame.getBorder() - btnSizeH;
         exitButton.setPosition(exitButtonPosX, exitButtonPosY);
 
         /** Add groups and elements to the stage **/
@@ -78,6 +83,7 @@ public class MainMenuScreen implements Screen{
         stage.addActor(nickNameField);
         nickNameField.setMessageText("DefaultPlayer");
         stage.addActor(playButton);
+        stage.addActor(howToPlayButton);
         stage.addActor(exitButton);
 
         /** Add listeners **/
@@ -89,6 +95,12 @@ public class MainMenuScreen implements Screen{
                     nickName = "DefaultPlayer";
                 }
                 battleshipGame.findMatch(nickName);
+            }
+        });
+        howToPlayButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                battleshipGame.setTutorialScreen();
             }
         });
         exitButton.addListener(new ClickListener() {
