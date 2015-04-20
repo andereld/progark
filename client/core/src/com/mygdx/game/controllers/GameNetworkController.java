@@ -20,8 +20,6 @@ public class GameNetworkController {
     private PlayerNetworkController playerController;
     private Battleship battleshipGame;
     private Timer waitForOpponentTimer;
-    private String usernameOfWaitingPlayer;
-
 
     public GameNetworkController(Battleship battleshipGame) {
         this.battleshipGame = battleshipGame;
@@ -106,12 +104,14 @@ public class GameNetworkController {
      * @description Pulls the play-API regularly until the game object is not null, which means there is a game ready to play
      */
     private void waitForOpponent() {
+        final JsonData jsonData = new JsonData();
+        jsonData.setUsername(playerController.getPlayer().getUsername());
         waitForOpponentTimer = new Timer();
         waitForOpponentTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
 
-                NetworkHelper.sendPostRequest("/play", JsonHelper.buildJson(new JsonData()), new Net.HttpResponseListener() {
+                NetworkHelper.sendPostRequest("/play", JsonHelper.buildJson(jsonData), new Net.HttpResponseListener() {
                     @Override
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
                         JsonValue jsonResponse = JsonHelper.parseJson(httpResponse.getResultAsString());
@@ -143,6 +143,7 @@ public class GameNetworkController {
 
         // Kill recurring timer task
         waitForOpponentTimer.cancel();
+        waitForOpponentTimer.purge();
 
         // Send a network request to remove this player from the player queue:
         JsonData jsonData = new JsonData();

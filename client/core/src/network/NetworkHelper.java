@@ -9,7 +9,7 @@ import com.badlogic.gdx.net.NetJavaImpl;
  * Created by esso on 12.03.15.
  */
 public class NetworkHelper {
-    private static String host = "https://fathomless-waters-2425.herokuapp.com";
+    private static String host = "http://localhost";
 
     /**
      * sendGetRequest
@@ -20,7 +20,7 @@ public class NetworkHelper {
      */
     public static void sendPostRequest(String route, String jsonData, Net.HttpResponseListener listener){
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
-        String url = host + "/api" + route;
+        String url = host + ":5000" + "/api" + route;
 
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.POST).url(url).build();
         httpRequest.setHeader("Content-Type", "application/json");
@@ -38,7 +38,7 @@ public class NetworkHelper {
      */
     public static void sendGetRequest(String route, Net.HttpResponseListener listener){
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
-        String url = host + "/api" + route;
+        String url = host + ":5000"+ "/api" + route;
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(url).build();
         httpRequest.setHeader("Content-Type", "application/json");
 
