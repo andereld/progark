@@ -119,9 +119,7 @@ public class GameNetworkController {
         waitForOpponentTimer.purge();
 
         // Send a network request to remove this player from the player queue:
-        JsonData jsonData = new JsonData();
-        jsonData.setUsername(playerController.getPlayer().getUsername());
-
+        JsonData jsonData = new JsonData(playerController.getPlayer().getUsername());
         NetworkHelper.sendPostRequest("/cancel", JsonHelper.buildJson(jsonData), new HttpResponseListener());
     }
 

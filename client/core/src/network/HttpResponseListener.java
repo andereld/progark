@@ -9,16 +9,15 @@ public class HttpResponseListener implements Net.HttpResponseListener {
 
     @Override
     public void handleHttpResponse(Net.HttpResponse httpResponse) {
-
+        // This method must be overwritten.
     }
 
     @Override
     public void failed(Throwable t) {
-
+        t.printStackTrace();
     }
 
     @Override
     public void cancelled() {
-
     }
 }
