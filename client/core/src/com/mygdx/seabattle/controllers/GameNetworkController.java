@@ -120,7 +120,16 @@ public class GameNetworkController {
 
         // Send a com.mygdx.seabattle.network request to remove this player from the player queue:
         JsonData jsonData = new JsonData(playerController.getPlayer().getUsername());
-        NetworkHelper.sendPostRequest("/cancel", JsonHelper.buildJson(jsonData), new HttpResponseListener());
+        NetworkHelper.sendPostRequest("/cancel", JsonHelper.buildJson(jsonData), new HttpResponseListener() {
+            @Override
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                Gdx.app.postRunnable(new Runnable() {
+                    @Override
+                    public void run() {
+                        seaBattleGame.setMainMenuScreen();
+                    }
+                });
+            }
+        });
     }
-
 }
