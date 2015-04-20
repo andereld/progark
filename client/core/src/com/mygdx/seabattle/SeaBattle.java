@@ -151,7 +151,6 @@ public class SeaBattle extends Game {
     }
 
     public void cancelFindMatch() {
-        setMainMenuScreen();
         gameNetworkController.cancelWaitForOpponent();
     }
 
