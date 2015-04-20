@@ -46,7 +46,7 @@ public class MainMenuScreen implements Screen{
         double nickNameFieldWidth = nickNameLabel.getWidth(), nickNameFieldHeight = height/38.4;
         nickNameField.setSize((float) nickNameFieldWidth, (float) nickNameFieldHeight);
 
-        double bW = width/2.4, bH = bW/3;
+        double bW = width/2.4, bH = (height - (7* battleshipGame.getBorder()) - battleshipGame.getTitleImg().getHeight() - battleshipGame.getShipImg().getHeight() - nickNameLabel.getHeight())/3;
         float btnSizeW = (float) bW;
         float btnSizeH = (float) bH;
         playButton.setSize(btnSizeW,btnSizeH);
@@ -63,7 +63,7 @@ public class MainMenuScreen implements Screen{
         nickNameField.setPosition(nickNameFieldPosX, nickNameFieldPosY);
 
         float playButtonPosX = (width/2) - (btnSizeW/2);
-        float playButtonPosY = nickNameLabelPosY - (3*battleshipGame.getBorder()) - btnSizeH;
+        float playButtonPosY = nickNameLabelPosY - (battleshipGame.getBorder()) - btnSizeH;
         playButton.setPosition(playButtonPosX, playButtonPosY);
 
         float howToPlayButtonPosX = playButtonPosX;

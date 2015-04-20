@@ -21,7 +21,7 @@ public class TutorialScreen implements Screen {
     private Stage stage;
     private int width, height;
     private Skin skin;
-    private Image howtoplayImg, hitImg, missImg, oceanImg, shipImg;
+    private Image howToPlayImg, hitImg, missImg, oceanImg, shipImg;
     private Label introLabel, hitLabel, missLabel, oceanLabel, shipLabel;
     private TextButton mainMenuButton;
     private SpriteBatch batch;
@@ -42,7 +42,7 @@ public class TutorialScreen implements Screen {
         /** Create screen elements **/
         container = new Table();
         introContainer = new Table();
-        howtoplayImg = new Image(new Texture("howtoplay.png"));
+        howToPlayImg = new Image(new Texture("howtoplay.png"));
         hitImg = new Image(new Texture("hit64x64.png"));
         missImg = new Image(new Texture("miss64x64.png"));
         oceanImg = new Image(new Texture("ocean64x64.png"));
@@ -66,48 +66,40 @@ public class TutorialScreen implements Screen {
         /** Calculate and set element sizes **/
         imageSize = height/20;
         cellSpacing = game.getBorder();
+        labelWidth = width - (6*game.getBorder()) - imageSize;
 
         float howToPlayImgWidth = width - (2*game.getBorder());
-        float howToPlayImgHeight = (howToPlayImgWidth/howtoplayImg.getWidth()) * howtoplayImg.getHeight();
-        howtoplayImg.setSize(howToPlayImgWidth, howToPlayImgHeight);
-
-        labelWidth = width - (3*game.getBorder()) - hitImg.getWidth();
-        labelHeight = hitImg.getHeight();
-        hitLabel.setSize(labelWidth, labelHeight);
-        missLabel.setSize(labelWidth, labelHeight);
-        oceanLabel.setSize(labelWidth, labelHeight);
-        shipLabel.setSize(labelWidth, labelHeight);
+        float howToPlayImgHeight = (howToPlayImgWidth/ howToPlayImg.getWidth()) * howToPlayImg.getHeight();
+        howToPlayImg.setSize(howToPlayImgWidth, howToPlayImgHeight);
 
         float btnWidth = width - 2* game.getBorder();
         float btnHeight = btnWidth/6;
         mainMenuButton.setSize(btnWidth, btnHeight);
 
-        float containerHeight = oceanLabel.getHeight() + shipLabel.getHeight() + hitLabel.getHeight() + missLabel.getHeight() + (3* game.getBorder());
+        populateContainer();
+
+        float containerHeight = (10*cellSpacing) + oceanLabel.getHeight() + shipLabel.getHeight() + hitLabel.getHeight() + missLabel.getHeight();
         float containerWidth = width - (2*game.getBorder());
         container.setSize(containerWidth, containerHeight);
 
-        introLabelWidth = width - (2*game.getBorder());
-        introLabelHeight = height - containerHeight - howToPlayImgHeight - btnHeight - (5*game.getBorder());
-        introLabel.setSize(introLabelWidth, introLabelHeight);
+        float introContainerWidth = width - (2*game.getBorder());
+        float introContainerHeight = height - howToPlayImgHeight - containerHeight - btnHeight - (5*game.getBorder());
 
-        introContainer.setSize(introLabelWidth, introLabelHeight);
-
-        introContainer.add(introLabel).width(introLabelWidth).height(introLabelHeight).space(cellSpacing);
-        introContainer.row();
-        populateContainer();
+        introContainer.setSize(introContainerWidth, introContainerHeight);
+        introContainer.add(introLabel).width(introContainerWidth).height(introContainerHeight);
 
         /** Calculate and set element positions **/
         float howToPlayImgPosX = game.getBorder();
         float howToPlayImgPosY = height - game.getBorder() - howToPlayImgHeight;
-        howtoplayImg.setPosition(howToPlayImgPosX, howToPlayImgPosY);
-
-        float introContainerPosX = game.getBorder();
-        float introContainerPosY = howToPlayImgPosY - game.getBorder() - introContainer.getHeight();
-        introContainer.setPosition(introContainerPosX, introContainerPosY);
+        howToPlayImg.setPosition(howToPlayImgPosX, howToPlayImgPosY);
 
         float containerPosX = game.getBorder();
-        float containerPosY = introContainerPosY - game.getBorder() - container.getHeight();
+        float containerPosY = (2 * game.getBorder()) + btnHeight;
         container.setPosition(containerPosX, containerPosY);
+
+        float introContainerPosX = game.getBorder();
+        float introContainerPosY = containerPosY + container.getHeight() + game.getBorder();
+        introContainer.setPosition(introContainerPosX, introContainerPosY);
 
         float buttonPosX = game.getBorder();
         float buttonPosY = game.getBorder();
@@ -117,7 +109,7 @@ public class TutorialScreen implements Screen {
         stage.addActor(game.getBackground());
         game.getBackground().setFillParent(true);
 
-        stage.addActor(howtoplayImg);
+        stage.addActor(howToPlayImg);
         stage.addActor(introContainer);
         stage.addActor(container);
         stage.addActor(mainMenuButton);
@@ -132,17 +124,17 @@ public class TutorialScreen implements Screen {
     }
 
     public void populateContainer() {
-        container.add(oceanImg).width(imageSize).height(imageSize).space(cellSpacing);
-        container.add(oceanLabel).width(labelWidth).height(labelHeight).space(cellSpacing);
+        container.add(oceanImg).size(imageSize, imageSize).space(cellSpacing);
+        container.add(oceanLabel).width(labelWidth).space(cellSpacing);
         container.row();
-        container.add(shipImg).width(imageSize).height(imageSize).space(cellSpacing);
-        container.add(shipLabel).width(labelWidth).height(labelHeight).space(cellSpacing);
+        container.add(shipImg).size(imageSize, imageSize).space(cellSpacing);
+        container.add(shipLabel).width(labelWidth).space(cellSpacing);
         container.row();
-        container.add(hitImg).width(imageSize).height(imageSize).space(cellSpacing);
-        container.add(hitLabel).width(labelWidth).height(labelHeight).space(cellSpacing);
+        container.add(hitImg).size(imageSize, imageSize).space(cellSpacing);
+        container.add(hitLabel).width(labelWidth).space(cellSpacing);
         container.row();
-        container.add(missImg).width(imageSize).height(imageSize).space(cellSpacing);
-        container.add(missLabel).width(labelWidth).height(labelHeight).space(cellSpacing);
+        container.add(missImg).size(imageSize, imageSize).space(cellSpacing);
+        container.add(missLabel).width(labelWidth).space(cellSpacing);
         container.row();
     }
 

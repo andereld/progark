@@ -4,9 +4,11 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.game.controllers.GameNetworkController;
 
 public class Battleship extends Game {
@@ -16,6 +18,7 @@ public class Battleship extends Game {
     private GameOverScreen gameOverScreen;
     private GameScreen gameScreen;
     private TutorialScreen tutorialScreen;
+    private CreatorScreen creatorScreen;
     private int border;
     private Image background, shipImg, titleImg;
     private int width, height;
@@ -65,6 +68,14 @@ public class Battleship extends Game {
         float shipImgPosY = titleImgPosY - border - shipHeight;
         shipImg.setPosition(shipImgPosX, shipImgPosY);
 
+        shipImg.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                setCreatorScreen();
+            }
+        });
+
+        creatorScreen = new CreatorScreen(this);
         tutorialScreen = new TutorialScreen(this);
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
@@ -100,6 +111,11 @@ public class Battleship extends Game {
     public void setTutorialScreen() {
         tutorialScreen = new TutorialScreen(this);
         setScreen(tutorialScreen);
+    }
+
+    public void setCreatorScreen() {
+        creatorScreen = new CreatorScreen(this);
+        setScreen(creatorScreen);
     }
 
     public void setGameOver(boolean thisPlayerWon) {
