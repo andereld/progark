@@ -114,28 +114,28 @@ public class BoardGUI extends Table {
             label = new Label(letters[i], gameScreen.getSkin());
             this.add(label).width(cellSize).height(cellSize).space(cellSpacing);
             for(int j = 0; j < 10; j++) {
-                Cell cell = board.getCell(i,j);
-                    if(opponentBoard && cell.containsShip() && !cell.isHit()) {
-                        cells[i][j] = new Image(oceanTex);
-                        cells[i][j].setName("ocean");
-                    }
-                    else if (cell.containsShip() && !cell.isHit()) {
-                        cells[i][j] = new Image(shipTex);
-                        cells[i][j].setName("ship");
-                    }
-                    else if(cell.isHit() && cell.containsShip()) {
-                        cells[i][j] = new Image(hitTex);
-                        cells[i][j].setName("hit");
-                    }
-                    else if(!cell.containsShip() && cell.isHit()) {
-                        cells[i][j] = new Image(missTex);
-                        cells[i][j].setName("miss");
-                    }
-                    else {
-                        cells[i][j] = new Image(oceanTex);
-                        cells[i][j].setName("ocean");
-                    }
-                if(marker && cells[i][j].getName().equals("ocean")) {
+                Cell cell = board.getCell(j,i);
+                if(opponentBoard && cell.containsShip() && !cell.isHit()) {
+                    cells[i][j] = new Image(oceanTex);
+                    cells[i][j].setName("ocean");
+                }
+                else if (cell.containsShip() && !cell.isHit()) {
+                    cells[i][j] = new Image(shipTex);
+                    cells[i][j].setName("ship");
+                }
+                else if(cell.isHit() && cell.containsShip()) {
+                    cells[i][j] = new Image(hitTex);
+                    cells[i][j].setName("hit");
+                }
+                else if(!cell.containsShip() && cell.isHit()) {
+                    cells[i][j] = new Image(missTex);
+                    cells[i][j].setName("miss");
+                }
+                else {
+                    cells[i][j] = new Image(oceanTex);
+                    cells[i][j].setName("ocean");
+                }
+                if(i == x && j == y && marker && cells[i][j].getName().equals("ocean")) {
                     cells[i][j] = new Image(oceanMarkedTex);
                 }
                 Actor cellActor = cells[i][j];
