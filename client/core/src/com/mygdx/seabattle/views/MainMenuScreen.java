@@ -17,11 +17,10 @@ public class MainMenuScreen implements Screen{
     private SpriteBatch batch;
     private Stage stage;
     private TextField nickNameField;
-    private TextButton playButton, exitButton, howToPlayButton;
-    private Label nickNameLabel;
     private SeaBattle seaBattleGame;
     private Skin skin;
     private int width, height;
+    private String defaultNickname = randomNickname();
 
     public MainMenuScreen(SeaBattle seaBattleGame) {
         this.seaBattleGame = seaBattleGame;
@@ -37,11 +36,11 @@ public class MainMenuScreen implements Screen{
         Gdx.input.setInputProcessor(stage); // So that the stage can receive input-events like button-clicks
 
         /** Create menu elements **/
-        nickNameLabel = new Label("Enter nickname:", skin);
+        Label nickNameLabel = new Label("Enter nickname:", skin);
         nickNameField = new TextField("", skin);
-        playButton = new TextButton("Find match", skin);
-        exitButton = new TextButton("Exit", skin);
-        howToPlayButton = new TextButton("How to play", skin);
+        TextButton playButton = new TextButton("Find match", skin);
+        TextButton exitButton = new TextButton("Exit", skin);
+        TextButton howToPlayButton = new TextButton("How to play", skin);
 
         /** Calculate and set element sizes **/
         double nickNameFieldWidth = nickNameLabel.getWidth(), nickNameFieldHeight = height/38.4;
@@ -50,7 +49,7 @@ public class MainMenuScreen implements Screen{
         double bW = width/2.4, bH = (height - (7* seaBattleGame.getBorder()) - seaBattleGame.getTitleImg().getHeight() - seaBattleGame.getShipImg().getHeight() - nickNameLabel.getHeight())/3;
         float btnSizeW = (float) bW;
         float btnSizeH = (float) bH;
-        playButton.setSize(btnSizeW,btnSizeH);
+        playButton.setSize(btnSizeW, btnSizeH);
         exitButton.setSize(btnSizeW, btnSizeH);
         howToPlayButton.setSize(btnSizeW, btnSizeH);
 
@@ -67,13 +66,11 @@ public class MainMenuScreen implements Screen{
         float playButtonPosY = nickNameLabelPosY - (seaBattleGame.getBorder()) - btnSizeH;
         playButton.setPosition(playButtonPosX, playButtonPosY);
 
-        float howToPlayButtonPosX = playButtonPosX;
         float howToPlayButtonPosY = playButtonPosY - seaBattleGame.getBorder() - btnSizeH;
-        howToPlayButton.setPosition(howToPlayButtonPosX, howToPlayButtonPosY);
+        howToPlayButton.setPosition(playButtonPosX, howToPlayButtonPosY);
 
-        float exitButtonPosX = playButtonPosX;
         float exitButtonPosY = howToPlayButtonPosY - seaBattleGame.getBorder() - btnSizeH;
-        exitButton.setPosition(exitButtonPosX, exitButtonPosY);
+        exitButton.setPosition(playButtonPosX, exitButtonPosY);
 
         /** Add groups and elements to the stage **/
         stage.addActor(seaBattleGame.getBackground());
@@ -82,7 +79,7 @@ public class MainMenuScreen implements Screen{
         stage.addActor(seaBattleGame.getShipImg());
         stage.addActor(nickNameLabel);
         stage.addActor(nickNameField);
-        nickNameField.setMessageText(randomNickname());
+        nickNameField.setMessageText(defaultNickname);
         stage.addActor(playButton);
         stage.addActor(howToPlayButton);
         stage.addActor(exitButton);
@@ -93,7 +90,7 @@ public class MainMenuScreen implements Screen{
             public void clicked(InputEvent event, float x, float y) {
                 String nickName = nickNameField.getText();
                 if (nickName.length() == 0) {
-                    nickName = "DefaultPlayer";
+                    nickName = defaultNickname;
                 }
                 seaBattleGame.findMatch(nickName);
             }
@@ -146,13 +143,8 @@ public class MainMenuScreen implements Screen{
     }
 
     private String randomNickname() {
-        String[] adjectives = {"Awesome", "Mighty", "Dark", "Mean", "Fearsome", "Big", "Cowardly", "Smart", "Hot", "Evil", "Angry"};
-        String[] nouns = {"Beaver", "Captain", "Anchovy", "Pirate", "Gangster", "Boy", "Tim", "Knight", "Sirloin", "Mama", "Viking"};
+        String[] adjectives = {"Awesome", "Mighty", "Dark", "Mean", "Fearsome", "Big", "Cowardly", "Smart", "Hot", "Evil", "Angry", "Sweet"};
+        String[] nouns = {"Beaver", "Captain", "Anchovy", "Pirate", "Gangster", "Boy", "Tim", "Knight", "Sirloin", "Mama", "Viking", "Champion"};
         return adjectives[(int) (Math.random() * adjectives.length)] + nouns[(int) (Math.random() * nouns.length)] + (int) (Math.random() * 100);
-    }
-
-    public static void main(String[] args) {
-        MainMenuScreen mms = new MainMenuScreen(new SeaBattle());
-        System.out.println(mms.randomNickname());
     }
 }
