@@ -82,7 +82,7 @@ public class MainMenuScreen implements Screen{
         stage.addActor(seaBattleGame.getShipImg());
         stage.addActor(nickNameLabel);
         stage.addActor(nickNameField);
-        nickNameField.setMessageText("DefaultPlayer");
+        nickNameField.setMessageText(randomNickname());
         stage.addActor(playButton);
         stage.addActor(howToPlayButton);
         stage.addActor(exitButton);
@@ -143,5 +143,11 @@ public class MainMenuScreen implements Screen{
     @Override
     public void hide() {
         dispose();
+    }
+
+    private String randomNickname() {
+        String[] adjectives = {"Awesome", "Mighty", "Dark", "Mean", "Fearsome", "Big", "Cowardly", "Smart", "Hot", "Evil"};
+        String[] nouns = {"Beaver", "Captain", "Anchovy", "Pirate", "Gangster", "Boy", "Tim", "Knight", "Sirloin", "Mama"};
+        return adjectives[(int) (Math.random() * adjectives.length)] + " " + nouns[(int) (Math.random() * nouns.length)];
     }
 }
