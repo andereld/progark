@@ -3,11 +3,13 @@ package com.mygdx.seabattle.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.mygdx.seabattle.SeaBattle;
 
 /**
@@ -21,6 +23,7 @@ public class MainMenuScreen implements Screen{
     private Skin skin;
     private int width, height;
     private String defaultNickname = randomNickname();
+    private Image soundImg;
 
     public MainMenuScreen(SeaBattle seaBattleGame) {
         this.seaBattleGame = seaBattleGame;
@@ -41,6 +44,7 @@ public class MainMenuScreen implements Screen{
         TextButton playButton = new TextButton("Find match", skin);
         TextButton exitButton = new TextButton("Exit", skin);
         TextButton howToPlayButton = new TextButton("How to play", skin);
+        soundImg = new Image(seaBattleGame.getSoundTexture());
 
         /** Calculate and set element sizes **/
         double nickNameFieldWidth = nickNameLabel.getWidth(), nickNameFieldHeight = height/38.4;
@@ -52,6 +56,8 @@ public class MainMenuScreen implements Screen{
         playButton.setSize(btnSizeW, btnSizeH);
         exitButton.setSize(btnSizeW, btnSizeH);
         howToPlayButton.setSize(btnSizeW, btnSizeH);
+
+        soundImg.setSize(seaBattleGame.getSoundImgSize(), seaBattleGame.getSoundImgSize());
 
         /** Calculate and set element positions **/
         float nickNameLabelPosX = (width/2) - nickNameLabel.getWidth() - (seaBattleGame.getBorder()/2);
@@ -72,6 +78,8 @@ public class MainMenuScreen implements Screen{
         float exitButtonPosY = howToPlayButtonPosY - seaBattleGame.getBorder() - btnSizeH;
         exitButton.setPosition(playButtonPosX, exitButtonPosY);
 
+        soundImg.setPosition(seaBattleGame.getSoundImgPos(), seaBattleGame.getSoundImgPos());
+
         /** Add groups and elements to the stage **/
         stage.addActor(seaBattleGame.getBackground());
         seaBattleGame.getBackground().setFillParent(true);
@@ -79,6 +87,7 @@ public class MainMenuScreen implements Screen{
         stage.addActor(seaBattleGame.getShipImg());
         stage.addActor(nickNameLabel);
         stage.addActor(nickNameField);
+        stage.addActor(soundImg);
         nickNameField.setMessageText(defaultNickname);
         stage.addActor(playButton);
         stage.addActor(howToPlayButton);
@@ -105,6 +114,18 @@ public class MainMenuScreen implements Screen{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 seaBattleGame.exit();
+            }
+        });
+
+        soundImg.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(seaBattleGame.isMuted()) {
+                    seaBattleGame.playMusic();
+                } else {
+                    seaBattleGame.stopMusic();
+                }
+                soundImg.setDrawable(new SpriteDrawable(new Sprite(seaBattleGame.getSoundTexture())));
             }
         });
     }

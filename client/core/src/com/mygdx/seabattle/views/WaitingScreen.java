@@ -3,12 +3,14 @@ package com.mygdx.seabattle.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.mygdx.seabattle.SeaBattle;
 
 /**
@@ -22,6 +24,7 @@ public class WaitingScreen implements Screen{
     private SeaBattle seaBattleGame;
     private Skin skin;
     private int width, height;
+    private Image soundImg;
 
     public WaitingScreen (SeaBattle seaBattleGame) {
         this.seaBattleGame = seaBattleGame;
@@ -40,6 +43,8 @@ public class WaitingScreen implements Screen{
         waitingLabel = new Label("Finding match...", skin);
         waitingLabel.setAlignment(Align.center);
         cancelButton = new TextButton("Cancel", skin);
+        soundImg = new Image(seaBattleGame.getSoundTexture());
+
 
         /** Set element sizes **/
         waitingLabel.setSize(width / 18, height / 64);
@@ -47,6 +52,7 @@ public class WaitingScreen implements Screen{
         float btnSizeW = (float) bW;
         float btnSizeH = (float) bH;
         cancelButton.setSize(btnSizeW,btnSizeH);
+        soundImg.setSize(seaBattleGame.getSoundImgSize(), seaBattleGame.getSoundImgSize());
 
         /** Set element positions **/
         float waitingLabelPosX = (width/2);
@@ -58,6 +64,8 @@ public class WaitingScreen implements Screen{
         float cancelButtonPosY = waitingLabelPosY - seaBattleGame.getBorder() - cancelButton.getHeight();
         cancelButton.setPosition(cancelButtonPosX, cancelButtonPosY);
 
+        soundImg.setPosition(seaBattleGame.getSoundImgPos(), seaBattleGame.getSoundImgPos());
+
         /** Add groups and elements to the stage **/
         stage.addActor(seaBattleGame.getBackground());
         seaBattleGame.getBackground().setFillParent(true);
@@ -65,12 +73,25 @@ public class WaitingScreen implements Screen{
         stage.addActor(seaBattleGame.getShipImg());
         stage.addActor(waitingLabel);
         stage.addActor(cancelButton);
+        stage.addActor(soundImg);
 
         /** Add listeners **/
         cancelButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 seaBattleGame.cancelFindMatch();
+            }
+        });
+
+        soundImg.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(seaBattleGame.isMuted()) {
+                    seaBattleGame.playMusic();
+                } else {
+                    seaBattleGame.stopMusic();
+                }
+                soundImg.setDrawable(new SpriteDrawable(new Sprite(seaBattleGame.getSoundTexture())));
             }
         });
     }
