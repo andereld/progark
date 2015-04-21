@@ -146,8 +146,13 @@ public class MainMenuScreen implements Screen{
     }
 
     private String randomNickname() {
-        String[] adjectives = {"Awesome", "Mighty", "Dark", "Mean", "Fearsome", "Big", "Cowardly", "Smart", "Hot", "Evil"};
-        String[] nouns = {"Beaver", "Captain", "Anchovy", "Pirate", "Gangster", "Boy", "Tim", "Knight", "Sirloin", "Mama"};
-        return adjectives[(int) (Math.random() * adjectives.length)] + " " + nouns[(int) (Math.random() * nouns.length)];
+        String[] adjectives = {"Awesome", "Mighty", "Dark", "Mean", "Fearsome", "Big", "Cowardly", "Smart", "Hot", "Evil", "Angry"};
+        String[] nouns = {"Beaver", "Captain", "Anchovy", "Pirate", "Gangster", "Boy", "Tim", "Knight", "Sirloin", "Mama", "Viking"};
+        return adjectives[(int) (Math.random() * adjectives.length)] + nouns[(int) (Math.random() * nouns.length)] + (int) (Math.random() * 100);
+    }
+
+    public static void main(String[] args) {
+        MainMenuScreen mms = new MainMenuScreen(new SeaBattle());
+        System.out.println(mms.randomNickname());
     }
 }
