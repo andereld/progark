@@ -27,6 +27,11 @@ public class SeaBattle extends Game {
     private TextButton.TextButtonStyle style;
     private float fontScalingRatio;
     private GameNetworkController gameNetworkController;
+    private AndroidNotification notification;
+
+    public SeaBattle(AndroidNotification notification) {
+        this.notification = notification;
+    }
 
     @Override
     public void create() {
@@ -98,6 +103,7 @@ public class SeaBattle extends Game {
 
     public void setGameScreen() {
         gameScreen = new GameScreen(this);
+        notification.invokeService(gameNetworkController.getPlayerController().getPlayer().getUsername());
         setScreen(gameScreen);
     }
 
@@ -121,6 +127,7 @@ public class SeaBattle extends Game {
 
     public void setGameOver(boolean thisPlayerWon) {
         gameOverScreen.setWinningPlayer(thisPlayerWon);
+        notification.purgeService();
         setGameOverScreen();
     }
 
