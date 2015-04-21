@@ -22,6 +22,7 @@ public class MainMenuScreen implements Screen{
     private SeaBattle seaBattleGame;
     private Skin skin;
     private int width, height;
+    private String defaultNickname = randomNickname();
 
     public MainMenuScreen(SeaBattle seaBattleGame) {
         this.seaBattleGame = seaBattleGame;
@@ -82,7 +83,7 @@ public class MainMenuScreen implements Screen{
         stage.addActor(seaBattleGame.getShipImg());
         stage.addActor(nickNameLabel);
         stage.addActor(nickNameField);
-        nickNameField.setMessageText(randomNickname());
+        nickNameField.setMessageText(defaultNickname);
         stage.addActor(playButton);
         stage.addActor(howToPlayButton);
         stage.addActor(exitButton);
@@ -93,7 +94,7 @@ public class MainMenuScreen implements Screen{
             public void clicked(InputEvent event, float x, float y) {
                 String nickName = nickNameField.getText();
                 if (nickName.length() == 0) {
-                    nickName = "DefaultPlayer";
+                    nickName = defaultNickname;
                 }
                 seaBattleGame.findMatch(nickName);
             }
@@ -146,13 +147,8 @@ public class MainMenuScreen implements Screen{
     }
 
     private String randomNickname() {
-        String[] adjectives = {"Awesome", "Mighty", "Dark", "Mean", "Fearsome", "Big", "Cowardly", "Smart", "Hot", "Evil", "Angry"};
-        String[] nouns = {"Beaver", "Captain", "Anchovy", "Pirate", "Gangster", "Boy", "Tim", "Knight", "Sirloin", "Mama", "Viking"};
+        String[] adjectives = {"Awesome", "Mighty", "Dark", "Mean", "Fearsome", "Big", "Cowardly", "Smart", "Hot", "Evil", "Angry", "Sweet"};
+        String[] nouns = {"Beaver", "Captain", "Anchovy", "Pirate", "Gangster", "Boy", "Tim", "Knight", "Sirloin", "Mama", "Viking", "Champion"};
         return adjectives[(int) (Math.random() * adjectives.length)] + nouns[(int) (Math.random() * nouns.length)] + (int) (Math.random() * 100);
-    }
-
-    public static void main(String[] args) {
-        MainMenuScreen mms = new MainMenuScreen(new SeaBattle());
-        System.out.println(mms.randomNickname());
     }
 }
