@@ -25,8 +25,9 @@ public class BoardGUI extends Table {
     private final String[] letters = new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
     private boolean opponentBoard, smallBoard;
     private Board board;
-    private boolean init;
-    private boolean markCell;
+    private boolean init; // True when drawing the board the first time
+    private boolean markCell; // Whether or not to mark a cell when drawing
+    private boolean cellIsMarked; // Whether or not a cell is currently marked on the board
 
     /**
      * Constructor
@@ -52,7 +53,10 @@ public class BoardGUI extends Table {
         if(smallBoard) {
             cellSize /=2;
         }
+        cellIsMarked = false;
         markCell = false;
+        markedRow = -1;
+        markedColumn = -1;
         init = true;
         drawCells();
         init = false;
@@ -84,6 +88,7 @@ public class BoardGUI extends Table {
         return markedColumn;
     }
 
+    // Change the size the board is drawn
     public void toggleSize() {
         if(smallBoard) {
             cellSize *= 2;
@@ -91,6 +96,10 @@ public class BoardGUI extends Table {
             cellSize /= 2;
         }
         smallBoard = !smallBoard;
+        // For keeping a cell marked when switching boards
+        if (cellIsMarked) {
+            markCell = true;
+        }
         drawCells();
     }
 
@@ -112,6 +121,7 @@ public class BoardGUI extends Table {
         }
         this.row();
 
+        cellIsMarked = false;
         // Make labels for the letters on the left side of the board and draw the cells
         for(int i = 0; i < 10; i++) {
             label = new Label(letters[i], gameScreen.getSkin());
@@ -133,6 +143,7 @@ public class BoardGUI extends Table {
                 else if(!init && (i == markedRow && j == markedColumn && markCell)) {
                     drawCell(i, j, oceanMarkedTex);
                     markCell = false;
+                    cellIsMarked = true;
                 }
                 else {
                     drawCell(i,j, oceanTex);
@@ -147,6 +158,10 @@ public class BoardGUI extends Table {
 
             }
             this.row();
+        }
+        if (!cellIsMarked) {
+            markedColumn = -1;
+            markedRow = -1;
         }
     }
 
@@ -166,6 +181,9 @@ public class BoardGUI extends Table {
 
     public void setBoard(Board board) {
         this.board = board;
+        if (cellIsMarked) {
+            markCell = true;
+        }
         drawCells();
     }
 

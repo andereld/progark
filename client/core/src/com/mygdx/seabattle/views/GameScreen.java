@@ -27,6 +27,7 @@ public class GameScreen implements Screen {
     private String playerName;
     private String opponentName;
     private boolean opponentIsMainView;
+    private int lastFireX, lastFireY;
 
     /**
      * Constructor
@@ -50,16 +51,14 @@ public class GameScreen implements Screen {
         smallBoard = new BoardGUI(this, false, true, game.getGameNetworkController().getPlayerController().getPlayer().getBoard());
 
         boardLabel = new Label("", skin);
-        gameLabel = new Label(playerName + " vs " + opponentName, skin);
         drawButtons();
         drawBoards();
-        drawOpponentLabel(opponentName);
-        drawGameLabel();
+        drawBoardLabel("Opponent: " + opponentName);
         waitForTurn();
     }
 
     public void waitForTurn() {
-        btnFire.setText("Wait for turn");
+        btnFire.setText("Waiting for turn");
         btnFire.setColor(Color.RED);
         btnFire.setTouchable(Touchable.disabled);
         game.getGameNetworkController().getPlayerController().waitForTurn();
@@ -137,20 +136,13 @@ public class GameScreen implements Screen {
         stage.addActor(btnQuit);
     }
 
-    public void drawOpponentLabel(String text) {
+    public void drawBoardLabel(String text) {
         boardLabel.setText(text);
         float boardLabelPosX = game.getWidth()/2;
         float boardLabelPosY = bigBoard.getY() - border - boardLabel.getHeight();
         boardLabel.setPosition(boardLabelPosX, boardLabelPosY);
         boardLabel.setAlignment(0);
         stage.addActor(boardLabel);
-    }
-
-    public void drawGameLabel() {
-        float gameLabelPosX = game.getWidth()/2 - gameLabel.getWidth()/2;
-        float gameLabelPosY = bigBoard.getY() - 3 * border - gameLabel.getHeight() - boardLabel.getHeight();
-        gameLabel.setPosition(gameLabelPosX, gameLabelPosY);
-        stage.addActor(gameLabel);
     }
 
     public void btnQuitClicked() {
@@ -160,19 +152,22 @@ public class GameScreen implements Screen {
     public void btnFireClicked() {
         int x = getOpponentBoard().getMarkedColumn();
         int y = getOpponentBoard().getMarkedRow();
+        // x,y = (-1,-1) at init and when no cell is marked
+        if (x == -1 || y == -1) {
+            return;
+        }
         game.getGameNetworkController().getPlayerController().fireAtLocation(x, y);
     }
 
     public void changeBoardLabel() {
         if (opponentIsMainView) {
-            boardLabel.setText(opponentName);
+            boardLabel.setText("Opponent: " + opponentName);
         } else {
-            boardLabel.setText(playerName);
+            boardLabel.setText("You: " + playerName);
         }
     }
 
-    // For switching between what player and opponent board
-    // Maybe this should be done automatically, depending on who's turn it is??
+    // For switching between player and opponent board
     public void btnSwitchClicked() {
         opponentIsMainView = !opponentIsMainView;
         changeBoardLabel();
