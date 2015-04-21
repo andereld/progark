@@ -2,6 +2,8 @@
 This is an implementation of the classic game Battleship (Sea Battle), written
 with a client–server architecture (plus some MVC), for the Android platform. It's written as a project at NTNU in Trondheim, Norway, for the course TDT4240 Software Architecture.
 
+The game can be found in [Google Play Store](https://play.google.com/store/apps/details?id=com.mygdx.seabattle.android)! If you want to play on desktop (OS X, Windows, Linux), run [this](http://folk.ntnu.no/andredri/seabattle_desktop.jar) JAR-file. 
+
 ## Workflow
 Our issue tracker is [Trello](https://trello.com/b/ih5ztWXn/progark). Gonna start on something new?
 
