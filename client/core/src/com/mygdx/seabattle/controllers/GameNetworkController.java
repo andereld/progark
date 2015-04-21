@@ -49,12 +49,7 @@ public class GameNetworkController {
                     JsonValue game = jsonResponse.get("game");
                     String username = playerController.getPlayer().getUsername();
 
-                    if (game.get("next").asString().equals(username)){
-                        playerController.setPlayersTurn(true);
-                    }
-                    else {
-                        playerController.setPlayersTurn(false);
-                    }
+                    playerController.setPlayersTurn((game.get("next").asString().equals(username)));
 
                     // Setup boards
                     Board playerBoard = new Board();
