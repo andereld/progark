@@ -52,8 +52,9 @@ public class GameNetworkController {
                     if (game.get("next").asString().equals(username)){
                         playerController.setPlayersTurn(true);
                     }
-
-                    playerController.setPlayersTurn(false);
+                    else {
+                        playerController.setPlayersTurn(false);
+                    }
 
                     // Setup boards
                     Board playerBoard = new Board();
