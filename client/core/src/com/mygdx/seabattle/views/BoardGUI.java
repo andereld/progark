@@ -25,9 +25,9 @@ public class BoardGUI extends Table {
     private final String[] letters = new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
     private boolean opponentBoard, smallBoard;
     private Board board;
-    private boolean init; // First draw
-    private boolean markCell; // Whether or not to mark a cell on draw
-    private boolean cellIsMarked; // Whether or not a cell is marked on the board
+    private boolean init; // True when drawing the board the first time
+    private boolean markCell; // Whether or not to mark a cell when drawing
+    private boolean cellIsMarked; // Whether or not a cell is currently marked on the board
 
     /**
      * Constructor
@@ -96,6 +96,7 @@ public class BoardGUI extends Table {
             cellSize /= 2;
         }
         smallBoard = !smallBoard;
+        // For keeping a cell marked when switching boards
         if (cellIsMarked) {
             markCell = true;
         }
@@ -180,6 +181,9 @@ public class BoardGUI extends Table {
 
     public void setBoard(Board board) {
         this.board = board;
+        if (cellIsMarked) {
+            markCell = true;
+        }
         drawCells();
     }
 
