@@ -69,7 +69,7 @@ public class SeaBattle extends Game {
         float shipImgPosY = titleImgPosY - border - shipHeight;
         shipImg.setPosition(shipImgPosX, shipImgPosY);
 
-        shipImg.addListener(new ClickListener() {
+        titleImg.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 setCreatorScreen();

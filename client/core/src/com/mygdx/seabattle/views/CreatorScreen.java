@@ -90,9 +90,6 @@ public class CreatorScreen implements Screen {
         float containerWidth = width - (2*game.getBorder());
         float containerHeight = height - creatorImgHeight - btnHeight - (4* game.getBorder());
         container.setSize(containerWidth, containerHeight);
-        System.out.println(creatorImgHeight);
-        System.out.println(containerHeight);
-        System.out.println(3*imgHeight);
 
         /** Set element positions **/
         float creatorImgPosX = game.getBorder();
