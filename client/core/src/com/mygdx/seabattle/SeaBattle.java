@@ -3,6 +3,7 @@ package com.mygdx.seabattle;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -27,10 +28,12 @@ public class SeaBattle extends Game {
     private TextButton.TextButtonStyle style;
     private float fontScalingRatio;
     private GameNetworkController gameNetworkController;
+    private Music music;
 
     @Override
     public void create() {
         gameNetworkController = new GameNetworkController(this);
+
         width = VIRTUAL_WIDTH;
         height = VIRTUAL_HEIGHT;
 
@@ -81,6 +84,7 @@ public class SeaBattle extends Game {
         mainMenuScreen = new MainMenuScreen(this);
         gameOverScreen = new GameOverScreen(this);
         waitingScreen = new WaitingScreen(this);
+        playMusic();
         setScreen(mainMenuScreen);
     }
 
@@ -181,5 +185,17 @@ public class SeaBattle extends Game {
 
     public Image getTitleImg() {
         return titleImg;
+    }
+
+    public void playMusic() {
+        music = Gdx.audio.newMusic(Gdx.files.internal("teknotanks.mp3"));
+        music.setVolume(0.5f);
+        music.setLooping(true);
+        music.play();
+    }
+
+    public void stopMusic() {
+        music.stop();
+        music.dispose();
     }
 }
