@@ -27,6 +27,7 @@ public class GameScreen implements Screen {
     private String playerName;
     private String opponentName;
     private boolean opponentIsMainView;
+    private int lastFireX, lastFireY;
 
     /**
      * Constructor
@@ -53,7 +54,7 @@ public class GameScreen implements Screen {
         gameLabel = new Label(playerName + " vs " + opponentName, skin);
         drawButtons();
         drawBoards();
-        drawOpponentLabel(opponentName);
+        drawOpponentLabel("Opponent: " + opponentName);
         drawGameLabel();
         waitForTurn();
     }
@@ -160,14 +161,18 @@ public class GameScreen implements Screen {
     public void btnFireClicked() {
         int x = getOpponentBoard().getMarkedColumn();
         int y = getOpponentBoard().getMarkedRow();
+        // x,y = (-1,-1) at init and when no cell is marked
+        if (x == -1 || y == -1) {
+            return;
+        }
         game.getGameNetworkController().getPlayerController().fireAtLocation(x, y);
     }
 
     public void changeBoardLabel() {
         if (opponentIsMainView) {
-            boardLabel.setText(opponentName);
+            boardLabel.setText("Opponent: " + opponentName);
         } else {
-            boardLabel.setText(playerName);
+            boardLabel.setText("You: " + playerName);
         }
     }
 

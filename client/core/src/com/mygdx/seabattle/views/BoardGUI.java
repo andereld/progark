@@ -27,6 +27,7 @@ public class BoardGUI extends Table {
     private Board board;
     private boolean init;
     private boolean markCell;
+    private boolean cellIsMarked;
 
     /**
      * Constructor
@@ -52,7 +53,10 @@ public class BoardGUI extends Table {
         if(smallBoard) {
             cellSize /=2;
         }
+        cellIsMarked = false;
         markCell = false;
+        markedRow = -1;
+        markedColumn = -1;
         init = true;
         drawCells();
         init = false;
@@ -91,6 +95,9 @@ public class BoardGUI extends Table {
             cellSize /= 2;
         }
         smallBoard = !smallBoard;
+        if (cellIsMarked) {
+            markCell = true;
+        }
         drawCells();
     }
 
@@ -112,6 +119,7 @@ public class BoardGUI extends Table {
         }
         this.row();
 
+        cellIsMarked = false;
         // Make labels for the letters on the left side of the board and draw the cells
         for(int i = 0; i < 10; i++) {
             label = new Label(letters[i], gameScreen.getSkin());
@@ -133,6 +141,7 @@ public class BoardGUI extends Table {
                 else if(!init && (i == markedRow && j == markedColumn && markCell)) {
                     drawCell(i, j, oceanMarkedTex);
                     markCell = false;
+                    cellIsMarked = true;
                 }
                 else {
                     drawCell(i,j, oceanTex);
@@ -147,6 +156,10 @@ public class BoardGUI extends Table {
 
             }
             this.row();
+        }
+        if (!cellIsMarked) {
+            markedColumn = -1;
+            markedRow = -1;
         }
     }
 
