@@ -25,9 +25,9 @@ public class BoardGUI extends Table {
     private final String[] letters = new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
     private boolean opponentBoard, smallBoard;
     private Board board;
-    private boolean init;
-    private boolean markCell;
-    private boolean cellIsMarked;
+    private boolean init; // First draw
+    private boolean markCell; // Whether or not to mark a cell on draw
+    private boolean cellIsMarked; // Whether or not a cell is marked on the board
 
     /**
      * Constructor
@@ -88,6 +88,7 @@ public class BoardGUI extends Table {
         return markedColumn;
     }
 
+    // Change the size the board is drawn
     public void toggleSize() {
         if(smallBoard) {
             cellSize *= 2;

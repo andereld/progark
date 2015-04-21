@@ -53,7 +53,7 @@ public class GameScreen implements Screen {
         boardLabel = new Label("", skin);
         drawButtons();
         drawBoards();
-        drawOpponentLabel("Opponent: " + opponentName);
+        drawBoardLabel("Opponent: " + opponentName);
         waitForTurn();
     }
 
@@ -136,7 +136,7 @@ public class GameScreen implements Screen {
         stage.addActor(btnQuit);
     }
 
-    public void drawOpponentLabel(String text) {
+    public void drawBoardLabel(String text) {
         boardLabel.setText(text);
         float boardLabelPosX = game.getWidth()/2;
         float boardLabelPosY = bigBoard.getY() - border - boardLabel.getHeight();
@@ -167,8 +167,7 @@ public class GameScreen implements Screen {
         }
     }
 
-    // For switching between what player and opponent board
-    // Maybe this should be done automatically, depending on who's turn it is??
+    // For switching between player and opponent board
     public void btnSwitchClicked() {
         opponentIsMainView = !opponentIsMainView;
         changeBoardLabel();
