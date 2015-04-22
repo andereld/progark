@@ -6,6 +6,9 @@ The game can be found in [Google Play Store](https://play.google.com/store/apps/
 
 You can also download the APK file manually [here](http://folk.ntnu.no/andredri/seabattle.apk).
 
+![Main menu](https://i.imgur.com/ISaKyjm.png)
+![Main game view](https://i.imgur.com/i1cwFzo.png)
+
 ## Workflow
 Our issue tracker is [Trello](https://trello.com/b/ih5ztWXn/progark). Gonna start on something new?
 
