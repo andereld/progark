@@ -4,6 +4,8 @@ with a client–server architecture (plus some MVC), for the Android platform. I
 
 The game can be found in [Google Play Store](https://play.google.com/store/apps/details?id=com.mygdx.seabattle.android)! If you want to play on desktop (OS X, Windows, Linux), run [this](http://folk.ntnu.no/andredri/seabattle_desktop.jar) JAR-file. 
 
+You can also download the APK file manually [here](http://folk.ntnu.no/andredri/seabattle.apk).
+
 ## Workflow
 Our issue tracker is [Trello](https://trello.com/b/ih5ztWXn/progark). Gonna start on something new?
 
