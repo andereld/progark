@@ -1,0 +1,73 @@
+\section{Architectural tactics}
+Describes the tactics for architecture to meet the quality requirements.
+
+\subsection{Modifiability tactics}
+\begin{quote}
+   [\ldots] high coupling is an enemy of modifiability.~\cite{progark}
+\end{quote}
+The goal of modifiability tactics is to make a change in the system as cheap as possible. 
+
+Our primary goal will be to reduce the coupling, and have modules with high cohesion. It should for example be possible to add new ship types without modifying many classes, by having an interface using encapsulation on a base ship object. Instead of having the computer generate random boards, it should be easy to implement that a user places all the ships. The keyword in our tactic for meeting this quality attribute, is planning. In the design process, or in the planning phase, we used a checklist as support in the design in regards to modifiability. \cite{progark, 126-127}
+
+
+
+
+
+\subsubsection{Cohesion}
+We must be careful to separate different concerns in the application, and one can plan this out to some extent ahead of development. This means we'll have to plan out the interfaces, and as many of the modules as possible in advance, and think through where things should be placed.\cite{progark, 123} In the development phase, one should also think over where one places methods, and not follow the diagrams we plan out blindly. With this tactic, we'll think through of the level of cohesion affects different modules twice, and hopefully won't have to do that much refactoring later on. An example of this tactic in practice is that it makes sense to have a distinct module for network requests on the server, and a seperate module for JSON parsing. This will increase cohesion and readability for the developer. 
+
+The following tactics will be used to manage and maintain high cohesion:
+\begin{itemize}
+    \item Plan out modules in advance, and use the plans as guidelines for the implementaiton
+    \item Reevalute modules and where code is places at every incrementation, and split modules as needed.
+    \item Regular system tests to ensure that modules work together
+    \item Use an IDE that makes it easy to discover which dependenies between modules are not met, to move code and to refactor code
+    \item Avoid having one person working on a module all by himself, so that more than one person have some sense of the modules responsibilites
+    \item Use version control (git) and use pull requests and code reviews to ensure that adding methods/code to modules makes sense in more than one persons eyes
+\end{itemize}
+
+\subsubsection{Coupling}
+We deploy the following tactics to introduce, manage and maintain loose coupling:
+
+\begin{itemize}
+\item Refactoring code as needed when there are new pull requests to ensure that the coupling stays loose.
+\item By using encapsulation we can ensure that different modules can work together in a meaningful way, and by extension taht the coupling is loose. For instance one agree upon specific APIs for the server application, but also for eg. local models and controllers. \cite{progark, 123}
+\end{itemize}
+
+\subsubsection{Resources}
+Another part of modifiability tactics is resources. One cannot change anything unless one has resources to do it. In this case, our resource is time an energy. So how can we make our system modifiable in regards to resources? If each developer has scheduled extra hours each week, to meet or accomedate changing requirements or needs of the system, one can modify the system much easier, simply because there's time for it.
+
+\subsubsection{Version control}
+Git is used as version control system to commit changes across multiple local code branches. The concept of branches and pull requests is a nice tactic for making changes to a system where multiple developers are contributing. 
+
+
+
+\subsection{Availability tactics}\label{availability-tactics}
+\begin{quote}
+    Availability refers to a property of software that it is there and ready to carry out its task when you need it to be.~\cite{progark}
+\end{quote}
+
+There are three cateogories of availability tactics: Fault detection, fault recovery and fault prevention \cite{progark, 87}. Due to time contraints, we'll hav eto limit ourselves to some extent as to which tactics we deploy, but here are some general guidelines and tactics we'll use to keep avaialbility as high as possible:
+
+\begin{itemize}
+    \item Fault prevention
+    \begin{itemize}
+        \item Use a third party PaaS (Platform as a Service) to deploy the server, to that we do not have to make sure that our own server is down, or that there is anything wrong with the connection to that coputer itself. We can focus on the server application. In case of a growing number of users, we can pay for an upgrade in computer power.
+        \item On the server we plan on using a DBMS with transaction support which prevents faults caused by simultaneous use.
+         \item We develop the game for Andoroid, and it's written in Java. We can use exception handling to avoid faults hitting the user.
+    \end{itemize}
+    \item Detect faults 
+    \begin{itemize}
+        \item On the client-side, we can detect faults on the server by reading the HTTP error response and give an appropriate feedback to the user. It is possible to ping the server each minute to make sure that the service is available. The JSON-to-Java object mapping can detect errors in the data sent from server, and send the network request again. 
+        \item Monitoring of the server will help us to detect if the server goes down, or soemthing is wrong. With the Heroku platform, we can deploy addons to get notified with something is wrong with either the server or DBMS. \cite{heroku-stillalive} 
+        \item We can use time stamps on creation of games so that we can easily remove old or outdated games. This can help new users have their usernames freed up, and free up resources on the sevrer.
+        \item We develop the game for Android, and this means it'll be written in Java. This means we can easily throw exceptions to indicate that something is wrong.
+        \item We'll use unit and system tests to detect and fix faults before deployment.
+    \end{itemize}
+    \item Fault recovery
+    \begin{itemize}
+        \item We use a DBMS on the server to have persistence so we can recover games in case of power dropout, server shutdown or other physical issues. 
+        \item If a network requests fails or times out, the client can retry the request instead of just saying it does not work.
+    \end{itemize}
+    
+\end{itemize}

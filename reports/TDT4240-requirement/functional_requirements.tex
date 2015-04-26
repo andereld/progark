@@ -1,0 +1,53 @@
+\section{Functional Requirements}
+\paragraph{First some definitions:} 
+\begin{description}
+\item{User:} The person that is operating the Android mobile application on ``this'' end.
+\item{Game:} A round or instance of the game 
+\item{Player:} One who takes part in a game
+\end{description}
+
+\paragraph{With that in mind,} let's present the functional requirements based on the game idea. They are given a priority, high, medium or low, based on how important they are to get a working game, and for our main quality attributes.
+
+\begin{enumerate}[label= {\bf FR \arabic*}]
+    \item \label{it:grid} The playing board is shown as a grid, a 10x10 matrix where one can place ships, see item \ref{it:ships}. \textit{High priority}
+    \item \label{it:ships} A ship in the game is an entity with a name and a size. The ships are described in table \ref{tab:ships}  \textit{Medium priority}
+
+    \item  \label{it:buttons}The user should be presented with a menu consisting of a ``New game''-button and a ``Help''-button.  \textit{Low priority}
+        \begin{enumerate}[label= {\bf \ref{it:buttons}.\arabic*}]
+            \item The ``New game''-button starts a new game, see  item \ref{it:new-game}.
+            \item The ``Help''-button shows information about how the game works, see item \ref{it:helpscreen}.
+        \end{enumerate}
+    \item  \label{it:new-game} The user should be able to start a new game \textit{High priority}
+        \begin{enumerate}[label= {\bf \ref{it:new-game}.\arabic*}]
+            \item The user should get a clear visual feedback that the game is being started, and that the system is looking for another player. This can be done with e.g. a text label telling the user that the system is looking for an opponent
+            \item The user should be notified when another player also is ready to start a new  game
+            \item When two players are ready to play, the system wil generate two boards with ships on them, see item \ref{it:shipgen}
+            \item When both players are ready, the game is considered ``started''
+        \end{enumerate}
+    \item \label{it:shipgen} The system should generate a grid for each player, populated with ships. The grids should have the same amout of squares filled. \textit{High priority}
+    \item The user should see his own grid with ship placements, as well as the opponent's grid without ship placements (although with succesful hits shown) \textit{Medium priority}
+    \item The user should be able to make a move in a started game \label{it:make-move} \textit{High priority}
+        \begin{enumerate}[label={\bf \ref{it:make-move}.\arabic*}]
+            \item The user selects a cell (coordinates) by pressing it on the screen
+            \item The user completes the move by pressing a ``Fire''-button. 
+            \item \label{it:visual-feedback-on-move}The system gives the user visual feedback on the move.
+            \begin{enumerate}[label= {\bf \ref{it:visual-feedback-on-move}.\arabic*}]
+                \item If there was a ship placed on the coordinates the user gave, it is considered a hit. 
+                \item If there are no ships on the coordinates the user gave, it is considered a miss.
+            \end{enumerate}
+        \end{enumerate}
+    \item \label{it:move-on-turn}The user should be able to make a move when the second player has made a move. \textit{High priority}
+        \begin{enumerate}[label= {\bf \ref{it:move-on-turn}.\arabic*}]
+            \item The user is notified that the other player has made a move. 
+            \item The user can see the move made by the other player 
+            \item The user can make their own move, see item \ref{it:make-move}
+        \end{enumerate}
+    \item \label{it:flick-between-grids}The user should be able to press a button to flick between his own grid, and the oppnonents grid. See item \ref{it:grid} for the grid requirements.
+    \begin{enumerate}[label= {\bf \ref{it:flick-between-grids}.\arabic*}]
+        \item The opponent grid should only show the moves he or she has done, and if the move was a hit or a miss. See item \ref{it:make-move} for requirements regarding moves.
+    \end{enumerate}
+    \item  \label{it:helpscreen}The user should be presented with information about how the game works, before he can start a new game.  \textit{Low priority.}
+    \item \label{it:ai} The user should be able to play a local game against the computer. \textit{Low priority.} %low priority, see feedback from Alf about MOD-5
+
+
+\end{enumerate}

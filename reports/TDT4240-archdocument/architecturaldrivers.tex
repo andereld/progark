@@ -1,0 +1,24 @@
+\section{Architectural drivers}
+\paragraph{There are many} different drivers, requirements and opinions that drive our architectural choices, not to mention our experience and knowledge on different fields and technology. In this section we try to summarize the most important drivers for our choice of architecture. 
+
+
+\subsection{Time and platfrom contraints}
+First of all we're driven by some contraints given by the course this project is a part of.  We have the obvious contraint of limited time, as the game and the required documentation needs to be handed in by APril 22. 2015. This means we can't plan for a huge and advanced architecture as we probably won't have the time to implement it, and in addition write the necessary documentation. We also have the obvious contraint of platform. We had the choice between Android, WIndows Phone and iOS, and went with Android. Without the contraint, we could've for instance planned for a web application, which the team has more experience with.
+
+\subsection{Constraints due to the Android platform}
+As we chose the Android platform, we are introduced with challenges in regard to the Android SDK, performance and how to actually get the most out of the platform, without spending too much time learning the specific APIs and workings of this specific paltforms. When deciding on the architecture, we'll how to determine if we want to use some sort of library that can abstract away some of this logic and work, or if we need to spend time in it to meet our defined requirements.
+
+\subsection{Game idea}
+The game idea we chose, Battleship, is a also driver for our architectural choices as it determines how the game works, and by extension how we need to develop it. For instance the workings of the game gives ut a multiplayer aspect. This means we could either do it locally on one Android unit, or networked. We want to be able to play against each other over the Internet, so the game idea makes us think about how we can built an architecture that supports this.
+
+How the game battleship works also means that we'll probably have to have a standardized format of how the data is to be sent over the Internet. We need to decide on how the board should be represented in both the backend and the frontend. In the frontend we need to be able to show to grids (boards) at the same time. The players own board, and how he has hit or missed on the opponents board. 
+
+\subsection{Availability}
+Because multiple players should be able to play together over a network, the players must first establish a connection between them (\textit{matchmaking}), and their actions must then be communicated between them. As this is a turn-based game, latency is not especially important, but data consistency is. The actions must be communicated in the right order. Even though latency is not important, availability is, as the game will not function if the players can't communicate at all. There is no requirement for offline play, so if we do not let availability be of importance in the development of the architecture, then the whole game may be unplayable. This means we need to chose a backend technology that can handle this, but at the same time does not require too much code to be written. It must be a lightweight solution, and a technology that we can get into in a fair amount of time. This also goes for the choice of DBMS.
+
+\subsection{Modifiability and extendability}
+The quality requirements require that the game can be easily modified and extended with regards to graphical representation, choice of database and functionality such as implementation of AI. 
+
+\subsection{Technology and COTS}
+We've already talked about some drivers regarding tehcnology, but another part of it si our own knowledge of what we're going to use. It's important that we select an architecture that supports the developers experience and knowledge, because if all developers has to learn some library or COTS from scratch, then we cannot follow the project schedule and deliver on time. We also have to consider how well documented the technology is, and who is backing it.We think this maybe is gonna be one of the biggest driver for our choices, as none of us really wants to spend too much time learning to libraries for this project.
+

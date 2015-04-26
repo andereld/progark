@@ -1,0 +1,316 @@
+\section{Test report}
+%The report should contain test reports for both functional requirements and quality requirements (quality scenarios).
+%o Test reports must include requirement ID (e.g. F1, F2, A2, A3..), description of requirement, who did the test, date for test, time used, evaluation (failure/success) and comment (discussion/comment about the result).
+%o Quality requirement tests must in addition include stimuli, expected response measure, and observed response measure.
+%o See figures below for example for reporting functional and quality requirement tests.
+
+\subsection{Functional requirements}
+
+\textbf{Note:} If not mentioned, all sub requirements are evaluated to 'Success' if the parent requirement is a success. This is done to not make an infinite amount of tables. Tests that just works will not have a comment. 
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR1} & Board as 10x10 matrix with ships. High priority. \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 1 min            \\ \hline
+Evaluation  & Success            \\ \hline
+Comment     &             \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR2} & A ship in the game is an entity with a name and a size. Medium priority.  \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 1 min            \\ \hline
+Evaluation  & Failure            \\ \hline
+Comment     & A ship in the game is just a cell, but levels are generated from ship types on the server.            \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR3} & The user should be presented with a menu consisting of a “New game”-button and a “Help”-button. Low priority. \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 1 min            \\ \hline
+Evaluation  & Success            \\ \hline
+Comment     & "Finding match" and "How to play" in the game            \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR4} & The user should be able to start a new game. High priority. \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 1 min            \\ \hline
+Evaluation  & Success            \\ \hline
+Comment     &          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR5} & The system should generate a grid for each player, populated with ships. The grids should have the same amount of squares filled. High priority. \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 5 min            \\ \hline
+Evaluation  & Success            \\ \hline
+Comment     &          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR6} & The user should see his own grid with ship placements, as well as the opponent’s grid without ship placements (although with successful hits shown) Medium priority. \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 5 min            \\ \hline
+Evaluation  & Success            \\ \hline
+Comment     &          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR7} & The user should be able to make a move in a started game. High priority priority. \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 5 min            \\ \hline
+Evaluation  & Success            \\ \hline
+Comment     &          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR8} & The user should be able to make a move when the second player has made a move. High priority \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 5 min            \\ \hline
+Evaluation  & Success            \\ \hline
+Comment     &          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR9} & The user should be able to press a button to flick between his own grid, and the opponent's grid. See item FR1 for the grid requirements. \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 1 min            \\ \hline
+Evaluation  & Success            \\ \hline
+Comment     &          \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR10} & The user should be presented with information about how the game works, before he can start a new game. Low priority. \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 1 min            \\ \hline
+Evaluation  & Failure/partly success            \\ \hline
+Comment     & You have to press the "How to play" button before you start a new game.         \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{FR11} & The user should be able to play a local game against the computer.Low priority. \\ \hline
+Executor    & Andreas Drivenes            \\ \hline
+Date        & April 21            \\ \hline
+Time used   & 1 min            \\ \hline
+Evaluation  & Failure            \\ \hline
+Comment     & Did not have the required time to implement.         \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Quality requirements}
+
+
+%------------------------------MOD------------------------------
+
+\textbf{NOTE:} The testing of adding content (modifiability scenarios) to the game that takes too long to actually test (that is they have high expected response measures) will have an estimate of the time needed as the observed measure. This estimate is based on the current code base, and an explanation of the estimate will follow in the "comment"-field of the test form. The evaluation of these scenarios will be marked as N/A, as we haven't actually gone through with them, the same goes for the time used.
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{MOD-1a} & Change in button text/placement \\ \hline
+Executor    & Håkon M. Tørnquist            \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & 5 mins        \\ \hline
+Evaluation  & Success          \\ \hline
+Stimuli     & Want changes in button text or placement \\ \hline
+Expected Response Measure & Within an hour \\ \hline
+Observed Response Measure & 5 mins\\ \hline
+Comment     & This will only mean a change of strings in the specific view.\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{MOD-1b} & Change background/logo/ship graphics \\ \hline
+Executor    & Håkon M. Tørnquist            \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & 5 mins   \\ \hline
+Evaluation  & Success           \\ \hline
+Stimuli     & Want to change pictures or graphics in the game        \\ \hline
+Expected Response Measure &  Within and hour\\ \hline
+Observed Response Measure &  5 mins \\ \hline
+Comment     & This means changing the current picture with another. One can even just replace the old picture with the new one and deploy a new version of the client.\\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{MOD-2} & Graphics instead of 'S' representing ships\\ \hline
+Executor    & Stein-Otto Svorstøl          \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & N/A      \\ \hline
+Evaluation  & N/A       \\ \hline
+Stimuli     & Want to draw ships as a whole, instead of just an S on each cell that contains a ship          \\ \hline
+Expected Response Measure & Within two weeks    \\ \hline
+Observed Response Measure & One week    \\ \hline
+Comment     &  The current code base and server API only marks as holding a ship, but does not separate a ship from another. This means we'll have to change how the API works, and how the client handles this feedback.  It's easy to change the API, but to make sure that the local models follow the new API data structure may take some additional testing. We would need to change GameNetworkController, PlayerNetworkController, add ship models and make changes to BoardGUI and GameScreen.      \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{MOD-3} & More than one game \\ \hline
+Executor    & Stein-Otto Svorstøl             \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & N/A    \\ \hline
+Evaluation  & N/A      \\ \hline
+Stimuli     & Wants to be able to have more than one game going at a time, and have an overview of ongoing games in the application        \\ \hline
+Expected Response Measure &  Within three weeks     \\ \hline
+Observed Response Measure &  Two weeks       \\ \hline
+Comment     &  This will require that we introduce a new view on the client which can show all ongoing games. This will take some time, but if done by one of our developers which already has experience with making these views, it'll take maximum two days. The ID of the games must be handled by the API and the client, so that each client can separate its ongoing games for each other. This means that we must change the API-calls from the client and introduce a User-model which can hold all the games. We may also need to make a Game-model, and let the GameNetworkController have an instance of this, instead of being the game itself. On the server we much change all routes so that it takes this ID and the action wanted, not only the username. We also need to rewrite the        \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{MOD-4} & Communicate with opponent \\ \hline
+Executor    & Stein-Otto Svorstøl   \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & N/A       \\ \hline
+Evaluation  & N/A          \\ \hline
+Stimuli     & Wants to be able to communicate with opponent by text (chat)        \\ \hline
+Expected Response Measure &  Within four weeks     \\ \hline
+Observed Response Measure &  Three weeks     \\ \hline
+Comment     & We think that this will not be too difficult to implement, as sending raw text from one client to another is a simple task, as we are already sending plenty of other information. Chat screen will have to be added on the client. To do this, we would need to add a POST and GET routes for sending and receiving messages, add a user model on the server, and extend PlayerNetworkController with chat requests. The Player object on the client would need a list of messages. \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{MOD-5} & Ships left on opponents board indicator \\ \hline
+Executor    & Stein-Otto Svorstøl         \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & N/A     \\ \hline
+Evaluation  & N/A        \\ \hline
+Stimuli     & Wants to be able to see how many ships (or cells containing ships) the opponent have left         \\ \hline
+Expected Response Measure & Within three days       \\ \hline
+Observed Response Measure & 1 day   \\ \hline
+Comment     & Given that MOD-2 is already implemented so that we're able to separate ships from each other, this will only mean to have a count on how many complete ships are not hit, and put in on the screen. To add a text element to the screen takes a minimal amount of time. If MOD-2 is not completed we can have a count of how many ship-cells are left. This will have the same estimates. \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{MOD-6} & Custom ship placement \\ \hline
+Executor    & Andreas Drivernes         \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & N/A        \\ \hline
+Evaluation  & N/A          \\ \hline
+Stimuli     & Wants to be able to place own ships \\ \hline
+Expected Response Measure &  Within two months       \\ \hline
+Observed Response Measure &  One month       \\ \hline
+Comment     &  This is a big feature, even given that MOD-2 is already implemented (which introduces ship entities). If MOD-2 is implemented we'll first need to introuce a new view on the client which lets the player place ships. This also means we need graphics for the different ships. Furthermore, we need to make a new route and the necessary logic on the server, so that the client can send the sepcified ship location before the new game is started. These placemnet also needs to be distributed to the other player, which in turn means we need to have another route so the client can pull and see if the opponents board is ready, and one is ready to play.    \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{AVB-1} & Notify operations team if server is down. \\ \hline
+Executor    & Stein-Otto Svorstøl           \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & N/A           \\ \hline
+Evaluation  & N/A        \\ \hline
+Stimuli     & Unresponsive server  \\ \hline
+Expected Response Measure & Maximum five minutes of downtime   \\ \hline
+Observed Response Measure & N/A       \\ \hline
+Comment     & This hopefully just requires a restart of the server. As of 22.04.15 we haven't had any problems with the server, so we haven't been able to test this. Addons on Heroku for notificaiton in case of problems or downtime are activated.  \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{SEC-1} & Break into excisting game \\ \hline
+Executor    & Stein-Otto Svorstøl         \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & 20 minutes        \\ \hline
+Evaluation  & Failure           \\ \hline
+Stimuli     &  Wants to break into a game already containing two players           \\ \hline
+Expected Response Measure & Not throw players out of games 98\% of the time.    \\ \hline
+Observed Response Measure & N/A       \\ \hline
+Comment     &  Because the username is the only identifying factor, all you have to do to break into an already started game, is to write in the correct username. This was a simplifying design decision we made to save time. In the case you create a new game (you have an unique username) you will not disurb any ongoing games 100\% of the time.    \\ \hline
+
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{PERF-1} & Touching screen \\ \hline
+Executor    & Håkon M. Tørnquist            \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & 10 seconds          \\ \hline
+Evaluation  & Success            \\ \hline
+Stimuli     & Touching the screen in the mobile application gives the user visual feedback       \\ \hline
+Expected Response Measure & Within two seconds        \\ \hline
+Observed Response Measure & <10ms        \\ \hline
+Comment     & Every clickable part of the game responds instantly with some kind of visual feedback to the user (either by changing screens, marking a cell or firing shots)   \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{PERF-2} & Make a move \\ \hline
+Executor    & Stein-Otto Svorstøl            \\ \hline
+Date        & 22.04.15         \\ \hline
+Time used   & 5 minutes            \\ \hline
+Evaluation  &  Failed          \\ \hline
+Stimuli     &  Making a move in the game and give visual feedback to opponent about move made           \\ \hline
+Expected Response Measure & Maximum 1 second from move is made and sent by player 1, to player 2 is informed about the move. \\ \hline
+Observed Response Measure & < 5 seconds        \\ \hline
+Comment     & As the server updates every 5 seconds, the maximal amount of time it takes before the opponent sees your move is 5 seconds. We've not guarnateed a max 1 second wait, and it should be 2.5 seconds on average.         \\ \hline
+\end{tabular}
+\end{table}

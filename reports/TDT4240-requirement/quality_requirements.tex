@@ -1,0 +1,166 @@
+\section{Quality Requirements}
+\subsection{Introduction}
+In this section we'll define the quality requirements for the system: Which one will be our primary focus, and which one will be our secondary focus? An ideal world, all QA attributes would be heavily weighted in the development of a computer system, but as one has limited resources, one also has to limit oneself.
+\newline
+\newline
+But what is a quality attribute? It is a measurable or testable property of a system \cite{progark, Side 63}. For instance a system can have high usability. One must have clear understanding of how the system can meet a requirement of high usability, before the system is developed.
+
+
+\subsection{Quality requirement scenarios}
+In this section we go through each of the quality requirments, starting with our primary and secondary quality requirement attributes. 
+
+\subsubsection{Modifiability}
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & MOD-1a \\
+    Source           & User, course staff or developer \\
+    Stimulus         & Wishes a change in text on buttons, or placement of them in menus\\
+    Environment      & Evolution phase \\
+    Artifact         & Code, changed documentation. \\
+    Response         & Change made and application tested\\
+    Response measure & Within an hour
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & MOD-1b \\
+    Source           & User, course staff or developer \\
+    Stimulus         & Wishes a change of background image or logo or graphic for a ship.\\
+    Environment      & Evolution phase \\
+    Artifact         & Code, changed documentation. \\
+    Response         & Change made and application tested\\
+    Response measure & Within an hour
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & MOD-2 \\
+    Source           & Developer  \\
+    Stimulus         & Whishes to have graphics for ships, instead of an S indicating that  a cell has a ship\\
+    Environment      & Evolution \\
+    Artifact         & Code on server and client application, changed APIs and documentaiton. \\
+    Response         & Change made to client and server application, system and unit tests executed.\\
+    Response measure & Within two weeks
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & MOD-3 \\
+    Source           & Developer, user or course staff\\
+    Stimulus         & Wants to be able to have more than one game going at a time, and have an overview ongoing games in the client application.\\
+    Environment      & Evolution phase\\
+    Artifact         & Code on the client application, changed documentation. \\
+    Response         & Feature implemented, system and units tested \\
+    Response measure & Within three weeks 
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & MOD-4 \\
+    Source           & Developer, user or course staff\\
+    Stimulus         & Wants to be able to communicate with opponent by text (chat)\\
+    Environment      & Evolution phase\\
+    Artifact         & Code on the client application, code on server application, new API for chat, changed documentation. \\
+    Response         & Feature implemented, system and units tested \\
+    Response measure & Within four weeks 
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & MOD-5 \\
+    Source           & Developer, user or course staff\\
+    Stimulus         & A wish for an indicator that shows how many ships are left on the opponent board\\
+    Environment      & Evolution phase\\
+    Artifact         & Code on the client application, code on server application, changed documentation. \\
+    Response         & Feature implemented, system and units tested \\
+    Response measure & Within three days
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & MOD-6 \\
+    Source           & Developer, user or course staff\\
+    Stimulus         & A wish for being able to place own ships\\
+    Environment      & Evolution phase\\
+    Artifact         & Code on the client application, code on server application, changed API, changed documentation. \\
+    Response         & Feature implemented, system and units tested \\
+    Response measure & Within two months 
+    \end{tabular}
+\end{table}
+
+
+\subsubsection{Availability}
+
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & AVB-1 \\
+    Source           & User\\
+    Stimulus         & Unresponsive server \\
+    Environment      & Normal operation \\
+    Artifact         & Process \\
+    Response         & Notify operations team. Continue to operate. \\
+    Response measure & Maximum five minutes of downtime, given that 
+    \end{tabular}
+\end{table}
+
+
+
+\subsubsection{Security}
+This QA attribute is not a priority for us, but we have some requirements for the number of players in the game.
+
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & SEC-1 \\
+    Source           & User\\
+    Stimulus         & Tries to break into an excisting game\\
+    Environment      & Normal operation \\
+    Artifact         & Process \\
+    Response         & Join a new game, not throwing any players out of existing games \\
+    Response measure & Not throw players out of excisting games 98\% of the time.
+    \end{tabular}
+\end{table}
+
+\subsubsection{Performance}
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & PERF-1 \\
+    Source           & User\\
+    Stimulus         & Pressing the screen in the mobile application\\
+    Environment      & Normal operation \\
+    Artifact         & Mobile application \\
+    Response         & Visual feedback that the app registred what you did\\
+    Response measure & Feedback within 2 seconds
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & PERF-2 \\
+    Source           & User\\
+    Stimulus         & Making a move in the game\\
+    Environment      & Normal operation \\
+    Artifact         & Process \\
+    Response         & Give move to other player \\
+    Response measure & Maximum 1 second from move is made and sent by player 1, to player 2 is informed about the move.
+    \end{tabular}
+\end{table}
+
+\subsubsection{Usability}
+\begin{table}[H]
+    \begin{tabular}{\fixwidth}
+    Scenario ID      & USR-1 \\
+    Source           & User\\
+    Stimulus         & Opens the application\\
+    Environment      & Normal operation \\
+    Artifact         & Information \\
+    Response         & An information screen on how to operate the application\\
+    Response measure & The user should be able to understand and operate all the necessary functions to play the game within 5 minutes.
+    \end{tabular}
+\end{table}
+

@@ -1,0 +1,26 @@
+\section{COTS - Components And Technical Constraints}
+We will develop for the Android platform. It is an open-source operating system for mobile devices. Apps are written primarily in Java. 
+
+We have chosen libGDX~\cite{libgdx}, an open-source and cross-platform game development framework written in Java to power our multiplayer game. The advantage of this approach is that we can run and debug our game natively on our computers instead of emulating/running on an Android device. We also found that it has an extensive wiki-page\cite{libgdx-wiki}, and that the project is still under development, which means it will be supported for a while. We need to make a lot of HTTP requests, and do JSON reading and building on the client LibGDX has APIs for both of these things, and they are as mentioned, well documented on their wiki. \cite{libgdx-wiki-json}. \cite{libgdx-wiki-networking} 
+
+libGDX has APIs for setting up multiple views (called Screen) that can be handled from a main game class (Game). The different APIs are  also described in their wiki. \cite{libgdx-wiki-game}\cite{libgdx-wiki-graphics}
+
+While we could have targeted multiple other platforms as well (HTML/WebGL, Windows Phone, iOS), we will only test our game on Android.
+
+\subsection{Screen resolutions}
+The latest mobile devices have very large resolutions. In the latest version of the Android SDK, the emulated device is Nexus 5 with a resolution of 1920x1080p. We will only support and test for the resolutions 1920x1080p (Nexus 5 etc.) and 1280x800p (original Nexus 7 etc.), but the game will most likely work on other devices as well. Other than this we can make use of all the different APIs of the libGDX library, described on their wiki. \cite{libgdx-wiki-graphics}
+
+\subsection{Input}
+The game will use touch as the primary input method, and all the buttons and actions must work well with the resolutions specified above. For testing purposes, a mouse will suffice. The libGDX has extensive APIs for handling all necessary inputs, including touch and text. This is described in their wiki. \cite{libgdx-wiki-input}
+
+\subsection{Server}
+The server will provide a REST API written in Javascript provided by Express.js, a web application framework running on the Node.js open-source run-time environment. The data exchange format will be JSON, and this must be handled by the client and reflected in the architecture. The server will be running on the cloud platform as a service (PaaS) Heroku\cite{heroku}, which let's us deploy the server application easily with one command. The database management system will be PostgreSQL\cite{postgresql}, as it is supported by Heroku, and as the team has some experience with it. This is the only requirement given by the Heroku platform. The choice to use NodeJS was done in advance, and this works well with the platform. 
+
+
+
+
+
+
+
+
+
